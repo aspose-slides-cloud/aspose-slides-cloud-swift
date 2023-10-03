@@ -2557,7 +2557,7 @@ open class SlidesAPI {
      - parameter subShape: Sub-shape path (e.g. \"3\", \"3/shapes/2).
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func createSpecialSlideShape(_ name: String, _ slideIndex: Int, _ slideType: String, _ dto: ShapeBase? = nil, _ shapeToClone: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "", completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+    open class func createSpecialSlideShape(_ name: String, _ slideIndex: Int, _ slideType: String, _ dto: ShapeBase, _ shapeToClone: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "", completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
         createSpecialSlideShapeWithRequestBuilder(name, slideIndex, slideType, dto, shapeToClone, position, password, folder, storage, subShape).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2587,7 +2587,7 @@ open class SlidesAPI {
      - parameter subShape: Sub-shape path (e.g. \"3\", \"3/shapes/2).
      - returns: RequestBuilder<ShapeBase> 
      */
-    open class func createSpecialSlideShapeWithRequestBuilder(_ name: String, _ slideIndex: Int, _ slideType: String, _ dto: ShapeBase? = nil, _ shapeToClone: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "") -> RequestBuilder<ShapeBase> {
+    open class func createSpecialSlideShapeWithRequestBuilder(_ name: String, _ slideIndex: Int, _ slideType: String, _ dto: ShapeBase, _ shapeToClone: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "") -> RequestBuilder<ShapeBase> {
         var methodPath = "/slides/{name}/slides/{slideIndex}/{slideType}/shapes"
         methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
         methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
@@ -4454,7 +4454,7 @@ open class SlidesAPI {
      - parameter password: Presentation password.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteProtectionOnline(_ document: Data, _ password: String, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func deleteProtectionOnline(_ document: Data, _ password: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         deleteProtectionOnlineWithRequestBuilder(document, password).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4472,7 +4472,7 @@ open class SlidesAPI {
      - parameter password: Presentation password.
      - returns: RequestBuilder<Data> 
      */
-    open class func deleteProtectionOnlineWithRequestBuilder(_ document: Data, _ password: String) -> RequestBuilder<Data> {
+    open class func deleteProtectionOnlineWithRequestBuilder(_ document: Data, _ password: String = "") -> RequestBuilder<Data> {
         let methodPath = "/slides/protection/delete"
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
         let parameters: [String:Any]? = nil
@@ -12926,6 +12926,122 @@ open class SlidesAPI {
             "embed": embed, 
             "fontsFolder": fontsFolder
         ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<Data>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
+     Replaces image by the specified index.
+     - parameter name: Document name.
+     - parameter imageIndex: Image index.
+     - parameter image: Image data.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func replaceImage(_ name: String, _ imageIndex: Int, _ image: Data? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        replaceImageWithRequestBuilder(name, imageIndex, image, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+
+    /**
+     Replaces image by the specified index.
+     - PUT /slides/{name}/images/{imageIndex}/replace
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - parameter name: Document name.
+     - parameter imageIndex: Image index.
+     - parameter image: Image data.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - returns: RequestBuilder<Void> 
+     */
+    open class func replaceImageWithRequestBuilder(_ name: String, _ imageIndex: Int, _ image: Data? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Void> {
+        var methodPath = "/slides/{name}/images/{imageIndex}/replace"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "imageIndex", imageIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+        if image != nil {
+            fileParams.append(image!)
+        }
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<Void>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
+     Replaces image by the specified index and returns updated document. 
+     - parameter document: Document data.
+     - parameter imageIndex: Image index.
+     - parameter image: Image data.
+     - parameter password: Password.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func replaceImageOnline(_ document: Data, _ imageIndex: Int, _ image: Data? = nil, _ password: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        replaceImageOnlineWithRequestBuilder(document, imageIndex, image, password).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Replaces image by the specified index and returns updated document. 
+     - POST /slides/images/{imageIndex}/replace
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{output=none}]
+     - parameter document: Document data.
+     - parameter imageIndex: Image index.
+     - parameter image: Image data.
+     - parameter password: Password.
+     - returns: RequestBuilder<Data> 
+     */
+    open class func replaceImageOnlineWithRequestBuilder(_ document: Data, _ imageIndex: Int, _ image: Data? = nil, _ password: String = "") -> RequestBuilder<Data> {
+        var methodPath = "/slides/images/{imageIndex}/replace"
+        methodPath = APIHelper.replacePathParameter(methodPath, "imageIndex", imageIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+        fileParams.append(document)
+        if image != nil {
+            fileParams.append(image!)
+        }
+
+
+        let url = URLComponents(string: URLString)
         let nillableHeaders: [String: Any?] = [
             "password": password
         ]
