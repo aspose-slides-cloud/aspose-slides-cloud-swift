@@ -619,6 +619,10 @@ class ClassRegistry {
             let value = OneValueSeries()
             try? value.fillValues(object)
             return (value, nil)
+        } else if className == "Operation" {
+            let value = Operation()
+            try? value.fillValues(object)
+            return (value, nil)
         } else if className == "OrderedMergeRequest" {
             let value = OrderedMergeRequest()
             try? value.fillValues(object)
