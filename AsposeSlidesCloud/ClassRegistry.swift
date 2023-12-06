@@ -623,6 +623,10 @@ class ClassRegistry {
             let value = Operation()
             try? value.fillValues(object)
             return (value, nil)
+        } else if className == "OperationProgress" {
+            let value = OperationProgress()
+            try? value.fillValues(object)
+            return (value, nil)
         } else if className == "OrderedMergeRequest" {
             let value = OrderedMergeRequest()
             try? value.fillValues(object)
@@ -873,6 +877,10 @@ class ClassRegistry {
             return (value, nil)
         } else if className == "SlideShowProperties" {
             let value = SlideShowProperties()
+            try? value.fillValues(object)
+            return (value, nil)
+        } else if className == "SlideShowTransition" {
+            let value = SlideShowTransition()
             try? value.fillValues(object)
             return (value, nil)
         } else if className == "Slides" {

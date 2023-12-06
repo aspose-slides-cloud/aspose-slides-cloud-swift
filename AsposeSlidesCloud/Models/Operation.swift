@@ -34,6 +34,10 @@ public class Operation: Codable {
     public enum Method: String, Codable { 
         case convert = "Convert"
         case downloadPresentation = "DownloadPresentation"
+        case convertAndSave = "ConvertAndSave"
+        case savePresentation = "SavePresentation"
+        case merge = "Merge"
+        case mergeAndSave = "MergeAndSave"
     }
     public enum Status: String, Codable { 
         case created = "Created"
@@ -46,6 +50,7 @@ public class Operation: Codable {
     public var _id: String?
     public var method: Method?
     public var status: Status?
+    public var progress: OperationProgress?
     public var created: Date?
     public var enqueued: Date?
     public var started: Date?
@@ -76,6 +81,16 @@ public class Operation: Codable {
                 let statusEnumValue = Status(rawValue: statusStringValue!)
                 if statusEnumValue != nil {
                     self.status = statusEnumValue!
+                }
+            }
+        }
+        let progressValue = source["progress"] ?? source["Progress"]
+        if progressValue != nil {
+            let progressDictionaryValue = progressValue! as? [String:Any]
+            if progressDictionaryValue != nil {
+                let (progressInstance, error) = ClassRegistry.getClassFromDictionary(OperationProgress.self, progressDictionaryValue!)
+                if error == nil && progressInstance != nil {
+                    self.progress = progressInstance! as? OperationProgress
                 }
             }
         }
@@ -145,10 +160,11 @@ public class Operation: Codable {
         }
     }
 
-    public init(_id: String? = nil, method: Method? = nil, status: Status? = nil, created: Date? = nil, enqueued: Date? = nil, started: Date? = nil, failed: Date? = nil, canceled: Date? = nil, finished: Date? = nil, error: String? = nil) {
+    public init(_id: String? = nil, method: Method? = nil, status: Status? = nil, progress: OperationProgress? = nil, created: Date? = nil, enqueued: Date? = nil, started: Date? = nil, failed: Date? = nil, canceled: Date? = nil, finished: Date? = nil, error: String? = nil) {
         self._id = _id
         self.method = method
         self.status = status
+        self.progress = progress
         self.created = created
         self.enqueued = enqueued
         self.started = started
@@ -162,6 +178,7 @@ public class Operation: Codable {
         case _id
         case method
         case status
+        case progress
         case created
         case enqueued
         case started

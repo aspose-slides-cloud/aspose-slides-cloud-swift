@@ -12945,7 +12945,7 @@ open class SlidesAPI {
      - parameter storage: Document storage.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func replaceImage(_ name: String, _ imageIndex: Int, _ image: Data? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func replaceImage(_ name: String, _ imageIndex: Int, _ image: Data, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         replaceImageWithRequestBuilder(name, imageIndex, image, password, folder, storage).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -12970,7 +12970,7 @@ open class SlidesAPI {
      - parameter storage: Document storage.
      - returns: RequestBuilder<Void> 
      */
-    open class func replaceImageWithRequestBuilder(_ name: String, _ imageIndex: Int, _ image: Data? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Void> {
+    open class func replaceImageWithRequestBuilder(_ name: String, _ imageIndex: Int, _ image: Data, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Void> {
         var methodPath = "/slides/{name}/images/{imageIndex}/replace"
         methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
         methodPath = APIHelper.replacePathParameter(methodPath, "imageIndex", imageIndex)
@@ -12980,9 +12980,7 @@ open class SlidesAPI {
 
         var fileParams = [Data]()
         fileParams.removeAll()
-        if image != nil {
-            fileParams.append(image!)
-        }
+        fileParams.append(image)
 
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
@@ -13006,7 +13004,7 @@ open class SlidesAPI {
      - parameter password: Password.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func replaceImageOnline(_ document: Data, _ imageIndex: Int, _ image: Data? = nil, _ password: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func replaceImageOnline(_ document: Data, _ imageIndex: Int, _ image: Data, _ password: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         replaceImageOnlineWithRequestBuilder(document, imageIndex, image, password).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -13026,7 +13024,7 @@ open class SlidesAPI {
      - parameter password: Password.
      - returns: RequestBuilder<Data> 
      */
-    open class func replaceImageOnlineWithRequestBuilder(_ document: Data, _ imageIndex: Int, _ image: Data? = nil, _ password: String = "") -> RequestBuilder<Data> {
+    open class func replaceImageOnlineWithRequestBuilder(_ document: Data, _ imageIndex: Int, _ image: Data, _ password: String = "") -> RequestBuilder<Data> {
         var methodPath = "/slides/images/{imageIndex}/replace"
         methodPath = APIHelper.replacePathParameter(methodPath, "imageIndex", imageIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
@@ -13036,9 +13034,7 @@ open class SlidesAPI {
         var fileParams = [Data]()
         fileParams.removeAll()
         fileParams.append(document)
-        if image != nil {
-            fileParams.append(image!)
-        }
+        fileParams.append(image)
 
 
         let url = URLComponents(string: URLString)

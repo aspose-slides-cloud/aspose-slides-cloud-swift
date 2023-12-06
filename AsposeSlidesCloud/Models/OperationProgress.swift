@@ -25,12 +25,46 @@
  * --------------------------------------------------------------------------------------------------------------------
  */
 
+
 import Foundation
 
-open class Configuration {
-	
-	// This value is used to configure the date formatter that is used to serialize dates into JSON format. 
-	// You must set it prior to encoding any dates, and it will only be read once. 
-    public static var dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-    public static let apiVersion = "23.11.0"
+
+/** Operation progress. */
+public class OperationProgress: Codable {
+
+    /** Description. */
+    public var description: String?
+    /** Current Step Index. */
+    public var stepIndex: Int?
+    /** Current Step Index. */
+    public var stepCount: Int?
+
+    func fillValues(_ source: [String:Any]) throws {
+        let descriptionValue = source["description"] ?? source["Description"]
+        if descriptionValue != nil {
+            self.description = descriptionValue! as? String
+        }
+        let stepIndexValue = source["stepIndex"] ?? source["StepIndex"]
+        if stepIndexValue != nil {
+            self.stepIndex = stepIndexValue! as? Int
+        }
+        let stepCountValue = source["stepCount"] ?? source["StepCount"]
+        if stepCountValue != nil {
+            self.stepCount = stepCountValue! as? Int
+        }
+    }
+
+    public init(description: String? = nil, stepIndex: Int? = nil, stepCount: Int? = nil) {
+        self.description = description
+        self.stepIndex = stepIndex
+        self.stepCount = stepCount
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case description
+        case stepIndex
+        case stepCount
+    }
+
 }
+

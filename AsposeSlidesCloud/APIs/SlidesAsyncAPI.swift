@@ -201,6 +201,102 @@ open class SlidesAsyncAPI {
     /**
      * enum for parameter format
      */
+    public enum Format_startConvertAndSave: String { 
+        case pdf = "Pdf"
+        case xps = "Xps"
+        case tiff = "Tiff"
+        case pptx = "Pptx"
+        case odp = "Odp"
+        case otp = "Otp"
+        case ppt = "Ppt"
+        case pps = "Pps"
+        case ppsx = "Ppsx"
+        case pptm = "Pptm"
+        case ppsm = "Ppsm"
+        case pot = "Pot"
+        case potx = "Potx"
+        case potm = "Potm"
+        case html = "Html"
+        case html5 = "Html5"
+        case swf = "Swf"
+        case svg = "Svg"
+        case jpeg = "Jpeg"
+        case png = "Png"
+        case gif = "Gif"
+        case bmp = "Bmp"
+        case fodp = "Fodp"
+        case xaml = "Xaml"
+        case mpeg4 = "Mpeg4"
+    }
+
+    /**
+     - parameter document: Document data.
+     - parameter format: 
+     - parameter outPath: 
+     - parameter password: 
+     - parameter storage: 
+     - parameter fontsFolder: 
+     - parameter slides: 
+     - parameter options: 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func startConvertAndSave(_ document: Data, _ format: String, _ outPath: String, _ password: String = "", _ storage: String = "", _ fontsFolder: String = "", _ slides: [Int]? = nil, _ options: ExportOptions? = nil, completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
+        startConvertAndSaveWithRequestBuilder(document, format, outPath, password, storage, fontsFolder, slides, options).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - PUT /slides/async/convert/{format}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter document: Document data.
+     - parameter format: 
+     - parameter outPath: 
+     - parameter password: 
+     - parameter storage: 
+     - parameter fontsFolder: 
+     - parameter slides: 
+     - parameter options: 
+     - returns: RequestBuilder<String> 
+     */
+    open class func startConvertAndSaveWithRequestBuilder(_ document: Data, _ format: String, _ outPath: String, _ password: String = "", _ storage: String = "", _ fontsFolder: String = "", _ slides: [Int]? = nil, _ options: ExportOptions? = nil) -> RequestBuilder<String> {
+        var methodPath = "/slides/async/convert/{format}"
+        methodPath = APIHelper.replacePathParameter(methodPath, "format", format)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: options)
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+        fileParams.append(document)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "outPath": outPath, 
+            "storage": storage, 
+            "fontsFolder": fontsFolder, 
+            "slides": slides
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<String>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams, headers: headerParameters)
+    }
+    /**
+     * enum for parameter format
+     */
     public enum Format_startDownloadPresentation: String { 
         case pdf = "Pdf"
         case xps = "Xps"
@@ -293,5 +389,205 @@ open class SlidesAsyncAPI {
         let requestBuilder: RequestBuilder<String>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams, headers: headerParameters)
+    }
+    /**
+     - parameter files: Files to merge
+     - parameter request: 
+     - parameter storage: 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func startMerge(_ files: [Data]? = nil, _ request: OrderedMergeRequest? = nil, _ storage: String = "", completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
+        startMergeWithRequestBuilder(files, request, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - POST /slides/async/merge
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter files: Files to merge
+     - parameter request: 
+     - parameter storage: 
+     - returns: RequestBuilder<String> 
+     */
+    open class func startMergeWithRequestBuilder(_ files: [Data]? = nil, _ request: OrderedMergeRequest? = nil, _ storage: String = "") -> RequestBuilder<String> {
+        let methodPath = "/slides/async/merge"
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request)
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+        if files != nil {
+            fileParams = files!
+        }
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "storage": storage
+        ])
+
+        let requestBuilder: RequestBuilder<String>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams)
+    }
+    /**
+     - parameter outPath: 
+     - parameter files: Files to merge
+     - parameter request: 
+     - parameter storage: 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func startMergeAndSave(_ outPath: String, _ files: [Data]? = nil, _ request: OrderedMergeRequest? = nil, _ storage: String = "", completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
+        startMergeAndSaveWithRequestBuilder(outPath, files, request, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - PUT /slides/async/merge
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter outPath: 
+     - parameter files: Files to merge
+     - parameter request: 
+     - parameter storage: 
+     - returns: RequestBuilder<String> 
+     */
+    open class func startMergeAndSaveWithRequestBuilder(_ outPath: String, _ files: [Data]? = nil, _ request: OrderedMergeRequest? = nil, _ storage: String = "") -> RequestBuilder<String> {
+        let methodPath = "/slides/async/merge"
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request)
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+        if files != nil {
+            fileParams = files!
+        }
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "outPath": outPath, 
+            "storage": storage
+        ])
+
+        let requestBuilder: RequestBuilder<String>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams)
+    }
+    /**
+     * enum for parameter format
+     */
+    public enum Format_startSavePresentation: String { 
+        case pdf = "Pdf"
+        case xps = "Xps"
+        case tiff = "Tiff"
+        case pptx = "Pptx"
+        case odp = "Odp"
+        case otp = "Otp"
+        case ppt = "Ppt"
+        case pps = "Pps"
+        case ppsx = "Ppsx"
+        case pptm = "Pptm"
+        case ppsm = "Ppsm"
+        case pot = "Pot"
+        case potx = "Potx"
+        case potm = "Potm"
+        case html = "Html"
+        case html5 = "Html5"
+        case swf = "Swf"
+        case svg = "Svg"
+        case jpeg = "Jpeg"
+        case png = "Png"
+        case gif = "Gif"
+        case bmp = "Bmp"
+        case fodp = "Fodp"
+        case xaml = "Xaml"
+        case mpeg4 = "Mpeg4"
+    }
+
+    /**
+     - parameter name: 
+     - parameter format: 
+     - parameter outPath: 
+     - parameter options: 
+     - parameter password: 
+     - parameter folder: 
+     - parameter storage: 
+     - parameter fontsFolder: 
+     - parameter slides: 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func startSavePresentation(_ name: String, _ format: String, _ outPath: String, _ options: ExportOptions? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ fontsFolder: String = "", _ slides: [Int]? = nil, completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
+        startSavePresentationWithRequestBuilder(name, format, outPath, options, password, folder, storage, fontsFolder, slides).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - PUT /slides/async/{name}/{format}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter name: 
+     - parameter format: 
+     - parameter outPath: 
+     - parameter options: 
+     - parameter password: 
+     - parameter folder: 
+     - parameter storage: 
+     - parameter fontsFolder: 
+     - parameter slides: 
+     - returns: RequestBuilder<String> 
+     */
+    open class func startSavePresentationWithRequestBuilder(_ name: String, _ format: String, _ outPath: String, _ options: ExportOptions? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ fontsFolder: String = "", _ slides: [Int]? = nil) -> RequestBuilder<String> {
+        var methodPath = "/slides/async/{name}/{format}"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "format", format)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: options)
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "outPath": outPath, 
+            "folder": folder, 
+            "storage": storage, 
+            "fontsFolder": fontsFolder, 
+            "slides": slides
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<String>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams, headers: headerParameters)
     }
 }

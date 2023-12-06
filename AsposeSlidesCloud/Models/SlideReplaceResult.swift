@@ -43,8 +43,8 @@ public class SlideReplaceResult: Slide {
         }
     }
 
-    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, width: Double? = nil, height: Double? = nil, showMasterShapes: Bool? = nil, layoutSlide: ResourceUri? = nil, shapes: ResourceUri? = nil, theme: ResourceUri? = nil, placeholders: ResourceUri? = nil, images: ResourceUri? = nil, comments: ResourceUri? = nil, background: ResourceUri? = nil, notesSlide: ResourceUri? = nil, matches: Int? = nil) {
-        super.init(selfUri: selfUri, alternateLinks: alternateLinks, width: width, height: height, showMasterShapes: showMasterShapes, layoutSlide: layoutSlide, shapes: shapes, theme: theme, placeholders: placeholders, images: images, comments: comments, background: background, notesSlide: notesSlide)
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, width: Double? = nil, height: Double? = nil, showMasterShapes: Bool? = nil, slideShowTransition: SlideShowTransition? = nil, layoutSlide: ResourceUri? = nil, shapes: ResourceUri? = nil, theme: ResourceUri? = nil, placeholders: ResourceUri? = nil, images: ResourceUri? = nil, comments: ResourceUri? = nil, background: ResourceUri? = nil, notesSlide: ResourceUri? = nil, matches: Int? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks, width: width, height: height, showMasterShapes: showMasterShapes, slideShowTransition: slideShowTransition, layoutSlide: layoutSlide, shapes: shapes, theme: theme, placeholders: placeholders, images: images, comments: comments, background: background, notesSlide: notesSlide)
         self.matches = matches
     }
 

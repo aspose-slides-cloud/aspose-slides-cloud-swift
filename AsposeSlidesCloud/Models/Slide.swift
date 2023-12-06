@@ -38,6 +38,8 @@ public class Slide: ResourceBase {
     public var height: Double?
     /** Specifies if shapes of the master slide should be shown on the slide. True by default. */
     public var showMasterShapes: Bool?
+    /** Specifies if shapes of the master slide should be shown on the slide. True by default. */
+    public var slideShowTransition: SlideShowTransition?
     /** Gets or sets the  link to the layout slide. */
     public var layoutSlide: ResourceUri?
     /** Gets or sets the  link to list of top-level shapes. */
@@ -68,6 +70,16 @@ public class Slide: ResourceBase {
         let showMasterShapesValue = source["showMasterShapes"] ?? source["ShowMasterShapes"]
         if showMasterShapesValue != nil {
             self.showMasterShapes = showMasterShapesValue! as? Bool
+        }
+        let slideShowTransitionValue = source["slideShowTransition"] ?? source["SlideShowTransition"]
+        if slideShowTransitionValue != nil {
+            let slideShowTransitionDictionaryValue = slideShowTransitionValue! as? [String:Any]
+            if slideShowTransitionDictionaryValue != nil {
+                let (slideShowTransitionInstance, error) = ClassRegistry.getClassFromDictionary(SlideShowTransition.self, slideShowTransitionDictionaryValue!)
+                if error == nil && slideShowTransitionInstance != nil {
+                    self.slideShowTransition = slideShowTransitionInstance! as? SlideShowTransition
+                }
+            }
         }
         let layoutSlideValue = source["layoutSlide"] ?? source["LayoutSlide"]
         if layoutSlideValue != nil {
@@ -151,11 +163,12 @@ public class Slide: ResourceBase {
         }
     }
 
-    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, width: Double? = nil, height: Double? = nil, showMasterShapes: Bool? = nil, layoutSlide: ResourceUri? = nil, shapes: ResourceUri? = nil, theme: ResourceUri? = nil, placeholders: ResourceUri? = nil, images: ResourceUri? = nil, comments: ResourceUri? = nil, background: ResourceUri? = nil, notesSlide: ResourceUri? = nil) {
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, width: Double? = nil, height: Double? = nil, showMasterShapes: Bool? = nil, slideShowTransition: SlideShowTransition? = nil, layoutSlide: ResourceUri? = nil, shapes: ResourceUri? = nil, theme: ResourceUri? = nil, placeholders: ResourceUri? = nil, images: ResourceUri? = nil, comments: ResourceUri? = nil, background: ResourceUri? = nil, notesSlide: ResourceUri? = nil) {
         super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.width = width
         self.height = height
         self.showMasterShapes = showMasterShapes
+        self.slideShowTransition = slideShowTransition
         self.layoutSlide = layoutSlide
         self.shapes = shapes
         self.theme = theme
@@ -170,6 +183,7 @@ public class Slide: ResourceBase {
         case width
         case height
         case showMasterShapes
+        case slideShowTransition
         case layoutSlide
         case shapes
         case theme
@@ -186,6 +200,7 @@ public class Slide: ResourceBase {
         width = try? values.decode(Double.self, forKey: .width)
         height = try? values.decode(Double.self, forKey: .height)
         showMasterShapes = try? values.decode(Bool.self, forKey: .showMasterShapes)
+        slideShowTransition = try? values.decode(SlideShowTransition.self, forKey: .slideShowTransition)
         layoutSlide = try? values.decode(ResourceUri.self, forKey: .layoutSlide)
         shapes = try? values.decode(ResourceUri.self, forKey: .shapes)
         theme = try? values.decode(ResourceUri.self, forKey: .theme)
@@ -207,6 +222,9 @@ public class Slide: ResourceBase {
         }
         if (showMasterShapes != nil) {
             try? container.encode(showMasterShapes, forKey: .showMasterShapes)
+        }
+        if (slideShowTransition != nil) {
+            try? container.encode(slideShowTransition, forKey: .slideShowTransition)
         }
         if (layoutSlide != nil) {
             try? container.encode(layoutSlide, forKey: .layoutSlide)
