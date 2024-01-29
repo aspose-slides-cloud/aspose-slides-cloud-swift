@@ -36,6 +36,8 @@ public class FontData: Codable {
     public var fontName: String?
     /** Returns true if font is embedded. */
     public var isEmbedded: Bool?
+    /** Returns true for a custom font (contained in fontsFolder directory). */
+    public var isCustom: Bool?
 
     func fillValues(_ source: [String:Any]) throws {
         let fontNameValue = source["fontName"] ?? source["FontName"]
@@ -46,16 +48,22 @@ public class FontData: Codable {
         if isEmbeddedValue != nil {
             self.isEmbedded = isEmbeddedValue! as? Bool
         }
+        let isCustomValue = source["isCustom"] ?? source["IsCustom"]
+        if isCustomValue != nil {
+            self.isCustom = isCustomValue! as? Bool
+        }
     }
 
-    public init(fontName: String? = nil, isEmbedded: Bool? = nil) {
+    public init(fontName: String? = nil, isEmbedded: Bool? = nil, isCustom: Bool? = nil) {
         self.fontName = fontName
         self.isEmbedded = isEmbedded
+        self.isCustom = isCustom
     }
 
     private enum CodingKeys: String, CodingKey {
         case fontName
         case isEmbedded
+        case isCustom
     }
 
 }

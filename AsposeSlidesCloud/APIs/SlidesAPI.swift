@@ -8050,6 +8050,49 @@ open class SlidesAPI {
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams)
     }
     /**
+     Returns presentation fonts info.
+     - parameter fontsFolder: Storage folder for custom fonts.
+     - parameter storage: Storage for custom fonts.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getAvailableFonts(_ fontsFolder: String = "", _ storage: String = "", completion: @escaping ((_ data: FontsData?,_ error: Error?) -> Void)) {
+        getAvailableFontsWithRequestBuilder(fontsFolder, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Returns presentation fonts info.
+     - GET /slides/fonts/available
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={"empty": false}}]
+     - parameter fontsFolder: Storage folder for custom fonts.
+     - parameter storage: Storage for custom fonts.
+     - returns: RequestBuilder<FontsData> 
+     */
+    open class func getAvailableFontsWithRequestBuilder(_ fontsFolder: String = "", _ storage: String = "") -> RequestBuilder<FontsData> {
+        let methodPath = "/slides/fonts/available"
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "fontsFolder": fontsFolder, 
+            "storage": storage
+        ])
+
+        let requestBuilder: RequestBuilder<FontsData>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams)
+    }
+    /**
      Read slide background info.
      - parameter name: Document name.
      - parameter slideIndex: Slide index.
