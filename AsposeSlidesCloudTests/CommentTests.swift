@@ -39,7 +39,8 @@ class CommentTests : XCTestCase {
         ("testDeleteSlideComments", testDeleteSlideComments),
         ("testDeleteSlideCommentsOnline", testDeleteSlideCommentsOnline),
         ("testCreateModernComment", testCreateModernComment),
-        ("testCreateShapeModernComment", testCreateShapeModernComment)
+        ("testCreateShapeModernComment", testCreateShapeModernComment),
+        ("testCommentAuthors", testGetCommentAuthors)
     ];
     
     internal let testTimeout: TimeInterval = 200.0 
@@ -235,6 +236,20 @@ class CommentTests : XCTestCase {
                 XCTAssertNotNil(comments!.list)
                 XCTAssertEqual(1, comments!.list!.count)
                 XCTAssertEqual(SlideComment.ModelType.modern, comments!.list![0].type)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testGetCommentAuthors() {
+        let expectation = self.expectation(description: "testGetCommentAuthors")
+        TestUtils.initialize("") { (response, error) -> Void in
+            SlidesAPI.getCommentAuthors("test.pptx", "password", "TempSlidesSDK") { (authors, error) -> Void in
+                XCTAssertNil(error)
+                XCTAssertNotNil(authors)
+                XCTAssertNotNil(authors!.list)
+                XCTAssertEqual(1, authors!.list!.count)
                 expectation.fulfill()
             }
         }

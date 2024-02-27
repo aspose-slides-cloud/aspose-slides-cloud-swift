@@ -267,6 +267,14 @@ class ClassRegistry {
             let value = ColorScheme()
             try? value.fillValues(object)
             return (value, nil)
+        } else if className == "CommentAuthor" {
+            let value = CommentAuthor()
+            try? value.fillValues(object)
+            return (value, nil)
+        } else if className == "CommentAuthors" {
+            let value = CommentAuthors()
+            try? value.fillValues(object)
+            return (value, nil)
         } else if className == "CommonSlideViewProperties" {
             let value = CommonSlideViewProperties()
             try? value.fillValues(object)
@@ -1094,6 +1102,7 @@ class ClassRegistry {
         "ColorChangeEffect": "ImageTransformEffect",
         "ColorReplaceEffect": "ImageTransformEffect",
         "ColorScheme": "ResourceBase",
+        "CommentAuthors": "ResourceBase",
         "Connector": "GeometryShape",
         "CubicBezierToPathSegment": "PathSegment",
         "DelimiterElement": "MathElement",
@@ -1285,6 +1294,7 @@ class ClassRegistry {
         typeDeterminers["ColorReplaceEffect"] = [ : ]
         typeDeterminers["ColorReplaceEffect"]!["Type"] = "ColorReplace"
         typeDeterminers["ColorScheme"] = [ : ]
+        typeDeterminers["CommentAuthors"] = [ : ]
         typeDeterminers["Connector"] = [ : ]
         typeDeterminers["Connector"]!["Type"] = "Connector"
         typeDeterminers["CubicBezierToPathSegment"] = [ : ]

@@ -8211,6 +8211,62 @@ open class SlidesAPI {
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
     }
     /**
+     Lists comment authors.
+     - parameter name: Document name.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getCommentAuthors(_ name: String, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: CommentAuthors?,_ error: Error?) -> Void)) {
+        getCommentAuthorsWithRequestBuilder(name, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Lists comment authors.
+     - GET /slides/{name}/comments/authors
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter name: Document name.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - returns: RequestBuilder<CommentAuthors> 
+     */
+    open class func getCommentAuthorsWithRequestBuilder(_ name: String, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<CommentAuthors> {
+        var methodPath = "/slides/{name}/comments/authors"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<CommentAuthors>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
      Get disc usage
      - parameter storageName: Storage name
      - parameter completion: completion handler to receive the data and the error objects
