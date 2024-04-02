@@ -47,15 +47,15 @@ public class TiffExportOptions: ImageExportOptionsBase {
         case format24bppRgb = "Format24bppRgb"
         case format32bppArgb = "Format32bppArgb"
     }
-    public enum NotesPosition: String, Codable { 
-        case _none = "None"
-        case bottomFull = "BottomFull"
-        case bottomTruncated = "BottomTruncated"
-    }
-    public enum CommentsPosition: String, Codable { 
-        case _none = "None"
-        case bottom = "Bottom"
-        case _right = "Right"
+    public enum BwConversionMode: String, Codable { 
+        case _default = "Default"
+        case dithering = "Dithering"
+        case ditheringFloydSteinberg = "DitheringFloydSteinberg"
+        case auto = "Auto"
+        case autoOtsu = "AutoOtsu"
+        case threshold25 = "Threshold25"
+        case threshold50 = "Threshold50"
+        case threshold75 = "Threshold75"
     }
     /** Compression type. */
     public var compression: Compression?
@@ -67,16 +67,10 @@ public class TiffExportOptions: ImageExportOptionsBase {
     public var showHiddenSlides: Bool?
     /** Specifies the pixel format for the generated images. Read/write ImagePixelFormat. */
     public var pixelFormat: PixelFormat?
-    /** Gets or sets the position of the notes on the page. */
-    public var notesPosition: NotesPosition?
-    /** Gets or sets the position of the comments on the page. */
-    public var commentsPosition: CommentsPosition?
-    /** Gets or sets the width of the comment output area in pixels (Applies only if comments are displayed on the right). */
-    public var commentsAreaWidth: Int?
-    /** Gets or sets the color of comments area (Applies only if comments are displayed on the right). */
-    public var commentsAreaColor: String?
-    /** True if comments that have no author are displayed. (Applies only if comments are displayed). */
-    public var showCommentsByNoAuthor: Bool?
+    /** Slides layouting options */
+    public var slidesLayoutOptions: SlidesLayoutOptions?
+    /** Specifies the algorithm for converting a color image into a black and white image. This option will applied only if Aspose.Slides.Export.TiffOptions.CompressionType is set to Aspose.Slides.Export.TiffCompressionTypes.CCITT4 or Aspose.Slides.Export.TiffCompressionTypes.CCITT3. */
+    public var bwConversionMode: BwConversionMode?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -112,52 +106,37 @@ public class TiffExportOptions: ImageExportOptionsBase {
                 }
             }
         }
-        let notesPositionValue = source["notesPosition"] ?? source["NotesPosition"]
-        if notesPositionValue != nil {
-            let notesPositionStringValue = notesPositionValue! as? String
-            if notesPositionStringValue != nil {
-                let notesPositionEnumValue = NotesPosition(rawValue: notesPositionStringValue!)
-                if notesPositionEnumValue != nil {
-                    self.notesPosition = notesPositionEnumValue!
+        let slidesLayoutOptionsValue = source["slidesLayoutOptions"] ?? source["SlidesLayoutOptions"]
+        if slidesLayoutOptionsValue != nil {
+            let slidesLayoutOptionsDictionaryValue = slidesLayoutOptionsValue! as? [String:Any]
+            if slidesLayoutOptionsDictionaryValue != nil {
+                let (slidesLayoutOptionsInstance, error) = ClassRegistry.getClassFromDictionary(SlidesLayoutOptions.self, slidesLayoutOptionsDictionaryValue!)
+                if error == nil && slidesLayoutOptionsInstance != nil {
+                    self.slidesLayoutOptions = slidesLayoutOptionsInstance! as? SlidesLayoutOptions
                 }
             }
         }
-        let commentsPositionValue = source["commentsPosition"] ?? source["CommentsPosition"]
-        if commentsPositionValue != nil {
-            let commentsPositionStringValue = commentsPositionValue! as? String
-            if commentsPositionStringValue != nil {
-                let commentsPositionEnumValue = CommentsPosition(rawValue: commentsPositionStringValue!)
-                if commentsPositionEnumValue != nil {
-                    self.commentsPosition = commentsPositionEnumValue!
+        let bwConversionModeValue = source["bwConversionMode"] ?? source["BwConversionMode"]
+        if bwConversionModeValue != nil {
+            let bwConversionModeStringValue = bwConversionModeValue! as? String
+            if bwConversionModeStringValue != nil {
+                let bwConversionModeEnumValue = BwConversionMode(rawValue: bwConversionModeStringValue!)
+                if bwConversionModeEnumValue != nil {
+                    self.bwConversionMode = bwConversionModeEnumValue!
                 }
             }
-        }
-        let commentsAreaWidthValue = source["commentsAreaWidth"] ?? source["CommentsAreaWidth"]
-        if commentsAreaWidthValue != nil {
-            self.commentsAreaWidth = commentsAreaWidthValue! as? Int
-        }
-        let commentsAreaColorValue = source["commentsAreaColor"] ?? source["CommentsAreaColor"]
-        if commentsAreaColorValue != nil {
-            self.commentsAreaColor = commentsAreaColorValue! as? String
-        }
-        let showCommentsByNoAuthorValue = source["showCommentsByNoAuthor"] ?? source["ShowCommentsByNoAuthor"]
-        if showCommentsByNoAuthorValue != nil {
-            self.showCommentsByNoAuthor = showCommentsByNoAuthorValue! as? Bool
         }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, height: Int? = nil, width: Int? = nil, compression: Compression? = nil, dpiX: Int? = nil, dpiY: Int? = nil, showHiddenSlides: Bool? = nil, pixelFormat: PixelFormat? = nil, notesPosition: NotesPosition? = nil, commentsPosition: CommentsPosition? = nil, commentsAreaWidth: Int? = nil, commentsAreaColor: String? = nil, showCommentsByNoAuthor: Bool? = nil) {
+    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, height: Int? = nil, width: Int? = nil, compression: Compression? = nil, dpiX: Int? = nil, dpiY: Int? = nil, showHiddenSlides: Bool? = nil, pixelFormat: PixelFormat? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil, bwConversionMode: BwConversionMode? = nil) {
         super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format, height: height, width: width)
         self.compression = compression
         self.dpiX = dpiX
         self.dpiY = dpiY
         self.showHiddenSlides = showHiddenSlides
         self.pixelFormat = pixelFormat
-        self.notesPosition = notesPosition
-        self.commentsPosition = commentsPosition
-        self.commentsAreaWidth = commentsAreaWidth
-        self.commentsAreaColor = commentsAreaColor
-        self.showCommentsByNoAuthor = showCommentsByNoAuthor
+        self.slidesLayoutOptions = slidesLayoutOptions
+        self.bwConversionMode = bwConversionMode
         self.format = "tiff"
     }
 
@@ -167,11 +146,8 @@ public class TiffExportOptions: ImageExportOptionsBase {
         case dpiY
         case showHiddenSlides
         case pixelFormat
-        case notesPosition
-        case commentsPosition
-        case commentsAreaWidth
-        case commentsAreaColor
-        case showCommentsByNoAuthor
+        case slidesLayoutOptions
+        case bwConversionMode
     }
 
     required init(from decoder: Decoder) throws {
@@ -182,11 +158,8 @@ public class TiffExportOptions: ImageExportOptionsBase {
         dpiY = try? values.decode(Int.self, forKey: .dpiY)
         showHiddenSlides = try? values.decode(Bool.self, forKey: .showHiddenSlides)
         pixelFormat = try? values.decode(PixelFormat.self, forKey: .pixelFormat)
-        notesPosition = try? values.decode(NotesPosition.self, forKey: .notesPosition)
-        commentsPosition = try? values.decode(CommentsPosition.self, forKey: .commentsPosition)
-        commentsAreaWidth = try? values.decode(Int.self, forKey: .commentsAreaWidth)
-        commentsAreaColor = try? values.decode(String.self, forKey: .commentsAreaColor)
-        showCommentsByNoAuthor = try? values.decode(Bool.self, forKey: .showCommentsByNoAuthor)
+        slidesLayoutOptions = try? values.decode(SlidesLayoutOptions.self, forKey: .slidesLayoutOptions)
+        bwConversionMode = try? values.decode(BwConversionMode.self, forKey: .bwConversionMode)
         self.format = "tiff"
     }
 
@@ -208,20 +181,11 @@ public class TiffExportOptions: ImageExportOptionsBase {
         if (pixelFormat != nil) {
             try? container.encode(pixelFormat, forKey: .pixelFormat)
         }
-        if (notesPosition != nil) {
-            try? container.encode(notesPosition, forKey: .notesPosition)
+        if (slidesLayoutOptions != nil) {
+            try? container.encode(slidesLayoutOptions, forKey: .slidesLayoutOptions)
         }
-        if (commentsPosition != nil) {
-            try? container.encode(commentsPosition, forKey: .commentsPosition)
-        }
-        if (commentsAreaWidth != nil) {
-            try? container.encode(commentsAreaWidth, forKey: .commentsAreaWidth)
-        }
-        if (commentsAreaColor != nil) {
-            try? container.encode(commentsAreaColor, forKey: .commentsAreaColor)
-        }
-        if (showCommentsByNoAuthor != nil) {
-            try? container.encode(showCommentsByNoAuthor, forKey: .showCommentsByNoAuthor)
+        if (bwConversionMode != nil) {
+            try? container.encode(bwConversionMode, forKey: .bwConversionMode)
         }
     }
 

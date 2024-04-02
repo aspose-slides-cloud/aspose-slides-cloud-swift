@@ -249,6 +249,11 @@ public class Effect: Codable {
         case mediaCall = "MediaCall"
         case oleactionverbs = "OLEActionVerbs"
     }
+    public enum AnimateTextType: String, Codable { 
+        case allAtOnce = "AllAtOnce"
+        case byWord = "ByWord"
+        case byLetter = "ByLetter"
+    }
     public enum TriggerType: String, Codable { 
         case afterPrevious = "AfterPrevious"
         case onClick = "OnClick"
@@ -272,6 +277,8 @@ public class Effect: Codable {
     public var subtype: Subtype?
     /** Preset class type. */
     public var presetClassType: PresetClassType?
+    /** Preset class type. */
+    public var animateTextType: AnimateTextType?
     /** Shape index. */
     public var shapeIndex: Int?
     /** Paragraph index. */
@@ -337,6 +344,16 @@ public class Effect: Codable {
                 let presetClassTypeEnumValue = PresetClassType(rawValue: presetClassTypeStringValue!)
                 if presetClassTypeEnumValue != nil {
                     self.presetClassType = presetClassTypeEnumValue!
+                }
+            }
+        }
+        let animateTextTypeValue = source["animateTextType"] ?? source["AnimateTextType"]
+        if animateTextTypeValue != nil {
+            let animateTextTypeStringValue = animateTextTypeValue! as? String
+            if animateTextTypeStringValue != nil {
+                let animateTextTypeEnumValue = AnimateTextType(rawValue: animateTextTypeStringValue!)
+                if animateTextTypeEnumValue != nil {
+                    self.animateTextType = animateTextTypeEnumValue!
                 }
             }
         }
@@ -432,10 +449,11 @@ public class Effect: Codable {
         }
     }
 
-    public init(type: ModelType? = nil, subtype: Subtype? = nil, presetClassType: PresetClassType? = nil, shapeIndex: Int? = nil, paragraphIndex: Int? = nil, triggerType: TriggerType? = nil, accelerate: Double? = nil, autoReverse: Bool? = nil, decelerate: Double? = nil, duration: Double? = nil, repeatCount: Double? = nil, repeatDuration: Double? = nil, restart: Restart? = nil, speed: Double? = nil, triggerDelayTime: Double? = nil, repeatUntilEndSlide: Bool? = nil, repeatUntilNextClick: Bool? = nil, stopPreviousSound: Bool? = nil, rewind: Bool? = nil, afterAnimationType: AfterAnimationType? = nil, afterAnimationColor: String? = nil) {
+    public init(type: ModelType? = nil, subtype: Subtype? = nil, presetClassType: PresetClassType? = nil, animateTextType: AnimateTextType? = nil, shapeIndex: Int? = nil, paragraphIndex: Int? = nil, triggerType: TriggerType? = nil, accelerate: Double? = nil, autoReverse: Bool? = nil, decelerate: Double? = nil, duration: Double? = nil, repeatCount: Double? = nil, repeatDuration: Double? = nil, restart: Restart? = nil, speed: Double? = nil, triggerDelayTime: Double? = nil, repeatUntilEndSlide: Bool? = nil, repeatUntilNextClick: Bool? = nil, stopPreviousSound: Bool? = nil, rewind: Bool? = nil, afterAnimationType: AfterAnimationType? = nil, afterAnimationColor: String? = nil) {
         self.type = type
         self.subtype = subtype
         self.presetClassType = presetClassType
+        self.animateTextType = animateTextType
         self.shapeIndex = shapeIndex
         self.paragraphIndex = paragraphIndex
         self.triggerType = triggerType
@@ -460,6 +478,7 @@ public class Effect: Codable {
         case type
         case subtype
         case presetClassType
+        case animateTextType
         case shapeIndex
         case paragraphIndex
         case triggerType

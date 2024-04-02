@@ -40,16 +40,6 @@ public class HtmlExportOptions: ExportOptions {
         case dpi72 = "Dpi72"
         case documentResolution = "DocumentResolution"
     }
-    public enum NotesPosition: String, Codable { 
-        case _none = "None"
-        case bottomFull = "BottomFull"
-        case bottomTruncated = "BottomTruncated"
-    }
-    public enum CommentsPosition: String, Codable { 
-        case _none = "None"
-        case bottom = "Bottom"
-        case _right = "Right"
-    }
     /** Get or sets flag for save presentation as zip file */
     public var saveAsZip: Bool?
     /** Get or set name of subdirectory in zip-file for store external files */
@@ -64,16 +54,8 @@ public class HtmlExportOptions: ExportOptions {
     public var picturesCompression: PicturesCompression?
     /** A boolean flag indicates if the cropped parts remain as part of the document. If true the cropped  parts will removed, if false they will be serialized in the document (which can possible lead to a  larger file) */
     public var deletePicturesCroppedAreas: Bool?
-    /** Gets or sets the position of the notes on the page. */
-    public var notesPosition: NotesPosition?
-    /** Gets or sets the position of the comments on the page. */
-    public var commentsPosition: CommentsPosition?
-    /** Gets or sets the width of the comment output area in pixels (Applies only if comments are displayed on the right). */
-    public var commentsAreaWidth: Int?
-    /** Gets or sets the color of comments area (Applies only if comments are displayed on the right). */
-    public var commentsAreaColor: String?
-    /** True if comments that have no author are displayed. (Applies only if comments are displayed). */
-    public var showCommentsByNoAuthor: Bool?
+    /** Slides layouting options */
+    public var slidesLayoutOptions: SlidesLayoutOptions?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -111,41 +93,19 @@ public class HtmlExportOptions: ExportOptions {
         if deletePicturesCroppedAreasValue != nil {
             self.deletePicturesCroppedAreas = deletePicturesCroppedAreasValue! as? Bool
         }
-        let notesPositionValue = source["notesPosition"] ?? source["NotesPosition"]
-        if notesPositionValue != nil {
-            let notesPositionStringValue = notesPositionValue! as? String
-            if notesPositionStringValue != nil {
-                let notesPositionEnumValue = NotesPosition(rawValue: notesPositionStringValue!)
-                if notesPositionEnumValue != nil {
-                    self.notesPosition = notesPositionEnumValue!
+        let slidesLayoutOptionsValue = source["slidesLayoutOptions"] ?? source["SlidesLayoutOptions"]
+        if slidesLayoutOptionsValue != nil {
+            let slidesLayoutOptionsDictionaryValue = slidesLayoutOptionsValue! as? [String:Any]
+            if slidesLayoutOptionsDictionaryValue != nil {
+                let (slidesLayoutOptionsInstance, error) = ClassRegistry.getClassFromDictionary(SlidesLayoutOptions.self, slidesLayoutOptionsDictionaryValue!)
+                if error == nil && slidesLayoutOptionsInstance != nil {
+                    self.slidesLayoutOptions = slidesLayoutOptionsInstance! as? SlidesLayoutOptions
                 }
             }
-        }
-        let commentsPositionValue = source["commentsPosition"] ?? source["CommentsPosition"]
-        if commentsPositionValue != nil {
-            let commentsPositionStringValue = commentsPositionValue! as? String
-            if commentsPositionStringValue != nil {
-                let commentsPositionEnumValue = CommentsPosition(rawValue: commentsPositionStringValue!)
-                if commentsPositionEnumValue != nil {
-                    self.commentsPosition = commentsPositionEnumValue!
-                }
-            }
-        }
-        let commentsAreaWidthValue = source["commentsAreaWidth"] ?? source["CommentsAreaWidth"]
-        if commentsAreaWidthValue != nil {
-            self.commentsAreaWidth = commentsAreaWidthValue! as? Int
-        }
-        let commentsAreaColorValue = source["commentsAreaColor"] ?? source["CommentsAreaColor"]
-        if commentsAreaColorValue != nil {
-            self.commentsAreaColor = commentsAreaColorValue! as? String
-        }
-        let showCommentsByNoAuthorValue = source["showCommentsByNoAuthor"] ?? source["ShowCommentsByNoAuthor"]
-        if showCommentsByNoAuthorValue != nil {
-            self.showCommentsByNoAuthor = showCommentsByNoAuthorValue! as? Bool
         }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, saveAsZip: Bool? = nil, subDirectoryName: String? = nil, showHiddenSlides: Bool? = nil, svgResponsiveLayout: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, notesPosition: NotesPosition? = nil, commentsPosition: CommentsPosition? = nil, commentsAreaWidth: Int? = nil, commentsAreaColor: String? = nil, showCommentsByNoAuthor: Bool? = nil) {
+    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, saveAsZip: Bool? = nil, subDirectoryName: String? = nil, showHiddenSlides: Bool? = nil, svgResponsiveLayout: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil) {
         super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.saveAsZip = saveAsZip
         self.subDirectoryName = subDirectoryName
@@ -154,11 +114,7 @@ public class HtmlExportOptions: ExportOptions {
         self.jpegQuality = jpegQuality
         self.picturesCompression = picturesCompression
         self.deletePicturesCroppedAreas = deletePicturesCroppedAreas
-        self.notesPosition = notesPosition
-        self.commentsPosition = commentsPosition
-        self.commentsAreaWidth = commentsAreaWidth
-        self.commentsAreaColor = commentsAreaColor
-        self.showCommentsByNoAuthor = showCommentsByNoAuthor
+        self.slidesLayoutOptions = slidesLayoutOptions
         self.format = "html"
     }
 
@@ -170,11 +126,7 @@ public class HtmlExportOptions: ExportOptions {
         case jpegQuality
         case picturesCompression
         case deletePicturesCroppedAreas
-        case notesPosition
-        case commentsPosition
-        case commentsAreaWidth
-        case commentsAreaColor
-        case showCommentsByNoAuthor
+        case slidesLayoutOptions
     }
 
     required init(from decoder: Decoder) throws {
@@ -187,11 +139,7 @@ public class HtmlExportOptions: ExportOptions {
         jpegQuality = try? values.decode(Int.self, forKey: .jpegQuality)
         picturesCompression = try? values.decode(PicturesCompression.self, forKey: .picturesCompression)
         deletePicturesCroppedAreas = try? values.decode(Bool.self, forKey: .deletePicturesCroppedAreas)
-        notesPosition = try? values.decode(NotesPosition.self, forKey: .notesPosition)
-        commentsPosition = try? values.decode(CommentsPosition.self, forKey: .commentsPosition)
-        commentsAreaWidth = try? values.decode(Int.self, forKey: .commentsAreaWidth)
-        commentsAreaColor = try? values.decode(String.self, forKey: .commentsAreaColor)
-        showCommentsByNoAuthor = try? values.decode(Bool.self, forKey: .showCommentsByNoAuthor)
+        slidesLayoutOptions = try? values.decode(SlidesLayoutOptions.self, forKey: .slidesLayoutOptions)
         self.format = "html"
     }
 
@@ -219,20 +167,8 @@ public class HtmlExportOptions: ExportOptions {
         if (deletePicturesCroppedAreas != nil) {
             try? container.encode(deletePicturesCroppedAreas, forKey: .deletePicturesCroppedAreas)
         }
-        if (notesPosition != nil) {
-            try? container.encode(notesPosition, forKey: .notesPosition)
-        }
-        if (commentsPosition != nil) {
-            try? container.encode(commentsPosition, forKey: .commentsPosition)
-        }
-        if (commentsAreaWidth != nil) {
-            try? container.encode(commentsAreaWidth, forKey: .commentsAreaWidth)
-        }
-        if (commentsAreaColor != nil) {
-            try? container.encode(commentsAreaColor, forKey: .commentsAreaColor)
-        }
-        if (showCommentsByNoAuthor != nil) {
-            try? container.encode(showCommentsByNoAuthor, forKey: .showCommentsByNoAuthor)
+        if (slidesLayoutOptions != nil) {
+            try? container.encode(slidesLayoutOptions, forKey: .slidesLayoutOptions)
         }
     }
 

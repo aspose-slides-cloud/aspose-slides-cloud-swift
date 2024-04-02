@@ -58,6 +58,7 @@ public class Save: Task {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
+        case md = "Md"
     }
     /** Format. */
     public var format: Format?

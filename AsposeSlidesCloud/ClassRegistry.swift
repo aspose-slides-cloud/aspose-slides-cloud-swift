@@ -455,6 +455,10 @@ class ClassRegistry {
             let value = GroupingCharacterElement()
             try? value.fillValues(object)
             return (value, nil)
+        } else if className == "HandoutLayoutingOptions" {
+            let value = HandoutLayoutingOptions()
+            try? value.fillValues(object)
+            return (value, nil)
         } else if className == "HeaderFooter" {
             let value = HeaderFooter()
             try? value.fillValues(object)
@@ -601,6 +605,10 @@ class ClassRegistry {
             return (value, nil)
         } else if className == "NormalViewRestoredProperties" {
             let value = NormalViewRestoredProperties()
+            try? value.fillValues(object)
+            return (value, nil)
+        } else if className == "NotesCommentsLayoutingOptions" {
+            let value = NotesCommentsLayoutingOptions()
             try? value.fillValues(object)
             return (value, nil)
         } else if className == "NotesSlide" {
@@ -895,6 +903,10 @@ class ClassRegistry {
             let value = Slides()
             try? value.fillValues(object)
             return (value, nil)
+        } else if className == "SlidesLayoutOptions" {
+            let value = SlidesLayoutOptions()
+            try? value.fillValues(object)
+            return (value, nil)
         } else if className == "SmartArt" {
             let value = SmartArt()
             try? value.fillValues(object)
@@ -1124,6 +1136,7 @@ class ClassRegistry {
         "GrayScaleEffect": "ImageTransformEffect",
         "GroupShape": "ShapeBase",
         "GroupingCharacterElement": "MathElement",
+        "HandoutLayoutingOptions": "SlidesLayoutOptions",
         "HeaderFooter": "ResourceBase",
         "HslEffect": "ImageTransformEffect",
         "Html5ExportOptions": "ExportOptions",
@@ -1146,6 +1159,7 @@ class ClassRegistry {
         "MoveToPathSegment": "PathSegment",
         "NaryOperatorElement": "MathElement",
         "NoFill": "FillFormat",
+        "NotesCommentsLayoutingOptions": "SlidesLayoutOptions",
         "NotesSlide": "ResourceBase",
         "NotesSlideHeaderFooter": "ResourceBase",
         "OleObjectFrame": "ShapeBase",
@@ -1329,6 +1343,8 @@ class ClassRegistry {
         typeDeterminers["GroupShape"]!["Type"] = "GroupShape"
         typeDeterminers["GroupingCharacterElement"] = [ : ]
         typeDeterminers["GroupingCharacterElement"]!["Type"] = "GroupingCharacter"
+        typeDeterminers["HandoutLayoutingOptions"] = [ : ]
+        typeDeterminers["HandoutLayoutingOptions"]!["LayoutType"] = "Handout"
         typeDeterminers["HeaderFooter"] = [ : ]
         typeDeterminers["HslEffect"] = [ : ]
         typeDeterminers["HslEffect"]!["Type"] = "Hsl"
@@ -1365,6 +1381,8 @@ class ClassRegistry {
         typeDeterminers["NaryOperatorElement"]!["Type"] = "NaryOperator"
         typeDeterminers["NoFill"] = [ : ]
         typeDeterminers["NoFill"]!["Type"] = "NoFill"
+        typeDeterminers["NotesCommentsLayoutingOptions"] = [ : ]
+        typeDeterminers["NotesCommentsLayoutingOptions"]!["LayoutType"] = "NotesComments"
         typeDeterminers["NotesSlide"] = [ : ]
         typeDeterminers["NotesSlideHeaderFooter"] = [ : ]
         typeDeterminers["OleObjectFrame"] = [ : ]

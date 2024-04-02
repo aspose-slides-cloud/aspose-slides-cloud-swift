@@ -36,6 +36,10 @@ public class Html5ExportOptions: ExportOptions {
     public var animateTransitions: Bool?
     /** Gets or sets shapes animation option. */
     public var animateShapes: Bool?
+    /** Gets or sets embed images option. */
+    public var embedImages: Bool?
+    /** Slides layouting options */
+    public var notesCommentsLayouting: NotesCommentsLayoutingOptions?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -47,18 +51,36 @@ public class Html5ExportOptions: ExportOptions {
         if animateShapesValue != nil {
             self.animateShapes = animateShapesValue! as? Bool
         }
+        let embedImagesValue = source["embedImages"] ?? source["EmbedImages"]
+        if embedImagesValue != nil {
+            self.embedImages = embedImagesValue! as? Bool
+        }
+        let notesCommentsLayoutingValue = source["notesCommentsLayouting"] ?? source["NotesCommentsLayouting"]
+        if notesCommentsLayoutingValue != nil {
+            let notesCommentsLayoutingDictionaryValue = notesCommentsLayoutingValue! as? [String:Any]
+            if notesCommentsLayoutingDictionaryValue != nil {
+                let (notesCommentsLayoutingInstance, error) = ClassRegistry.getClassFromDictionary(NotesCommentsLayoutingOptions.self, notesCommentsLayoutingDictionaryValue!)
+                if error == nil && notesCommentsLayoutingInstance != nil {
+                    self.notesCommentsLayouting = notesCommentsLayoutingInstance! as? NotesCommentsLayoutingOptions
+                }
+            }
+        }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, animateTransitions: Bool? = nil, animateShapes: Bool? = nil) {
+    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, animateTransitions: Bool? = nil, animateShapes: Bool? = nil, embedImages: Bool? = nil, notesCommentsLayouting: NotesCommentsLayoutingOptions? = nil) {
         super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.animateTransitions = animateTransitions
         self.animateShapes = animateShapes
+        self.embedImages = embedImages
+        self.notesCommentsLayouting = notesCommentsLayouting
         self.format = "html5"
     }
 
     private enum CodingKeys: String, CodingKey {
         case animateTransitions
         case animateShapes
+        case embedImages
+        case notesCommentsLayouting
     }
 
     required init(from decoder: Decoder) throws {
@@ -66,6 +88,8 @@ public class Html5ExportOptions: ExportOptions {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         animateTransitions = try? values.decode(Bool.self, forKey: .animateTransitions)
         animateShapes = try? values.decode(Bool.self, forKey: .animateShapes)
+        embedImages = try? values.decode(Bool.self, forKey: .embedImages)
+        notesCommentsLayouting = try? values.decode(NotesCommentsLayoutingOptions.self, forKey: .notesCommentsLayouting)
         self.format = "html5"
     }
 
@@ -77,6 +101,12 @@ public class Html5ExportOptions: ExportOptions {
         }
         if (animateShapes != nil) {
             try? container.encode(animateShapes, forKey: .animateShapes)
+        }
+        if (embedImages != nil) {
+            try? container.encode(embedImages, forKey: .embedImages)
+        }
+        if (notesCommentsLayouting != nil) {
+            try? container.encode(notesCommentsLayouting, forKey: .notesCommentsLayouting)
         }
     }
 

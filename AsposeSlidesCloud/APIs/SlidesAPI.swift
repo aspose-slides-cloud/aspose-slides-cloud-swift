@@ -342,6 +342,7 @@ open class SlidesAPI {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
+        case md = "Md"
     }
 
     /**
@@ -433,6 +434,7 @@ open class SlidesAPI {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
+        case md = "Md"
     }
 
     /**
@@ -4251,6 +4253,67 @@ open class SlidesAPI {
         return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
     }
     /**
+     Deletes cropped areas of a pictire.
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a picture frame).
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deletePictureCroppedAreas(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ password: String, _ folder: String, _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        deletePictureCroppedAreasWithRequestBuilder(name, slideIndex, shapeIndex, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+
+    /**
+     Deletes cropped areas of a pictire.
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/pictureCroppedAreas
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a picture frame).
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - returns: RequestBuilder<Void> 
+     */
+    open class func deletePictureCroppedAreasWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ password: String, _ folder: String, _ storage: String = "") -> RequestBuilder<Void> {
+        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/pictureCroppedAreas"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "shapeIndex": shapeIndex.encodeToJSON(), 
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<Void>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
      Remove a portion.
      - parameter name: Document name.
      - parameter slideIndex: Slide index.
@@ -7334,6 +7397,7 @@ open class SlidesAPI {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
+        case md = "Md"
     }
 
     /**
@@ -7671,6 +7735,7 @@ open class SlidesAPI {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case html5 = "Html5"
+        case md = "Md"
     }
 
     /**
@@ -7769,6 +7834,7 @@ open class SlidesAPI {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case html5 = "Html5"
+        case md = "Md"
     }
 
     /**
@@ -13615,6 +13681,7 @@ open class SlidesAPI {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
+        case md = "Md"
     }
 
     /**
@@ -13917,6 +13984,7 @@ open class SlidesAPI {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case html5 = "Html5"
+        case md = "Md"
     }
 
     /**
@@ -14021,6 +14089,7 @@ open class SlidesAPI {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case html5 = "Html5"
+        case md = "Md"
     }
 
     /**
@@ -15694,6 +15763,7 @@ open class SlidesAPI {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case html5 = "Html5"
+        case md = "Md"
     }
 
     /**
@@ -15802,6 +15872,7 @@ open class SlidesAPI {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case html5 = "Html5"
+        case md = "Md"
     }
 
     /**
@@ -15907,6 +15978,7 @@ open class SlidesAPI {
         case fodp = "Fodp"
         case xaml = "Xaml"
         case html5 = "Html5"
+        case md = "Md"
     }
 
     /**

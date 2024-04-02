@@ -62,6 +62,8 @@ public class ShapeBase: ResourceBase {
     public var alternativeTextTitle: String?
     /** Gets or sets a value indicating whether this ShapeBase is hidden. */
     public var hidden: Bool?
+    /** Gets or sets &#39;Mark as decorative&#39; option. */
+    public var isDecorative: Bool?
     /** Gets or sets the X */
     public var x: Double?
     /** Gets or sets the Y. */
@@ -107,6 +109,10 @@ public class ShapeBase: ResourceBase {
         let hiddenValue = source["hidden"] ?? source["Hidden"]
         if hiddenValue != nil {
             self.hidden = hiddenValue! as? Bool
+        }
+        let isDecorativeValue = source["isDecorative"] ?? source["IsDecorative"]
+        if isDecorativeValue != nil {
+            self.isDecorative = isDecorativeValue! as? Bool
         }
         let xValue = source["x"] ?? source["X"]
         if xValue != nil {
@@ -192,7 +198,7 @@ public class ShapeBase: ResourceBase {
         }
     }
 
-    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil) {
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, isDecorative: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil) {
         super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.name = name
         self.width = width
@@ -200,6 +206,7 @@ public class ShapeBase: ResourceBase {
         self.alternativeText = alternativeText
         self.alternativeTextTitle = alternativeTextTitle
         self.hidden = hidden
+        self.isDecorative = isDecorative
         self.x = x
         self.y = y
         self.zOrderPosition = zOrderPosition
@@ -219,6 +226,7 @@ public class ShapeBase: ResourceBase {
         case alternativeText
         case alternativeTextTitle
         case hidden
+        case isDecorative
         case x
         case y
         case zOrderPosition
@@ -240,6 +248,7 @@ public class ShapeBase: ResourceBase {
         alternativeText = try? values.decode(String.self, forKey: .alternativeText)
         alternativeTextTitle = try? values.decode(String.self, forKey: .alternativeTextTitle)
         hidden = try? values.decode(Bool.self, forKey: .hidden)
+        isDecorative = try? values.decode(Bool.self, forKey: .isDecorative)
         x = try? values.decode(Double.self, forKey: .x)
         y = try? values.decode(Double.self, forKey: .y)
         zOrderPosition = try? values.decode(Int.self, forKey: .zOrderPosition)
@@ -272,6 +281,9 @@ public class ShapeBase: ResourceBase {
         }
         if (hidden != nil) {
             try? container.encode(hidden, forKey: .hidden)
+        }
+        if (isDecorative != nil) {
+            try? container.encode(isDecorative, forKey: .isDecorative)
         }
         if (x != nil) {
             try? container.encode(x, forKey: .x)

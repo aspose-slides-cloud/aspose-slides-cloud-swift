@@ -49,16 +49,6 @@ public class PdfExportOptions: ExportOptions {
         case pdfUa = "PdfUa"
         case pdfA2u = "PdfA2u"
     }
-    public enum NotesPosition: String, Codable { 
-        case _none = "None"
-        case bottomFull = "BottomFull"
-        case bottomTruncated = "BottomTruncated"
-    }
-    public enum CommentsPosition: String, Codable { 
-        case _none = "None"
-        case bottom = "Bottom"
-        case _right = "Right"
-    }
     /** Specifies compression type to be used for all textual content in the document. */
     public var textCompression: TextCompression?
     /** Determines if all characters of font should be embedded or only used subset. */
@@ -81,16 +71,8 @@ public class PdfExportOptions: ExportOptions {
     public var embedTrueTypeFontsForASCII: Bool?
     /** Returns or sets an array of user-defined names of font families which Aspose.Slides should consider common. */
     public var additionalCommonFontFamilies: [String]?
-    /** Gets or sets the position of the notes on the page. */
-    public var notesPosition: NotesPosition?
-    /** Gets or sets the position of the comments on the page. */
-    public var commentsPosition: CommentsPosition?
-    /** Gets or sets the width of the comment output area in pixels (Applies only if comments are displayed on the right). */
-    public var commentsAreaWidth: Int?
-    /** Gets or sets the color of comments area (Applies only if comments are displayed on the right). */
-    public var commentsAreaColor: String?
-    /** True if comments that have no author are displayed. (Applies only if comments are displayed). */
-    public var showCommentsByNoAuthor: Bool?
+    /** Slides layouting options */
+    public var slidesLayoutOptions: SlidesLayoutOptions?
     /** Image transparent color. */
     public var imageTransparentColor: String?
     /** True to apply specified ImageTransparentColor  to an image. */
@@ -156,37 +138,15 @@ public class PdfExportOptions: ExportOptions {
         if additionalCommonFontFamiliesValue != nil {
             self.additionalCommonFontFamilies = additionalCommonFontFamiliesValue! as? [String]
         }
-        let notesPositionValue = source["notesPosition"] ?? source["NotesPosition"]
-        if notesPositionValue != nil {
-            let notesPositionStringValue = notesPositionValue! as? String
-            if notesPositionStringValue != nil {
-                let notesPositionEnumValue = NotesPosition(rawValue: notesPositionStringValue!)
-                if notesPositionEnumValue != nil {
-                    self.notesPosition = notesPositionEnumValue!
+        let slidesLayoutOptionsValue = source["slidesLayoutOptions"] ?? source["SlidesLayoutOptions"]
+        if slidesLayoutOptionsValue != nil {
+            let slidesLayoutOptionsDictionaryValue = slidesLayoutOptionsValue! as? [String:Any]
+            if slidesLayoutOptionsDictionaryValue != nil {
+                let (slidesLayoutOptionsInstance, error) = ClassRegistry.getClassFromDictionary(SlidesLayoutOptions.self, slidesLayoutOptionsDictionaryValue!)
+                if error == nil && slidesLayoutOptionsInstance != nil {
+                    self.slidesLayoutOptions = slidesLayoutOptionsInstance! as? SlidesLayoutOptions
                 }
             }
-        }
-        let commentsPositionValue = source["commentsPosition"] ?? source["CommentsPosition"]
-        if commentsPositionValue != nil {
-            let commentsPositionStringValue = commentsPositionValue! as? String
-            if commentsPositionStringValue != nil {
-                let commentsPositionEnumValue = CommentsPosition(rawValue: commentsPositionStringValue!)
-                if commentsPositionEnumValue != nil {
-                    self.commentsPosition = commentsPositionEnumValue!
-                }
-            }
-        }
-        let commentsAreaWidthValue = source["commentsAreaWidth"] ?? source["CommentsAreaWidth"]
-        if commentsAreaWidthValue != nil {
-            self.commentsAreaWidth = commentsAreaWidthValue! as? Int
-        }
-        let commentsAreaColorValue = source["commentsAreaColor"] ?? source["CommentsAreaColor"]
-        if commentsAreaColorValue != nil {
-            self.commentsAreaColor = commentsAreaColorValue! as? String
-        }
-        let showCommentsByNoAuthorValue = source["showCommentsByNoAuthor"] ?? source["ShowCommentsByNoAuthor"]
-        if showCommentsByNoAuthorValue != nil {
-            self.showCommentsByNoAuthor = showCommentsByNoAuthorValue! as? Bool
         }
         let imageTransparentColorValue = source["imageTransparentColor"] ?? source["ImageTransparentColor"]
         if imageTransparentColorValue != nil {
@@ -208,7 +168,7 @@ public class PdfExportOptions: ExportOptions {
         }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, textCompression: TextCompression? = nil, embedFullFonts: Bool? = nil, compliance: Compliance? = nil, sufficientResolution: Double? = nil, jpegQuality: Int? = nil, drawSlidesFrame: Bool? = nil, showHiddenSlides: Bool? = nil, saveMetafilesAsPng: Bool? = nil, password: String? = nil, embedTrueTypeFontsForASCII: Bool? = nil, additionalCommonFontFamilies: [String]? = nil, notesPosition: NotesPosition? = nil, commentsPosition: CommentsPosition? = nil, commentsAreaWidth: Int? = nil, commentsAreaColor: String? = nil, showCommentsByNoAuthor: Bool? = nil, imageTransparentColor: String? = nil, applyImageTransparent: Bool? = nil, accessPermissions: AccessPermissions? = nil) {
+    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, textCompression: TextCompression? = nil, embedFullFonts: Bool? = nil, compliance: Compliance? = nil, sufficientResolution: Double? = nil, jpegQuality: Int? = nil, drawSlidesFrame: Bool? = nil, showHiddenSlides: Bool? = nil, saveMetafilesAsPng: Bool? = nil, password: String? = nil, embedTrueTypeFontsForASCII: Bool? = nil, additionalCommonFontFamilies: [String]? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil, imageTransparentColor: String? = nil, applyImageTransparent: Bool? = nil, accessPermissions: AccessPermissions? = nil) {
         super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.textCompression = textCompression
         self.embedFullFonts = embedFullFonts
@@ -221,11 +181,7 @@ public class PdfExportOptions: ExportOptions {
         self.password = password
         self.embedTrueTypeFontsForASCII = embedTrueTypeFontsForASCII
         self.additionalCommonFontFamilies = additionalCommonFontFamilies
-        self.notesPosition = notesPosition
-        self.commentsPosition = commentsPosition
-        self.commentsAreaWidth = commentsAreaWidth
-        self.commentsAreaColor = commentsAreaColor
-        self.showCommentsByNoAuthor = showCommentsByNoAuthor
+        self.slidesLayoutOptions = slidesLayoutOptions
         self.imageTransparentColor = imageTransparentColor
         self.applyImageTransparent = applyImageTransparent
         self.accessPermissions = accessPermissions
@@ -244,11 +200,7 @@ public class PdfExportOptions: ExportOptions {
         case password
         case embedTrueTypeFontsForASCII
         case additionalCommonFontFamilies
-        case notesPosition
-        case commentsPosition
-        case commentsAreaWidth
-        case commentsAreaColor
-        case showCommentsByNoAuthor
+        case slidesLayoutOptions
         case imageTransparentColor
         case applyImageTransparent
         case accessPermissions
@@ -268,11 +220,7 @@ public class PdfExportOptions: ExportOptions {
         password = try? values.decode(String.self, forKey: .password)
         embedTrueTypeFontsForASCII = try? values.decode(Bool.self, forKey: .embedTrueTypeFontsForASCII)
         additionalCommonFontFamilies = try? values.decode([String].self, forKey: .additionalCommonFontFamilies)
-        notesPosition = try? values.decode(NotesPosition.self, forKey: .notesPosition)
-        commentsPosition = try? values.decode(CommentsPosition.self, forKey: .commentsPosition)
-        commentsAreaWidth = try? values.decode(Int.self, forKey: .commentsAreaWidth)
-        commentsAreaColor = try? values.decode(String.self, forKey: .commentsAreaColor)
-        showCommentsByNoAuthor = try? values.decode(Bool.self, forKey: .showCommentsByNoAuthor)
+        slidesLayoutOptions = try? values.decode(SlidesLayoutOptions.self, forKey: .slidesLayoutOptions)
         imageTransparentColor = try? values.decode(String.self, forKey: .imageTransparentColor)
         applyImageTransparent = try? values.decode(Bool.self, forKey: .applyImageTransparent)
         accessPermissions = try? values.decode(AccessPermissions.self, forKey: .accessPermissions)
@@ -315,20 +263,8 @@ public class PdfExportOptions: ExportOptions {
         if (additionalCommonFontFamilies != nil) {
             try? container.encode(additionalCommonFontFamilies, forKey: .additionalCommonFontFamilies)
         }
-        if (notesPosition != nil) {
-            try? container.encode(notesPosition, forKey: .notesPosition)
-        }
-        if (commentsPosition != nil) {
-            try? container.encode(commentsPosition, forKey: .commentsPosition)
-        }
-        if (commentsAreaWidth != nil) {
-            try? container.encode(commentsAreaWidth, forKey: .commentsAreaWidth)
-        }
-        if (commentsAreaColor != nil) {
-            try? container.encode(commentsAreaColor, forKey: .commentsAreaColor)
-        }
-        if (showCommentsByNoAuthor != nil) {
-            try? container.encode(showCommentsByNoAuthor, forKey: .showCommentsByNoAuthor)
+        if (slidesLayoutOptions != nil) {
+            try? container.encode(slidesLayoutOptions, forKey: .slidesLayoutOptions)
         }
         if (imageTransparentColor != nil) {
             try? container.encode(imageTransparentColor, forKey: .imageTransparentColor)

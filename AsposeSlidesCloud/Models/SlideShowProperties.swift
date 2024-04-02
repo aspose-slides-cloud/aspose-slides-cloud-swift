@@ -49,6 +49,8 @@ public class SlideShowProperties: ResourceBase {
     public var showAnimation: Bool?
     /** Show narrration. */
     public var showNarration: Bool?
+    /** Show media controls. */
+    public var showMediaControls: Bool?
     /** Use timings. */
     public var useTimings: Bool?
     /** Slide show type. */
@@ -82,6 +84,10 @@ public class SlideShowProperties: ResourceBase {
         if showNarrationValue != nil {
             self.showNarration = showNarrationValue! as? Bool
         }
+        let showMediaControlsValue = source["showMediaControls"] ?? source["ShowMediaControls"]
+        if showMediaControlsValue != nil {
+            self.showMediaControls = showMediaControlsValue! as? Bool
+        }
         let useTimingsValue = source["useTimings"] ?? source["UseTimings"]
         if useTimingsValue != nil {
             self.useTimings = useTimingsValue! as? Bool
@@ -102,7 +108,7 @@ public class SlideShowProperties: ResourceBase {
         }
     }
 
-    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, loop: Bool? = nil, startSlide: Int? = nil, endSlide: Int? = nil, penColor: String? = nil, showAnimation: Bool? = nil, showNarration: Bool? = nil, useTimings: Bool? = nil, slideShowType: SlideShowType? = nil, showScrollbar: Bool? = nil) {
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, loop: Bool? = nil, startSlide: Int? = nil, endSlide: Int? = nil, penColor: String? = nil, showAnimation: Bool? = nil, showNarration: Bool? = nil, showMediaControls: Bool? = nil, useTimings: Bool? = nil, slideShowType: SlideShowType? = nil, showScrollbar: Bool? = nil) {
         super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.loop = loop
         self.startSlide = startSlide
@@ -110,6 +116,7 @@ public class SlideShowProperties: ResourceBase {
         self.penColor = penColor
         self.showAnimation = showAnimation
         self.showNarration = showNarration
+        self.showMediaControls = showMediaControls
         self.useTimings = useTimings
         self.slideShowType = slideShowType
         self.showScrollbar = showScrollbar
@@ -122,6 +129,7 @@ public class SlideShowProperties: ResourceBase {
         case penColor
         case showAnimation
         case showNarration
+        case showMediaControls
         case useTimings
         case slideShowType
         case showScrollbar
@@ -136,6 +144,7 @@ public class SlideShowProperties: ResourceBase {
         penColor = try? values.decode(String.self, forKey: .penColor)
         showAnimation = try? values.decode(Bool.self, forKey: .showAnimation)
         showNarration = try? values.decode(Bool.self, forKey: .showNarration)
+        showMediaControls = try? values.decode(Bool.self, forKey: .showMediaControls)
         useTimings = try? values.decode(Bool.self, forKey: .useTimings)
         slideShowType = try? values.decode(SlideShowType.self, forKey: .slideShowType)
         showScrollbar = try? values.decode(Bool.self, forKey: .showScrollbar)
@@ -161,6 +170,9 @@ public class SlideShowProperties: ResourceBase {
         }
         if (showNarration != nil) {
             try? container.encode(showNarration, forKey: .showNarration)
+        }
+        if (showMediaControls != nil) {
+            try? container.encode(showMediaControls, forKey: .showMediaControls)
         }
         if (useTimings != nil) {
             try? container.encode(useTimings, forKey: .useTimings)

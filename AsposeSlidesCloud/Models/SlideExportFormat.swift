@@ -54,5 +54,6 @@ public enum SlideExportFormat: String, Codable {
     case fodp = "Fodp"
     case xaml = "Xaml"
     case html5 = "Html5"
+    case md = "Md"
 
 }
