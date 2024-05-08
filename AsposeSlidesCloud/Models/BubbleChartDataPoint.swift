@@ -49,8 +49,8 @@ public class BubbleChartDataPoint: ScatterChartDataPoint {
         }
     }
 
-    public init(fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, type: ModelType? = nil, xValue: Double? = nil, yValue: Double? = nil, xValueFormula: String? = nil, yValueFormula: String? = nil, bubbleSize: Double? = nil, bubbleSizeFormula: String? = nil) {
-        super.init(fillFormat: fillFormat, effectFormat: effectFormat, threeDFormat: threeDFormat, lineFormat: lineFormat, type: type, xValue: xValue, yValue: yValue, xValueFormula: xValueFormula, yValueFormula: yValueFormula)
+    public init(fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, marker: SeriesMarker? = nil, type: ModelType? = nil, xValue: Double? = nil, yValue: Double? = nil, xValueFormula: String? = nil, yValueFormula: String? = nil, bubbleSize: Double? = nil, bubbleSizeFormula: String? = nil) {
+        super.init(fillFormat: fillFormat, effectFormat: effectFormat, threeDFormat: threeDFormat, lineFormat: lineFormat, marker: marker, type: type, xValue: xValue, yValue: yValue, xValueFormula: xValueFormula, yValueFormula: yValueFormula)
         self.bubbleSize = bubbleSize
         self.bubbleSizeFormula = bubbleSizeFormula
         self.type = ModelType.bubble

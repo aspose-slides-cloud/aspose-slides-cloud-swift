@@ -45,6 +45,8 @@ public class DataPoint: Codable {
     public var threeDFormat: ThreeDFormat?
     /** Gets or sets the line format. */
     public var lineFormat: LineFormat?
+    /** Gets or sets the marker. */
+    public var marker: SeriesMarker?
     public var type: ModelType?
 
     func fillValues(_ source: [String:Any]) throws {
@@ -88,6 +90,16 @@ public class DataPoint: Codable {
                 }
             }
         }
+        let markerValue = source["marker"] ?? source["Marker"]
+        if markerValue != nil {
+            let markerDictionaryValue = markerValue! as? [String:Any]
+            if markerDictionaryValue != nil {
+                let (markerInstance, error) = ClassRegistry.getClassFromDictionary(SeriesMarker.self, markerDictionaryValue!)
+                if error == nil && markerInstance != nil {
+                    self.marker = markerInstance! as? SeriesMarker
+                }
+            }
+        }
         let typeValue = source["type"] ?? source["Type"]
         if typeValue != nil {
             let typeStringValue = typeValue! as? String
@@ -100,11 +112,12 @@ public class DataPoint: Codable {
         }
     }
 
-    public init(fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, type: ModelType? = nil) {
+    public init(fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, marker: SeriesMarker? = nil, type: ModelType? = nil) {
         self.fillFormat = fillFormat
         self.effectFormat = effectFormat
         self.threeDFormat = threeDFormat
         self.lineFormat = lineFormat
+        self.marker = marker
         self.type = type
     }
 
@@ -113,6 +126,7 @@ public class DataPoint: Codable {
         case effectFormat
         case threeDFormat
         case lineFormat
+        case marker
         case type
     }
 

@@ -4262,7 +4262,7 @@ open class SlidesAPI {
      - parameter storage: Presentation storage.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deletePictureCroppedAreas(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ password: String, _ folder: String, _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func deletePictureCroppedAreas(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         deletePictureCroppedAreasWithRequestBuilder(name, slideIndex, shapeIndex, password, folder, storage).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -4275,7 +4275,7 @@ open class SlidesAPI {
 
     /**
      Deletes cropped areas of a pictire.
-     - DELETE /slides/{name}/slides/{slideIndex}/shapes/pictureCroppedAreas
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/pictureCroppedAreas
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -4287,10 +4287,11 @@ open class SlidesAPI {
      - parameter storage: Presentation storage.
      - returns: RequestBuilder<Void> 
      */
-    open class func deletePictureCroppedAreasWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ password: String, _ folder: String, _ storage: String = "") -> RequestBuilder<Void> {
-        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/pictureCroppedAreas"
+    open class func deletePictureCroppedAreasWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Void> {
+        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/pictureCroppedAreas"
         methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
         methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "shapeIndex", shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
         let parameters: [String:Any]? = nil
 
@@ -4300,7 +4301,6 @@ open class SlidesAPI {
 
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "shapeIndex": shapeIndex.encodeToJSON(), 
             "folder": folder, 
             "storage": storage
         ])
@@ -7109,6 +7109,81 @@ open class SlidesAPI {
 
 
         let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<Data>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
+     * enum for parameter format
+     */
+    public enum Format_downloadMathPortion: String { 
+        case mathML = "MathML"
+        case laTeX = "LaTeX"
+    }
+
+    /**
+     Convert Mathematical Text to MathML Format
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index.
+     - parameter paragraphIndex: Paragraph index.
+     - parameter portionIndex: Portion index.
+     - parameter format: Format.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func downloadMathPortion(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ paragraphIndex: Int, _ portionIndex: Int, _ format: String, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        downloadMathPortionWithRequestBuilder(name, slideIndex, shapeIndex, paragraphIndex, portionIndex, format, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Convert Mathematical Text to MathML Format
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}/{format}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{output=none}]
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index.
+     - parameter paragraphIndex: Paragraph index.
+     - parameter portionIndex: Portion index.
+     - parameter format: Format.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - returns: RequestBuilder<Data> 
+     */
+    open class func downloadMathPortionWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ paragraphIndex: Int, _ portionIndex: Int, _ format: String, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Data> {
+        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}/{format}"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "shapeIndex", shapeIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "paragraphIndex", paragraphIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "portionIndex", portionIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "format", format)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "folder": folder, 
+            "storage": storage
+        ])
         let nillableHeaders: [String: Any?] = [
             "password": password
         ]
@@ -13581,6 +13656,87 @@ open class SlidesAPI {
         let requestBuilder: RequestBuilder<Data>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams, headers: headerParameters)
+    }
+    /**
+     * enum for parameter format
+     */
+    public enum Format_saveMathPortion: String { 
+        case mathML = "MathML"
+        case laTeX = "LaTeX"
+    }
+
+    /**
+     Convert Mathematical Text to MathML Format and saves result to the storage
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index.
+     - parameter paragraphIndex: Paragraph index.
+     - parameter portionIndex: Portion index.
+     - parameter format: Format.
+     - parameter outPath: Path to save result.
+     - parameter password: Document password.
+     - parameter folder: Presentation folder.
+     - parameter storage: Presentation storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func saveMathPortion(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ paragraphIndex: Int, _ portionIndex: Int, _ format: String, _ outPath: String, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        saveMathPortionWithRequestBuilder(name, slideIndex, shapeIndex, paragraphIndex, portionIndex, format, outPath, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+
+    /**
+     Convert Mathematical Text to MathML Format and saves result to the storage
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}/{format}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index.
+     - parameter paragraphIndex: Paragraph index.
+     - parameter portionIndex: Portion index.
+     - parameter format: Format.
+     - parameter outPath: Path to save result.
+     - parameter password: Document password.
+     - parameter folder: Presentation folder.
+     - parameter storage: Presentation storage.
+     - returns: RequestBuilder<Void> 
+     */
+    open class func saveMathPortionWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ paragraphIndex: Int, _ portionIndex: Int, _ format: String, _ outPath: String, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Void> {
+        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}/{format}"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "shapeIndex", shapeIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "paragraphIndex", paragraphIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "portionIndex", portionIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "format", format)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "outPath": outPath, 
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<Void>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
     }
     /**
      Convert Mathematical Text to MathML Format and saves result to the storage

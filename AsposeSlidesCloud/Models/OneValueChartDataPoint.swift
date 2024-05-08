@@ -61,8 +61,8 @@ public class OneValueChartDataPoint: DataPoint {
         }
     }
 
-    public init(fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, type: ModelType? = nil, value: Double? = nil, valueFormula: String? = nil, setAsTotal: Bool? = nil, invertIfNegative: Bool? = nil) {
-        super.init(fillFormat: fillFormat, effectFormat: effectFormat, threeDFormat: threeDFormat, lineFormat: lineFormat, type: type)
+    public init(fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, marker: SeriesMarker? = nil, type: ModelType? = nil, value: Double? = nil, valueFormula: String? = nil, setAsTotal: Bool? = nil, invertIfNegative: Bool? = nil) {
+        super.init(fillFormat: fillFormat, effectFormat: effectFormat, threeDFormat: threeDFormat, lineFormat: lineFormat, marker: marker, type: type)
         self.value = value
         self.valueFormula = valueFormula
         self.setAsTotal = setAsTotal

@@ -176,7 +176,7 @@ class MathTests : XCTestCase {
     func testMathDownload() {
         let expectation = self.expectation(description: "testMathDownload")
         TestUtils.initialize("") { (response, error) -> Void in
-            SlidesAPI.downloadPortionAsMathMl("test.pptx", 2, 3, 1, 1, "password", "TempSlidesSDK") { (output, error) -> Void in
+            SlidesAPI.downloadMathPortion("test.pptx", 2, 3, 1, 1, "MathML", "password", "TempSlidesSDK") { (output, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(output)
                 expectation.fulfill()
@@ -188,7 +188,7 @@ class MathTests : XCTestCase {
     func testMathDownloadNull() {
         let expectation = self.expectation(description: "testMathDownloadNull")
         TestUtils.initialize("") { (response, error) -> Void in
-            SlidesAPI.downloadPortionAsMathMl("test.pptx", 2, 1, 1, 1, "password", "TempSlidesSDK") { (output, error) -> Void in
+            SlidesAPI.downloadMathPortion("test.pptx", 2, 1, 1, 1, "MathML", "password", "TempSlidesSDK") { (output, error) -> Void in
                 XCTAssertNotNil(error)
                 switch (error!) {
                 case ErrorResponse.error(let actualCode, _, _):
@@ -206,7 +206,7 @@ class MathTests : XCTestCase {
         let expectation = self.expectation(description: "testMathSave")
         TestUtils.initialize("") { (response, error) -> Void in
             let outPath = "TempSlidesSDK/mathml.xml"
-            SlidesAPI.savePortionAsMathMl("test.pptx", 2, 3, 1, 1, outPath, "password", "TempSlidesSDK") { (output, error) -> Void in
+            SlidesAPI.downloadMathPortion("test.pptx", 2, 3, 1, 1, "MathML", outPath, "password", "TempSlidesSDK") { (output, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(output)
                 SlidesAPI.objectExists(outPath) { (exists, error) -> Void in

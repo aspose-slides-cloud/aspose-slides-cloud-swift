@@ -559,6 +559,10 @@ class ClassRegistry {
             let value = LuminanceEffect()
             try? value.fillValues(object)
             return (value, nil)
+        } else if className == "MarkdownExportOptions" {
+            let value = MarkdownExportOptions()
+            try? value.fillValues(object)
+            return (value, nil)
         } else if className == "MasterSlide" {
             let value = MasterSlide()
             try? value.fillValues(object)
@@ -1152,6 +1156,7 @@ class ClassRegistry {
         "LineToPathSegment": "PathSegment",
         "Literals": "DataSource",
         "LuminanceEffect": "ImageTransformEffect",
+        "MarkdownExportOptions": "ExportOptions",
         "MasterSlide": "ResourceBase",
         "MasterSlides": "ResourceBase",
         "MatrixElement": "MathElement",
@@ -1369,6 +1374,8 @@ class ClassRegistry {
         typeDeterminers["Literals"]!["Type"] = "Literals"
         typeDeterminers["LuminanceEffect"] = [ : ]
         typeDeterminers["LuminanceEffect"]!["Type"] = "Luminance"
+        typeDeterminers["MarkdownExportOptions"] = [ : ]
+        typeDeterminers["MarkdownExportOptions"]!["Format"] = "md"
         typeDeterminers["MasterSlide"] = [ : ]
         typeDeterminers["MasterSlides"] = [ : ]
         typeDeterminers["MatrixElement"] = [ : ]
