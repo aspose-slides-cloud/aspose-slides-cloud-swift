@@ -100,6 +100,8 @@ public class Axis: Codable {
     public var isVisible: Bool?
     /** True if the axis has a visible title */
     public var hasTitle: Bool?
+    /** Axis title */
+    public var title: ChartTitle?
     /** Axis position */
     public var position: Position?
     /** The scaling value of the display units for the value axis */
@@ -181,6 +183,16 @@ public class Axis: Codable {
         let hasTitleValue = source["hasTitle"] ?? source["HasTitle"]
         if hasTitleValue != nil {
             self.hasTitle = hasTitleValue! as? Bool
+        }
+        let titleValue = source["title"] ?? source["Title"]
+        if titleValue != nil {
+            let titleDictionaryValue = titleValue! as? [String:Any]
+            if titleDictionaryValue != nil {
+                let (titleInstance, error) = ClassRegistry.getClassFromDictionary(ChartTitle.self, titleDictionaryValue!)
+                if error == nil && titleInstance != nil {
+                    self.title = titleInstance! as? ChartTitle
+                }
+            }
         }
         let positionValue = source["position"] ?? source["Position"]
         if positionValue != nil {
@@ -418,9 +430,10 @@ public class Axis: Codable {
         }
     }
 
-    public init(isVisible: Bool? = nil, hasTitle: Bool? = nil, position: Position? = nil, displayUnit: DisplayUnit? = nil, baseUnitScale: BaseUnitScale? = nil, isAutomaticMajorUnit: Bool? = nil, majorUnit: Double? = nil, majorUnitScale: MajorUnitScale? = nil, majorTickMark: MajorTickMark? = nil, isAutomaticMinorUnit: Bool? = nil, minorUnit: Double? = nil, minorUnitScale: MinorUnitScale? = nil, minorTickMark: MinorTickMark? = nil, isAutomaticMaxValue: Bool? = nil, maxValue: Double? = nil, isAutomaticMinValue: Bool? = nil, minValue: Double? = nil, isLogarithmic: Bool? = nil, logBase: Double? = nil, categoryAxisType: CategoryAxisType? = nil, axisBetweenCategories: Bool? = nil, labelOffset: Int? = nil, isPlotOrderReversed: Bool? = nil, isNumberFormatLinkedToSource: Bool? = nil, numberFormat: String? = nil, crossType: CrossType? = nil, crossAt: Double? = nil, isAutomaticTickMarksSpacing: Bool? = nil, tickMarksSpacing: Int? = nil, isAutomaticTickLabelSpacing: Bool? = nil, tickLabelSpacing: Int? = nil, tickLabelPosition: TickLabelPosition? = nil, tickLabelRotationAngle: Double? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, majorGridLinesFormat: ChartLinesFormat? = nil, minorGridLinesFormat: ChartLinesFormat? = nil) {
+    public init(isVisible: Bool? = nil, hasTitle: Bool? = nil, title: ChartTitle? = nil, position: Position? = nil, displayUnit: DisplayUnit? = nil, baseUnitScale: BaseUnitScale? = nil, isAutomaticMajorUnit: Bool? = nil, majorUnit: Double? = nil, majorUnitScale: MajorUnitScale? = nil, majorTickMark: MajorTickMark? = nil, isAutomaticMinorUnit: Bool? = nil, minorUnit: Double? = nil, minorUnitScale: MinorUnitScale? = nil, minorTickMark: MinorTickMark? = nil, isAutomaticMaxValue: Bool? = nil, maxValue: Double? = nil, isAutomaticMinValue: Bool? = nil, minValue: Double? = nil, isLogarithmic: Bool? = nil, logBase: Double? = nil, categoryAxisType: CategoryAxisType? = nil, axisBetweenCategories: Bool? = nil, labelOffset: Int? = nil, isPlotOrderReversed: Bool? = nil, isNumberFormatLinkedToSource: Bool? = nil, numberFormat: String? = nil, crossType: CrossType? = nil, crossAt: Double? = nil, isAutomaticTickMarksSpacing: Bool? = nil, tickMarksSpacing: Int? = nil, isAutomaticTickLabelSpacing: Bool? = nil, tickLabelSpacing: Int? = nil, tickLabelPosition: TickLabelPosition? = nil, tickLabelRotationAngle: Double? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, majorGridLinesFormat: ChartLinesFormat? = nil, minorGridLinesFormat: ChartLinesFormat? = nil) {
         self.isVisible = isVisible
         self.hasTitle = hasTitle
+        self.title = title
         self.position = position
         self.displayUnit = displayUnit
         self.baseUnitScale = baseUnitScale
@@ -462,6 +475,7 @@ public class Axis: Codable {
     private enum CodingKeys: String, CodingKey {
         case isVisible
         case hasTitle
+        case title
         case position
         case displayUnit
         case baseUnitScale

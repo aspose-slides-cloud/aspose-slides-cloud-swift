@@ -188,7 +188,7 @@ class CreateTests : XCTestCase {
                 XCTAssertNotNil(result)
                 let source = FileManager.default.contents(atPath: "TestData/test.pdf")
                 XCTAssertNotNil(source)
-                SlidesAPI.importFromPdf(fileName, source!, "", folderName) { (result, error) -> Void in
+                SlidesAPI.importFromPdf(fileName, source!, nil, "", folderName) { (result, error) -> Void in
                     XCTAssertNil(error)
                     XCTAssertNotNil(result)
                     expectation.fulfill()
@@ -211,7 +211,9 @@ class CreateTests : XCTestCase {
                 let slideCount = getResult!.slideList!.count
                 let source = FileManager.default.contents(atPath: "TestData/test.pdf")
                 XCTAssertNotNil(source)
-                SlidesAPI.importFromPdf(fileName, source!, password, folderName) { (result, error) -> Void in
+                let options = PdfImportOptions()
+                options.detectTables = true
+                SlidesAPI.importFromPdf(fileName, source!, options, password, folderName) { (result, error) -> Void in
                     XCTAssertNil(error)
                     XCTAssertNotNil(result)
                     SlidesAPI.getSlides(fileName, password, folderName) { (getResult, error) -> Void in

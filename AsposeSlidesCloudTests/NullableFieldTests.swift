@@ -62,9 +62,9 @@ class NullableFieldTests : XCTestCase {
             dto.width = 400
             dto.height = 300
             let title = ChartTitle()
-            title.hasTitle = true
             title.text = "MyTitle"
             dto.title = title
+            dto.hasTitle = true
             let series = OneValueSeries()
             series.type = Series.ModelType.clusteredColumn
             series.dataPointType = Series.DataPointType.oneValue

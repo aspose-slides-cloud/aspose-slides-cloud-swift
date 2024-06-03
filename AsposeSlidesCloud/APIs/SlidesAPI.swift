@@ -12151,13 +12151,14 @@ open class SlidesAPI {
      Create presentation document from pdf or append pdf to an existing presentation.
      - parameter name: Document name.
      - parameter pdf: PDF data.
+     - parameter options: Import options.
      - parameter password: Document password.
      - parameter folder: Document folder.
      - parameter storage: Document storage.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func importFromPdf(_ name: String, _ pdf: Data, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
-        importFromPdfWithRequestBuilder(name, pdf, password, folder, storage).executeAuthorized { (response, error) -> Void in
+    open class func importFromPdf(_ name: String, _ pdf: Data, _ options: PdfImportOptions? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+        importFromPdfWithRequestBuilder(name, pdf, options, password, folder, storage).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -12176,16 +12177,17 @@ open class SlidesAPI {
 }}]
      - parameter name: Document name.
      - parameter pdf: PDF data.
+     - parameter options: Import options.
      - parameter password: Document password.
      - parameter folder: Document folder.
      - parameter storage: Document storage.
      - returns: RequestBuilder<Document> 
      */
-    open class func importFromPdfWithRequestBuilder(_ name: String, _ pdf: Data, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Document> {
+    open class func importFromPdfWithRequestBuilder(_ name: String, _ pdf: Data, _ options: PdfImportOptions? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Document> {
         var methodPath = "/slides/{name}/fromPdf"
         methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
-        let parameters: [String:Any]? = nil
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: options)
 
 
         var fileParams = [Data]()
@@ -12204,7 +12206,7 @@ open class SlidesAPI {
 
         let requestBuilder: RequestBuilder<Document>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams, headers: headerParameters)
     }
     /**
      Imports shapes from SVG file.

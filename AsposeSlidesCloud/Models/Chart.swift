@@ -126,6 +126,8 @@ public class Chart: ShapeBase {
     public var categories: [ChartCategory]?
     /** Data source type for categories. */
     public var dataSourceForCategories: DataSource?
+    /** True if the chart has a title. */
+    public var hasTitle: Bool?
     /** Gets or sets the title. */
     public var title: ChartTitle?
     /** Gets or sets the back wall. */
@@ -220,6 +222,10 @@ public class Chart: ShapeBase {
                     self.dataSourceForCategories = dataSourceForCategoriesInstance! as? DataSource
                 }
             }
+        }
+        let hasTitleValue = source["hasTitle"] ?? source["HasTitle"]
+        if hasTitleValue != nil {
+            self.hasTitle = hasTitleValue! as? Bool
         }
         let titleValue = source["title"] ?? source["Title"]
         if titleValue != nil {
@@ -322,13 +328,14 @@ public class Chart: ShapeBase {
         }
     }
 
-    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, isDecorative: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil, chartType: ChartType? = nil, showDataLabelsOverMaximum: Bool? = nil, series: [Series]? = nil, categories: [ChartCategory]? = nil, dataSourceForCategories: DataSource? = nil, title: ChartTitle? = nil, backWall: ChartWall? = nil, sideWall: ChartWall? = nil, floor: ChartWall? = nil, legend: Legend? = nil, axes: Axes? = nil, plotArea: PlotArea? = nil, hasRoundedCorners: Bool? = nil, seriesGroups: [ChartSeriesGroup]? = nil) {
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, isDecorative: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil, chartType: ChartType? = nil, showDataLabelsOverMaximum: Bool? = nil, series: [Series]? = nil, categories: [ChartCategory]? = nil, dataSourceForCategories: DataSource? = nil, hasTitle: Bool? = nil, title: ChartTitle? = nil, backWall: ChartWall? = nil, sideWall: ChartWall? = nil, floor: ChartWall? = nil, legend: Legend? = nil, axes: Axes? = nil, plotArea: PlotArea? = nil, hasRoundedCorners: Bool? = nil, seriesGroups: [ChartSeriesGroup]? = nil) {
         super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, isDecorative: isDecorative, x: x, y: y, zOrderPosition: zOrderPosition, fillFormat: fillFormat, effectFormat: effectFormat, threeDFormat: threeDFormat, lineFormat: lineFormat, hyperlinkClick: hyperlinkClick, hyperlinkMouseOver: hyperlinkMouseOver, type: type)
         self.chartType = chartType
         self.showDataLabelsOverMaximum = showDataLabelsOverMaximum
         self.series = series
         self.categories = categories
         self.dataSourceForCategories = dataSourceForCategories
+        self.hasTitle = hasTitle
         self.title = title
         self.backWall = backWall
         self.sideWall = sideWall
@@ -347,6 +354,7 @@ public class Chart: ShapeBase {
         case series
         case categories
         case dataSourceForCategories
+        case hasTitle
         case title
         case backWall
         case sideWall
@@ -366,6 +374,7 @@ public class Chart: ShapeBase {
         series = try? values.decode([Series].self, forKey: .series)
         categories = try? values.decode([ChartCategory].self, forKey: .categories)
         dataSourceForCategories = try? values.decode(DataSource.self, forKey: .dataSourceForCategories)
+        hasTitle = try? values.decode(Bool.self, forKey: .hasTitle)
         title = try? values.decode(ChartTitle.self, forKey: .title)
         backWall = try? values.decode(ChartWall.self, forKey: .backWall)
         sideWall = try? values.decode(ChartWall.self, forKey: .sideWall)
@@ -395,6 +404,9 @@ public class Chart: ShapeBase {
         }
         if (dataSourceForCategories != nil) {
             try? container.encode(dataSourceForCategories, forKey: .dataSourceForCategories)
+        }
+        if (hasTitle != nil) {
+            try? container.encode(hasTitle, forKey: .hasTitle)
         }
         if (title != nil) {
             try? container.encode(title, forKey: .title)

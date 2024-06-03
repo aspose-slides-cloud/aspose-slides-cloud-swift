@@ -691,6 +691,10 @@ class ClassRegistry {
             let value = PdfExportOptions()
             try? value.fillValues(object)
             return (value, nil)
+        } else if className == "PdfImportOptions" {
+            let value = PdfImportOptions()
+            try? value.fillValues(object)
+            return (value, nil)
         } else if className == "PictureFill" {
             let value = PictureFill()
             try? value.fillValues(object)
