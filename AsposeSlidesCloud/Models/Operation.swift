@@ -52,7 +52,6 @@ public class Operation: Codable {
     public var status: Status?
     public var progress: OperationProgress?
     public var created: Date?
-    public var enqueued: Date?
     public var started: Date?
     public var failed: Date?
     public var canceled: Date?
@@ -104,16 +103,6 @@ public class Operation: Codable {
                 }
             }
         }
-        let enqueuedValue = source["enqueued"] ?? source["Enqueued"]
-        if enqueuedValue != nil {
-            let enqueuedDictionaryValue = enqueuedValue! as? [String:Any]
-            if enqueuedDictionaryValue != nil {
-                let (enqueuedInstance, error) = ClassRegistry.getClassFromDictionary(Date.self, enqueuedDictionaryValue!)
-                if error == nil && enqueuedInstance != nil {
-                    self.enqueued = enqueuedInstance! as? Date
-                }
-            }
-        }
         let startedValue = source["started"] ?? source["Started"]
         if startedValue != nil {
             let startedDictionaryValue = startedValue! as? [String:Any]
@@ -160,13 +149,12 @@ public class Operation: Codable {
         }
     }
 
-    public init(_id: String? = nil, method: Method? = nil, status: Status? = nil, progress: OperationProgress? = nil, created: Date? = nil, enqueued: Date? = nil, started: Date? = nil, failed: Date? = nil, canceled: Date? = nil, finished: Date? = nil, error: String? = nil) {
+    public init(_id: String? = nil, method: Method? = nil, status: Status? = nil, progress: OperationProgress? = nil, created: Date? = nil, started: Date? = nil, failed: Date? = nil, canceled: Date? = nil, finished: Date? = nil, error: String? = nil) {
         self._id = _id
         self.method = method
         self.status = status
         self.progress = progress
         self.created = created
-        self.enqueued = enqueued
         self.started = started
         self.failed = failed
         self.canceled = canceled
@@ -180,7 +168,6 @@ public class Operation: Codable {
         case status
         case progress
         case created
-        case enqueued
         case started
         case failed
         case canceled

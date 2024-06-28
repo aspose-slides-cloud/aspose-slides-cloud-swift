@@ -79,6 +79,10 @@ public class PdfExportOptions: ExportOptions {
     public var applyImageTransparent: Bool?
     /** Access permissions that should be granted when the document is opened with user access.  Default is AccessPermissions.None.              */
     public var accessPermissions: AccessPermissions?
+    /** True to hide Ink elements in exported document. */
+    public var hideInk: Bool?
+    /** True to use ROP operation or Opacity for rendering brush. */
+    public var interpretMaskOpAsOpacity: Bool?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -166,9 +170,17 @@ public class PdfExportOptions: ExportOptions {
                 }
             }
         }
+        let hideInkValue = source["hideInk"] ?? source["HideInk"]
+        if hideInkValue != nil {
+            self.hideInk = hideInkValue! as? Bool
+        }
+        let interpretMaskOpAsOpacityValue = source["interpretMaskOpAsOpacity"] ?? source["InterpretMaskOpAsOpacity"]
+        if interpretMaskOpAsOpacityValue != nil {
+            self.interpretMaskOpAsOpacity = interpretMaskOpAsOpacityValue! as? Bool
+        }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, textCompression: TextCompression? = nil, embedFullFonts: Bool? = nil, compliance: Compliance? = nil, sufficientResolution: Double? = nil, jpegQuality: Int? = nil, drawSlidesFrame: Bool? = nil, showHiddenSlides: Bool? = nil, saveMetafilesAsPng: Bool? = nil, password: String? = nil, embedTrueTypeFontsForASCII: Bool? = nil, additionalCommonFontFamilies: [String]? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil, imageTransparentColor: String? = nil, applyImageTransparent: Bool? = nil, accessPermissions: AccessPermissions? = nil) {
+    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, textCompression: TextCompression? = nil, embedFullFonts: Bool? = nil, compliance: Compliance? = nil, sufficientResolution: Double? = nil, jpegQuality: Int? = nil, drawSlidesFrame: Bool? = nil, showHiddenSlides: Bool? = nil, saveMetafilesAsPng: Bool? = nil, password: String? = nil, embedTrueTypeFontsForASCII: Bool? = nil, additionalCommonFontFamilies: [String]? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil, imageTransparentColor: String? = nil, applyImageTransparent: Bool? = nil, accessPermissions: AccessPermissions? = nil, hideInk: Bool? = nil, interpretMaskOpAsOpacity: Bool? = nil) {
         super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.textCompression = textCompression
         self.embedFullFonts = embedFullFonts
@@ -185,6 +197,8 @@ public class PdfExportOptions: ExportOptions {
         self.imageTransparentColor = imageTransparentColor
         self.applyImageTransparent = applyImageTransparent
         self.accessPermissions = accessPermissions
+        self.hideInk = hideInk
+        self.interpretMaskOpAsOpacity = interpretMaskOpAsOpacity
         self.format = "pdf"
     }
 
@@ -204,6 +218,8 @@ public class PdfExportOptions: ExportOptions {
         case imageTransparentColor
         case applyImageTransparent
         case accessPermissions
+        case hideInk
+        case interpretMaskOpAsOpacity
     }
 
     required init(from decoder: Decoder) throws {
@@ -224,6 +240,8 @@ public class PdfExportOptions: ExportOptions {
         imageTransparentColor = try? values.decode(String.self, forKey: .imageTransparentColor)
         applyImageTransparent = try? values.decode(Bool.self, forKey: .applyImageTransparent)
         accessPermissions = try? values.decode(AccessPermissions.self, forKey: .accessPermissions)
+        hideInk = try? values.decode(Bool.self, forKey: .hideInk)
+        interpretMaskOpAsOpacity = try? values.decode(Bool.self, forKey: .interpretMaskOpAsOpacity)
         self.format = "pdf"
     }
 
@@ -274,6 +292,12 @@ public class PdfExportOptions: ExportOptions {
         }
         if (accessPermissions != nil) {
             try? container.encode(accessPermissions, forKey: .accessPermissions)
+        }
+        if (hideInk != nil) {
+            try? container.encode(hideInk, forKey: .hideInk)
+        }
+        if (interpretMaskOpAsOpacity != nil) {
+            try? container.encode(interpretMaskOpAsOpacity, forKey: .interpretMaskOpAsOpacity)
         }
     }
 
