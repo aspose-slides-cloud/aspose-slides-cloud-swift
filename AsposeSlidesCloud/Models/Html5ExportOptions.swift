@@ -40,6 +40,8 @@ public class Html5ExportOptions: ExportOptions {
     public var embedImages: Bool?
     /** Slides layouting options */
     public var notesCommentsLayouting: NotesCommentsLayoutingOptions?
+    /** Path to custom templates */
+    public var templatesPath: String?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -65,14 +67,19 @@ public class Html5ExportOptions: ExportOptions {
                 }
             }
         }
+        let templatesPathValue = source["templatesPath"] ?? source["TemplatesPath"]
+        if templatesPathValue != nil {
+            self.templatesPath = templatesPathValue! as? String
+        }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, animateTransitions: Bool? = nil, animateShapes: Bool? = nil, embedImages: Bool? = nil, notesCommentsLayouting: NotesCommentsLayoutingOptions? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, animateTransitions: Bool? = nil, animateShapes: Bool? = nil, embedImages: Bool? = nil, notesCommentsLayouting: NotesCommentsLayoutingOptions? = nil, templatesPath: String? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.animateTransitions = animateTransitions
         self.animateShapes = animateShapes
         self.embedImages = embedImages
         self.notesCommentsLayouting = notesCommentsLayouting
+        self.templatesPath = templatesPath
         self.format = "html5"
     }
 
@@ -81,6 +88,7 @@ public class Html5ExportOptions: ExportOptions {
         case animateShapes
         case embedImages
         case notesCommentsLayouting
+        case templatesPath
     }
 
     required init(from decoder: Decoder) throws {
@@ -90,6 +98,7 @@ public class Html5ExportOptions: ExportOptions {
         animateShapes = try? values.decode(Bool.self, forKey: .animateShapes)
         embedImages = try? values.decode(Bool.self, forKey: .embedImages)
         notesCommentsLayouting = try? values.decode(NotesCommentsLayoutingOptions.self, forKey: .notesCommentsLayouting)
+        templatesPath = try? values.decode(String.self, forKey: .templatesPath)
         self.format = "html5"
     }
 
@@ -107,6 +116,9 @@ public class Html5ExportOptions: ExportOptions {
         }
         if (notesCommentsLayouting != nil) {
             try? container.encode(notesCommentsLayouting, forKey: .notesCommentsLayouting)
+        }
+        if (templatesPath != nil) {
+            try? container.encode(templatesPath, forKey: .templatesPath)
         }
     }
 

@@ -111,8 +111,8 @@ public class VideoExportOptions: ExportOptions {
         }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, slidesTransitionDuration: Int? = nil, transitionType: TransitionType? = nil, transitionDuration: Int? = nil, videoResolutionType: VideoResolutionType? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, slidesTransitionDuration: Int? = nil, transitionType: TransitionType? = nil, transitionDuration: Int? = nil, videoResolutionType: VideoResolutionType? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.slidesTransitionDuration = slidesTransitionDuration
         self.transitionType = transitionType
         self.transitionDuration = transitionDuration

@@ -92,35 +92,45 @@ class TextTests : XCTestCase {
             let slideIndex = 1
             let oldValue = "text"
             let newValue = "new_text"
-            SlidesAPI.replacePresentationText(fileName, oldValue, newValue, nil, password, folderName) { (result, error) -> Void in
+            SlidesAPI.replacePresentationText(fileName, oldValue, newValue, nil, nil, password, folderName) { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result!.matches)
                 SlidesAPI.copyFile("TempTests/" + fileName, folderName + "/" + fileName) { (copyResult, error) -> Void in
                     XCTAssertNil(error)
                     XCTAssertNotNil(copyResult)
-                    SlidesAPI.replacePresentationText(fileName, oldValue, newValue, true, password, folderName) { (resultWithEmpty, error) -> Void in
+                    SlidesAPI.replacePresentationText(fileName, oldValue, newValue, true, nil, password, folderName) { (resultWithEmpty, error) -> Void in
                         XCTAssertNil(error)
                         XCTAssertNotNil(resultWithEmpty)
                         XCTAssertNotNil(resultWithEmpty!.matches)
                         SlidesAPI.copyFile("TempTests/" + fileName, folderName + "/" + fileName) { (copyResult, error) -> Void in
                             XCTAssertNil(error)
                             XCTAssertNotNil(copyResult)
-                            SlidesAPI.replaceSlideText(fileName, slideIndex, oldValue, newValue, nil, password, folderName) { (slideResult, error) -> Void in
+                            SlidesAPI.replacePresentationText(fileName, oldValue, newValue, true, true, password, folderName) { (resultWholeWords, error) -> Void in
                                 XCTAssertNil(error)
-                                XCTAssertNotNil(slideResult)
-                                XCTAssertNotNil(slideResult!.matches)
+                                XCTAssertNotNil(resultWithEmpty)
+                                XCTAssertNotNil(resultWithEmpty!.matches)
                                 SlidesAPI.copyFile("TempTests/" + fileName, folderName + "/" + fileName) { (copyResult, error) -> Void in
                                     XCTAssertNil(error)
                                     XCTAssertNotNil(copyResult)
-                                    SlidesAPI.replaceSlideText(fileName, slideIndex, oldValue, newValue, true, password, folderName) { (slideResultWithEmpty, error) -> Void in
+                                    SlidesAPI.replaceSlideText(fileName, slideIndex, oldValue, newValue, nil, password, folderName) { (slideResult, error) -> Void in
                                         XCTAssertNil(error)
-                                        XCTAssertNotNil(slideResultWithEmpty)
-                                        XCTAssertNotNil(slideResultWithEmpty!.matches)
-                                        XCTAssertLessThan(result!.matches!, resultWithEmpty!.matches!)
-                                        XCTAssertLessThan(slideResult!.matches!, result!.matches!)
-                                        XCTAssertLessThan(slideResult!.matches!, slideResultWithEmpty!.matches!)
-                                        expectation.fulfill()
+                                        XCTAssertNotNil(slideResult)
+                                        XCTAssertNotNil(slideResult!.matches)
+                                        SlidesAPI.copyFile("TempTests/" + fileName, folderName + "/" + fileName) { (copyResult, error) -> Void in
+                                            XCTAssertNil(error)
+                                            XCTAssertNotNil(copyResult)
+                                            SlidesAPI.replaceSlideText(fileName, slideIndex, oldValue, newValue, true, password, folderName) { (slideResultWithEmpty, error) -> Void in
+                                                XCTAssertNil(error)
+                                                XCTAssertNotNil(slideResultWithEmpty)
+                                                XCTAssertNotNil(slideResultWithEmpty!.matches)
+                                                XCTAssertLessThan(result!.matches!, resultWithEmpty!.matches!)
+                                                XCTAssertLessThan(resultWholeWords!.matches!, resultWithEmpty!.matches!)
+                                                XCTAssertLessThan(slideResult!.matches!, result!.matches!)
+                                                XCTAssertLessThan(slideResult!.matches!, slideResultWithEmpty!.matches!)
+                                                expectation.fulfill()
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -141,10 +151,10 @@ class TextTests : XCTestCase {
             let newValue = "new_text"
             let source = FileManager.default.contents(atPath: "TestData/test.pptx")
             XCTAssertNotNil(source)
-            SlidesAPI.replacePresentationTextOnline(source!, oldValue, newValue, nil, password) { (result, error) -> Void in
+            SlidesAPI.replacePresentationTextOnline(source!, oldValue, newValue, nil, nil, password) { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
-                SlidesAPI.replacePresentationTextOnline(source!, oldValue, newValue, true, password) { (resultWithEmpty, error) -> Void in
+                SlidesAPI.replacePresentationTextOnline(source!, oldValue, newValue, true, nil, password) { (resultWithEmpty, error) -> Void in
                     XCTAssertNil(error)
                     XCTAssertNotNil(resultWithEmpty)
                     SlidesAPI.replaceSlideTextOnline(source!, slideIndex, oldValue, newValue, nil, password) { (slideResult, error) -> Void in

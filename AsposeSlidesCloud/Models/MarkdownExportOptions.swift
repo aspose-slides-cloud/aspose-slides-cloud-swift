@@ -133,8 +133,8 @@ public class MarkdownExportOptions: ExportOptions {
         }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, exportType: ExportType? = nil, flavor: Flavor? = nil, newLineType: NewLineType? = nil, imagesSaveFolderName: String? = nil, showSlideNumber: Bool? = nil, showComments: Bool? = nil, showHiddenSlides: Bool? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, exportType: ExportType? = nil, flavor: Flavor? = nil, newLineType: NewLineType? = nil, imagesSaveFolderName: String? = nil, showSlideNumber: Bool? = nil, showComments: Bool? = nil, showHiddenSlides: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.exportType = exportType
         self.flavor = flavor
         self.newLineType = newLineType

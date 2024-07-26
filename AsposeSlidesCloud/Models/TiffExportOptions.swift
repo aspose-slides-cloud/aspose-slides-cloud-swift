@@ -128,8 +128,8 @@ public class TiffExportOptions: ImageExportOptionsBase {
         }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, height: Int? = nil, width: Int? = nil, compression: Compression? = nil, dpiX: Int? = nil, dpiY: Int? = nil, showHiddenSlides: Bool? = nil, pixelFormat: PixelFormat? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil, bwConversionMode: BwConversionMode? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format, height: height, width: width)
+    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, height: Int? = nil, width: Int? = nil, compression: Compression? = nil, dpiX: Int? = nil, dpiY: Int? = nil, showHiddenSlides: Bool? = nil, pixelFormat: PixelFormat? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil, bwConversionMode: BwConversionMode? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format, height: height, width: width)
         self.compression = compression
         self.dpiX = dpiX
         self.dpiY = dpiY

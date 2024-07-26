@@ -64,6 +64,8 @@ public class TableCell: Codable {
     public var marginLeft: Double?
     /** The bottom margin of the cell. */
     public var marginBottom: Double?
+    /** Transparency. */
+    public var transparency: Double?
     /** Text anchor type. */
     public var textAnchorType: TextAnchorType?
     /** The type of vertical text. */
@@ -119,6 +121,10 @@ public class TableCell: Codable {
         let marginBottomValue = source["marginBottom"] ?? source["MarginBottom"]
         if marginBottomValue != nil {
             self.marginBottom = marginBottomValue! as? Double
+        }
+        let transparencyValue = source["transparency"] ?? source["Transparency"]
+        if transparencyValue != nil {
+            self.transparency = transparencyValue! as? Double
         }
         let textAnchorTypeValue = source["textAnchorType"] ?? source["TextAnchorType"]
         if textAnchorTypeValue != nil {
@@ -240,7 +246,7 @@ public class TableCell: Codable {
         }
     }
 
-    public init(text: String? = nil, rowSpan: Int? = nil, colSpan: Int? = nil, marginTop: Double? = nil, marginRight: Double? = nil, marginLeft: Double? = nil, marginBottom: Double? = nil, textAnchorType: TextAnchorType? = nil, textVerticalType: TextVerticalType? = nil, fillFormat: FillFormat? = nil, borderTop: LineFormat? = nil, borderRight: LineFormat? = nil, borderLeft: LineFormat? = nil, borderBottom: LineFormat? = nil, borderDiagonalUp: LineFormat? = nil, borderDiagonalDown: LineFormat? = nil, columnIndex: Int? = nil, rowIndex: Int? = nil, textFrameFormat: TextFrameFormat? = nil, paragraphs: ResourceUri? = nil) {
+    public init(text: String? = nil, rowSpan: Int? = nil, colSpan: Int? = nil, marginTop: Double? = nil, marginRight: Double? = nil, marginLeft: Double? = nil, marginBottom: Double? = nil, transparency: Double? = nil, textAnchorType: TextAnchorType? = nil, textVerticalType: TextVerticalType? = nil, fillFormat: FillFormat? = nil, borderTop: LineFormat? = nil, borderRight: LineFormat? = nil, borderLeft: LineFormat? = nil, borderBottom: LineFormat? = nil, borderDiagonalUp: LineFormat? = nil, borderDiagonalDown: LineFormat? = nil, columnIndex: Int? = nil, rowIndex: Int? = nil, textFrameFormat: TextFrameFormat? = nil, paragraphs: ResourceUri? = nil) {
         self.text = text
         self.rowSpan = rowSpan
         self.colSpan = colSpan
@@ -248,6 +254,7 @@ public class TableCell: Codable {
         self.marginRight = marginRight
         self.marginLeft = marginLeft
         self.marginBottom = marginBottom
+        self.transparency = transparency
         self.textAnchorType = textAnchorType
         self.textVerticalType = textVerticalType
         self.fillFormat = fillFormat
@@ -271,6 +278,7 @@ public class TableCell: Codable {
         case marginRight
         case marginLeft
         case marginBottom
+        case transparency
         case textAnchorType
         case textVerticalType
         case fillFormat

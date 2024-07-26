@@ -135,6 +135,7 @@ open class SlidesAsyncAPI {
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -229,6 +230,7 @@ open class SlidesAsyncAPI {
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -326,6 +328,7 @@ open class SlidesAsyncAPI {
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -524,6 +527,7 @@ open class SlidesAsyncAPI {
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**

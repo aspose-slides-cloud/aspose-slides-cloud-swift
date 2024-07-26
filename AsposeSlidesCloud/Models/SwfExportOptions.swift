@@ -179,8 +179,8 @@ public class SwfExportOptions: ExportOptions {
         }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, showHiddenSlides: Bool? = nil, compressed: Bool? = nil, viewerIncluded: Bool? = nil, showPageBorder: Bool? = nil, showFullScreen: Bool? = nil, showPageStepper: Bool? = nil, showSearch: Bool? = nil, showTopPane: Bool? = nil, showBottomPane: Bool? = nil, showLeftPane: Bool? = nil, startOpenLeftPane: Bool? = nil, enableContextMenu: Bool? = nil, logoImage: String? = nil, logoLink: String? = nil, jpegQuality: Int? = nil, notesPosition: NotesPosition? = nil, commentsPosition: CommentsPosition? = nil, commentsAreaWidth: Int? = nil, commentsAreaColor: String? = nil, showCommentsByNoAuthor: Bool? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, showHiddenSlides: Bool? = nil, compressed: Bool? = nil, viewerIncluded: Bool? = nil, showPageBorder: Bool? = nil, showFullScreen: Bool? = nil, showPageStepper: Bool? = nil, showSearch: Bool? = nil, showTopPane: Bool? = nil, showBottomPane: Bool? = nil, showLeftPane: Bool? = nil, startOpenLeftPane: Bool? = nil, enableContextMenu: Bool? = nil, logoImage: String? = nil, logoLink: String? = nil, jpegQuality: Int? = nil, notesPosition: NotesPosition? = nil, commentsPosition: CommentsPosition? = nil, commentsAreaWidth: Int? = nil, commentsAreaColor: String? = nil, showCommentsByNoAuthor: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.showHiddenSlides = showHiddenSlides
         self.compressed = compressed
         self.viewerIncluded = viewerIncluded

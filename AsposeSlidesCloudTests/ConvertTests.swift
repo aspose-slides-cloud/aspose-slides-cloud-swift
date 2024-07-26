@@ -50,6 +50,8 @@ class ConvertTests : XCTestCase {
         ("testConvertShapePutFromStorage", testConvertShapePutFromStorage),
         ("testConvertSubshapePutFromStorage", testConvertSubshapePutFromStorage),
         ("testConvertWithFallbackRules", testConvertWithFallbackRules),
+        ("testConvertWithCustomHtml5Templates", testConvertWithCustomHtml5Templates),
+        ("testGetHtml5Templates", testGetHtml5Templates),
     ];
     
     internal let testTimeout: TimeInterval = 200.0 
@@ -411,6 +413,43 @@ class ConvertTests : XCTestCase {
                     XCTAssertTrue(exists!.exists!)
                     expectation.fulfill()
                 }
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testConvertWithCustomHtml5Templates() {
+        let expectation = self.expectation(description: "testConvertWithCustomHtml5Templates")
+        TestUtils.initialize("") { (response, error) -> Void in
+            let templatesPath = "Html5Templates"
+            let templateFileName = "pictureFrame.html"
+            SlidesAPI.createFolder(templatesPath) { (result, error) -> Void in
+                XCTAssertNil(error)
+                XCTAssertNotNil(result)
+                SlidesAPI.copyFile("TempTests/"+templateFileName, templatesPath+"/"+templateFileName) { (result, error) -> Void in
+                    XCTAssertNil(error)
+                    XCTAssertNotNil(result)
+                    let exportOptions = Html5ExportOptions()
+                    exportOptions.templatesPath = templatesPath
+                    exportOptions.animateTransitions = true
+                    SlidesAPI.downloadPresentation("test.pptx", "html5", exportOptions, "password", "TempSlidesSDK") { (result, error) -> Void in
+                        XCTAssertNil(error)
+                        XCTAssertNotNil(result)
+                        expectation.fulfill()
+                    }
+                }
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func TestGetHtml5TemplatesTest(t *testing.T) {
+        let expectation = self.expectation(description: "testGetHtml5TemplatesTest")
+        TestUtils.initialize("") { (response, error) -> Void in
+            SlidesAPI.getHtml5Templates() { (result, error) -> Void in
+                XCTAssertNil(error)
+                XCTAssertNotNil(result)
+                expectation.fulfill()
             }
         }
         self.waitForExpectations(timeout: testTimeout, handler: nil)

@@ -83,6 +83,8 @@ public class PdfExportOptions: ExportOptions {
     public var hideInk: Bool?
     /** True to use ROP operation or Opacity for rendering brush. */
     public var interpretMaskOpAsOpacity: Bool?
+    /** True if text should be rasterized as a bitmap and saved to PDF when the font does not support bold styling. This approach can enhance the quality of text in the resulting PDF for certain fonts. */
+    public var rasterizeUnsupportedFontStyles: Bool?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -178,10 +180,14 @@ public class PdfExportOptions: ExportOptions {
         if interpretMaskOpAsOpacityValue != nil {
             self.interpretMaskOpAsOpacity = interpretMaskOpAsOpacityValue! as? Bool
         }
+        let rasterizeUnsupportedFontStylesValue = source["rasterizeUnsupportedFontStyles"] ?? source["RasterizeUnsupportedFontStyles"]
+        if rasterizeUnsupportedFontStylesValue != nil {
+            self.rasterizeUnsupportedFontStyles = rasterizeUnsupportedFontStylesValue! as? Bool
+        }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, textCompression: TextCompression? = nil, embedFullFonts: Bool? = nil, compliance: Compliance? = nil, sufficientResolution: Double? = nil, jpegQuality: Int? = nil, drawSlidesFrame: Bool? = nil, showHiddenSlides: Bool? = nil, saveMetafilesAsPng: Bool? = nil, password: String? = nil, embedTrueTypeFontsForASCII: Bool? = nil, additionalCommonFontFamilies: [String]? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil, imageTransparentColor: String? = nil, applyImageTransparent: Bool? = nil, accessPermissions: AccessPermissions? = nil, hideInk: Bool? = nil, interpretMaskOpAsOpacity: Bool? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, textCompression: TextCompression? = nil, embedFullFonts: Bool? = nil, compliance: Compliance? = nil, sufficientResolution: Double? = nil, jpegQuality: Int? = nil, drawSlidesFrame: Bool? = nil, showHiddenSlides: Bool? = nil, saveMetafilesAsPng: Bool? = nil, password: String? = nil, embedTrueTypeFontsForASCII: Bool? = nil, additionalCommonFontFamilies: [String]? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil, imageTransparentColor: String? = nil, applyImageTransparent: Bool? = nil, accessPermissions: AccessPermissions? = nil, hideInk: Bool? = nil, interpretMaskOpAsOpacity: Bool? = nil, rasterizeUnsupportedFontStyles: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.textCompression = textCompression
         self.embedFullFonts = embedFullFonts
         self.compliance = compliance
@@ -199,6 +205,7 @@ public class PdfExportOptions: ExportOptions {
         self.accessPermissions = accessPermissions
         self.hideInk = hideInk
         self.interpretMaskOpAsOpacity = interpretMaskOpAsOpacity
+        self.rasterizeUnsupportedFontStyles = rasterizeUnsupportedFontStyles
         self.format = "pdf"
     }
 
@@ -220,6 +227,7 @@ public class PdfExportOptions: ExportOptions {
         case accessPermissions
         case hideInk
         case interpretMaskOpAsOpacity
+        case rasterizeUnsupportedFontStyles
     }
 
     required init(from decoder: Decoder) throws {
@@ -242,6 +250,7 @@ public class PdfExportOptions: ExportOptions {
         accessPermissions = try? values.decode(AccessPermissions.self, forKey: .accessPermissions)
         hideInk = try? values.decode(Bool.self, forKey: .hideInk)
         interpretMaskOpAsOpacity = try? values.decode(Bool.self, forKey: .interpretMaskOpAsOpacity)
+        rasterizeUnsupportedFontStyles = try? values.decode(Bool.self, forKey: .rasterizeUnsupportedFontStyles)
         self.format = "pdf"
     }
 
@@ -298,6 +307,9 @@ public class PdfExportOptions: ExportOptions {
         }
         if (interpretMaskOpAsOpacity != nil) {
             try? container.encode(interpretMaskOpAsOpacity, forKey: .interpretMaskOpAsOpacity)
+        }
+        if (rasterizeUnsupportedFontStyles != nil) {
+            try? container.encode(rasterizeUnsupportedFontStyles, forKey: .rasterizeUnsupportedFontStyles)
         }
     }
 

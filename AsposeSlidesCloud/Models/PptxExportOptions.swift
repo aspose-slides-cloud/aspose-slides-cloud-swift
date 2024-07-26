@@ -37,8 +37,15 @@ public class PptxExportOptions: ExportOptions {
         case iso29500Transitional = "Iso29500Transitional"
         case iso29500Strict = "Iso29500Strict"
     }
-    /** The conformance class to which the PresentationML document conforms. Read/write Conformance. */
+    public enum Zip64Mode: String, Codable { 
+        case never = "Never"
+        case ifNecessary = "IfNecessary"
+        case always = "Always"
+    }
+    /** The conformance class to which the PresentationML document conforms. */
     public var conformance: Conformance?
+    /** Specifies whether the ZIP64 format is used for the Presentation document. The default value is Zip64Mode.IfNecessary. */
+    public var zip64Mode: Zip64Mode?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -52,22 +59,35 @@ public class PptxExportOptions: ExportOptions {
                 }
             }
         }
+        let zip64ModeValue = source["zip64Mode"] ?? source["Zip64Mode"]
+        if zip64ModeValue != nil {
+            let zip64ModeStringValue = zip64ModeValue! as? String
+            if zip64ModeStringValue != nil {
+                let zip64ModeEnumValue = Zip64Mode(rawValue: zip64ModeStringValue!)
+                if zip64ModeEnumValue != nil {
+                    self.zip64Mode = zip64ModeEnumValue!
+                }
+            }
+        }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, conformance: Conformance? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, conformance: Conformance? = nil, zip64Mode: Zip64Mode? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.conformance = conformance
+        self.zip64Mode = zip64Mode
         self.format = "pptx"
     }
 
     private enum CodingKeys: String, CodingKey {
         case conformance
+        case zip64Mode
     }
 
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
         conformance = try? values.decode(Conformance.self, forKey: .conformance)
+        zip64Mode = try? values.decode(Zip64Mode.self, forKey: .zip64Mode)
         self.format = "pptx"
     }
 
@@ -76,6 +96,9 @@ public class PptxExportOptions: ExportOptions {
         var container = encoder.container(keyedBy: CodingKeys.self)
         if (conformance != nil) {
             try? container.encode(conformance, forKey: .conformance)
+        }
+        if (zip64Mode != nil) {
+            try? container.encode(zip64Mode, forKey: .zip64Mode)
         }
     }
 

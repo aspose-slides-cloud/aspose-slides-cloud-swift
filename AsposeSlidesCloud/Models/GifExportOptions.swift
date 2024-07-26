@@ -55,8 +55,8 @@ public class GifExportOptions: ImageExportOptionsBase {
         }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, height: Int? = nil, width: Int? = nil, exportHiddenSlides: Bool? = nil, transitionFps: Int? = nil, defaultDelay: Int? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format, height: height, width: width)
+    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, height: Int? = nil, width: Int? = nil, exportHiddenSlides: Bool? = nil, transitionFps: Int? = nil, defaultDelay: Int? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format, height: height, width: width)
         self.exportHiddenSlides = exportHiddenSlides
         self.transitionFps = transitionFps
         self.defaultDelay = defaultDelay

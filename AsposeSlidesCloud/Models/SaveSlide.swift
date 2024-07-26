@@ -57,6 +57,7 @@ public class SaveSlide: Task {
         case xaml = "Xaml"
         case html5 = "Html5"
         case md = "Md"
+        case xml = "Xml"
     }
     /** Output to save the slide to. */
     public var output: OutputFile?

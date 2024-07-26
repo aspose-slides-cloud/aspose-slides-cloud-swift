@@ -32,8 +32,14 @@ import Foundation
 /** Represents export options for whole presentation. */
 public class ExportOptions: Codable {
 
+    public enum GradientStyle: String, Codable { 
+        case _default = "Default"
+        case powerPointUI = "PowerPointUI"
+    }
     /** Default regular font for rendering the presentation.  */
     public var defaultRegularFont: String?
+    /** Default regular font for rendering the presentation.  */
+    public var gradientStyle: GradientStyle?
     /** Gets of sets list of font fallback rules. */
     public var fontFallbackRules: [FontFallbackRule]?
     /** Gets of sets list of font substitution rules. */
@@ -44,6 +50,16 @@ public class ExportOptions: Codable {
         let defaultRegularFontValue = source["defaultRegularFont"] ?? source["DefaultRegularFont"]
         if defaultRegularFontValue != nil {
             self.defaultRegularFont = defaultRegularFontValue! as? String
+        }
+        let gradientStyleValue = source["gradientStyle"] ?? source["GradientStyle"]
+        if gradientStyleValue != nil {
+            let gradientStyleStringValue = gradientStyleValue! as? String
+            if gradientStyleStringValue != nil {
+                let gradientStyleEnumValue = GradientStyle(rawValue: gradientStyleStringValue!)
+                if gradientStyleEnumValue != nil {
+                    self.gradientStyle = gradientStyleEnumValue!
+                }
+            }
         }
         let fontFallbackRulesValue = source["fontFallbackRules"] ?? source["FontFallbackRules"]
         if fontFallbackRulesValue != nil {
@@ -101,8 +117,9 @@ public class ExportOptions: Codable {
         }
     }
 
-    public init(defaultRegularFont: String? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil) {
+    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil) {
         self.defaultRegularFont = defaultRegularFont
+        self.gradientStyle = gradientStyle
         self.fontFallbackRules = fontFallbackRules
         self.fontSubstRules = fontSubstRules
         self.format = format
@@ -110,6 +127,7 @@ public class ExportOptions: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case defaultRegularFont
+        case gradientStyle
         case fontFallbackRules
         case fontSubstRules
         case format

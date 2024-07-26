@@ -343,6 +343,7 @@ open class SlidesAPI {
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -435,6 +436,7 @@ open class SlidesAPI {
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -7380,70 +7382,6 @@ open class SlidesAPI {
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
     }
     /**
-     Convert Mathematical Text to MathML Format
-     - parameter name: Document name.
-     - parameter slideIndex: Slide index.
-     - parameter shapeIndex: Shape index.
-     - parameter paragraphIndex: Paragraph index.
-     - parameter portionIndex: Portion index.
-     - parameter password: Document password.
-     - parameter folder: Document folder.
-     - parameter storage: Document storage.
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func downloadPortionAsMathMl(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ paragraphIndex: Int, _ portionIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
-        downloadPortionAsMathMlWithRequestBuilder(name, slideIndex, shapeIndex, paragraphIndex, portionIndex, password, folder, storage).executeAuthorized { (response, error) -> Void in
-            completion(response?.body, error)
-        }
-    }
-
-
-    /**
-     Convert Mathematical Text to MathML Format
-     - POST /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}/mathml
-     - OAuth:
-       - type: oauth2
-       - name: JWT
-     - examples: [{output=none}]
-     - parameter name: Document name.
-     - parameter slideIndex: Slide index.
-     - parameter shapeIndex: Shape index.
-     - parameter paragraphIndex: Paragraph index.
-     - parameter portionIndex: Portion index.
-     - parameter password: Document password.
-     - parameter folder: Document folder.
-     - parameter storage: Document storage.
-     - returns: RequestBuilder<Data> 
-     */
-    open class func downloadPortionAsMathMlWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ paragraphIndex: Int, _ portionIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Data> {
-        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}/mathml"
-        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
-        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
-        methodPath = APIHelper.replacePathParameter(methodPath, "shapeIndex", shapeIndex)
-        methodPath = APIHelper.replacePathParameter(methodPath, "paragraphIndex", paragraphIndex)
-        methodPath = APIHelper.replacePathParameter(methodPath, "portionIndex", portionIndex)
-        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
-        let parameters: [String:Any]? = nil
-
-
-        var fileParams = [Data]()
-        fileParams.removeAll()
-
-        var url = URLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "folder": folder, 
-            "storage": storage
-        ])
-        let nillableHeaders: [String: Any?] = [
-            "password": password
-        ]
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
-
-        let requestBuilder: RequestBuilder<Data>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
-    }
-    /**
      * enum for parameter format
      */
     public enum Format_downloadPresentation: String { 
@@ -7473,6 +7411,7 @@ open class SlidesAPI {
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -7811,6 +7750,7 @@ open class SlidesAPI {
         case xaml = "Xaml"
         case html5 = "Html5"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -7910,6 +7850,7 @@ open class SlidesAPI {
         case xaml = "Xaml"
         case html5 = "Html5"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -8862,6 +8803,42 @@ open class SlidesAPI {
         let requestBuilder: RequestBuilder<FormatScheme>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
+     Get default templates for HTML5 export.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getHtml5Templates(completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        getHtml5TemplatesWithRequestBuilder().executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Get default templates for HTML5 export.
+     - GET /slides/html5Templates
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{output=none}]
+     - returns: RequestBuilder<Data> 
+     */
+    open class func getHtml5TemplatesWithRequestBuilder() -> RequestBuilder<Data> {
+        let methodPath = "/slides/html5Templates"
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<Data>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams)
     }
     /**
      Read presentation layoutSlide info.
@@ -13295,13 +13272,14 @@ open class SlidesAPI {
      - parameter oldValue: Text value to be replaced.
      - parameter newValue: Text value to replace with.
      - parameter ignoreCase: True if character case must be ignored.
+     - parameter wholeWordsOnly: True to replace whole words only.
      - parameter password: Document password.
      - parameter folder: Document folder.
      - parameter storage: Document storage.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func replacePresentationText(_ name: String, _ oldValue: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: DocumentReplaceResult?,_ error: Error?) -> Void)) {
-        replacePresentationTextWithRequestBuilder(name, oldValue, newValue, ignoreCase, password, folder, storage).executeAuthorized { (response, error) -> Void in
+    open class func replacePresentationText(_ name: String, _ oldValue: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ wholeWordsOnly: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: DocumentReplaceResult?,_ error: Error?) -> Void)) {
+        replacePresentationTextWithRequestBuilder(name, oldValue, newValue, ignoreCase, wholeWordsOnly, password, folder, storage).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -13322,12 +13300,13 @@ open class SlidesAPI {
      - parameter oldValue: Text value to be replaced.
      - parameter newValue: Text value to replace with.
      - parameter ignoreCase: True if character case must be ignored.
+     - parameter wholeWordsOnly: True to replace whole words only.
      - parameter password: Document password.
      - parameter folder: Document folder.
      - parameter storage: Document storage.
      - returns: RequestBuilder<DocumentReplaceResult> 
      */
-    open class func replacePresentationTextWithRequestBuilder(_ name: String, _ oldValue: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<DocumentReplaceResult> {
+    open class func replacePresentationTextWithRequestBuilder(_ name: String, _ oldValue: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ wholeWordsOnly: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<DocumentReplaceResult> {
         var methodPath = "/slides/{name}/replaceText"
         methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
@@ -13342,6 +13321,7 @@ open class SlidesAPI {
             "oldValue": oldValue, 
             "newValue": newValue, 
             "ignoreCase": ignoreCase, 
+            "wholeWordsOnly": wholeWordsOnly, 
             "folder": folder, 
             "storage": storage
         ])
@@ -13360,11 +13340,12 @@ open class SlidesAPI {
      - parameter oldValue: Text value to be replaced.
      - parameter newValue: Text value to replace with.
      - parameter ignoreCase: True if character case must be ignored.
+     - parameter wholeWordsOnly: True to replace whole words only.
      - parameter password: Document password.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func replacePresentationTextOnline(_ document: Data, _ oldValue: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ password: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
-        replacePresentationTextOnlineWithRequestBuilder(document, oldValue, newValue, ignoreCase, password).executeAuthorized { (response, error) -> Void in
+    open class func replacePresentationTextOnline(_ document: Data, _ oldValue: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ wholeWordsOnly: Bool? = nil, _ password: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        replacePresentationTextOnlineWithRequestBuilder(document, oldValue, newValue, ignoreCase, wholeWordsOnly, password).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -13381,10 +13362,11 @@ open class SlidesAPI {
      - parameter oldValue: Text value to be replaced.
      - parameter newValue: Text value to replace with.
      - parameter ignoreCase: True if character case must be ignored.
+     - parameter wholeWordsOnly: True to replace whole words only.
      - parameter password: Document password.
      - returns: RequestBuilder<Data> 
      */
-    open class func replacePresentationTextOnlineWithRequestBuilder(_ document: Data, _ oldValue: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ password: String = "") -> RequestBuilder<Data> {
+    open class func replacePresentationTextOnlineWithRequestBuilder(_ document: Data, _ oldValue: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ wholeWordsOnly: Bool? = nil, _ password: String = "") -> RequestBuilder<Data> {
         let methodPath = "/slides/replaceText"
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
         let parameters: [String:Any]? = nil
@@ -13398,7 +13380,8 @@ open class SlidesAPI {
         url?.queryItems = APIHelper.mapValuesToQueryItems([
             "oldValue": oldValue, 
             "newValue": newValue, 
-            "ignoreCase": ignoreCase
+            "ignoreCase": ignoreCase, 
+            "wholeWordsOnly": wholeWordsOnly
         ])
         let nillableHeaders: [String: Any?] = [
             "password": password
@@ -13741,76 +13724,6 @@ open class SlidesAPI {
         return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
     }
     /**
-     Convert Mathematical Text to MathML Format and saves result to the storage
-     - parameter name: Document name.
-     - parameter slideIndex: Slide index.
-     - parameter shapeIndex: Shape index.
-     - parameter paragraphIndex: Paragraph index.
-     - parameter portionIndex: Portion index.
-     - parameter outPath: Path to save result.
-     - parameter password: Document password.
-     - parameter folder: Presentation folder.
-     - parameter storage: Presentation storage.
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func savePortionAsMathMl(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ paragraphIndex: Int, _ portionIndex: Int, _ outPath: String, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        savePortionAsMathMlWithRequestBuilder(name, slideIndex, shapeIndex, paragraphIndex, portionIndex, outPath, password, folder, storage).executeAuthorized { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
-                completion(nil, error)
-            }
-        }
-    }
-
-
-    /**
-     Convert Mathematical Text to MathML Format and saves result to the storage
-     - PUT /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}/mathml
-     - OAuth:
-       - type: oauth2
-       - name: JWT
-     - parameter name: Document name.
-     - parameter slideIndex: Slide index.
-     - parameter shapeIndex: Shape index.
-     - parameter paragraphIndex: Paragraph index.
-     - parameter portionIndex: Portion index.
-     - parameter outPath: Path to save result.
-     - parameter password: Document password.
-     - parameter folder: Presentation folder.
-     - parameter storage: Presentation storage.
-     - returns: RequestBuilder<Void> 
-     */
-    open class func savePortionAsMathMlWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ paragraphIndex: Int, _ portionIndex: Int, _ outPath: String, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Void> {
-        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}/mathml"
-        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
-        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
-        methodPath = APIHelper.replacePathParameter(methodPath, "shapeIndex", shapeIndex)
-        methodPath = APIHelper.replacePathParameter(methodPath, "paragraphIndex", paragraphIndex)
-        methodPath = APIHelper.replacePathParameter(methodPath, "portionIndex", portionIndex)
-        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
-        let parameters: [String:Any]? = nil
-
-
-        var fileParams = [Data]()
-        fileParams.removeAll()
-
-        var url = URLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "outPath": outPath, 
-            "folder": folder, 
-            "storage": storage
-        ])
-        let nillableHeaders: [String: Any?] = [
-            "password": password
-        ]
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
-
-        let requestBuilder: RequestBuilder<Void>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getNonDecodableBuilder()
-
-        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
-    }
-    /**
      * enum for parameter format
      */
     public enum Format_savePresentation: String { 
@@ -13840,6 +13753,7 @@ open class SlidesAPI {
         case xaml = "Xaml"
         case mpeg4 = "Mpeg4"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -14143,6 +14057,7 @@ open class SlidesAPI {
         case xaml = "Xaml"
         case html5 = "Html5"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -14248,6 +14163,7 @@ open class SlidesAPI {
         case xaml = "Xaml"
         case html5 = "Html5"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -15922,6 +15838,7 @@ open class SlidesAPI {
         case xaml = "Xaml"
         case html5 = "Html5"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -16031,6 +15948,7 @@ open class SlidesAPI {
         case xaml = "Xaml"
         case html5 = "Html5"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**
@@ -16137,6 +16055,7 @@ open class SlidesAPI {
         case xaml = "Xaml"
         case html5 = "Html5"
         case md = "Md"
+        case xml = "Xml"
     }
 
     /**

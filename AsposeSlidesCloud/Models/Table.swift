@@ -130,6 +130,8 @@ public class Table: ShapeBase {
     public var rightToLeft: Bool?
     /** Determines whether the even columns has to be drawn with a different formatting. */
     public var verticalBanding: Bool?
+    /** Transparency. */
+    public var transparency: Double?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -221,9 +223,13 @@ public class Table: ShapeBase {
         if verticalBandingValue != nil {
             self.verticalBanding = verticalBandingValue! as? Bool
         }
+        let transparencyValue = source["transparency"] ?? source["Transparency"]
+        if transparencyValue != nil {
+            self.transparency = transparencyValue! as? Double
+        }
     }
 
-    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, isDecorative: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil, style: Style? = nil, rows: [TableRow]? = nil, columns: [TableColumn]? = nil, firstCol: Bool? = nil, firstRow: Bool? = nil, horizontalBanding: Bool? = nil, lastCol: Bool? = nil, lastRow: Bool? = nil, rightToLeft: Bool? = nil, verticalBanding: Bool? = nil) {
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, isDecorative: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil, style: Style? = nil, rows: [TableRow]? = nil, columns: [TableColumn]? = nil, firstCol: Bool? = nil, firstRow: Bool? = nil, horizontalBanding: Bool? = nil, lastCol: Bool? = nil, lastRow: Bool? = nil, rightToLeft: Bool? = nil, verticalBanding: Bool? = nil, transparency: Double? = nil) {
         super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, isDecorative: isDecorative, x: x, y: y, zOrderPosition: zOrderPosition, fillFormat: fillFormat, effectFormat: effectFormat, threeDFormat: threeDFormat, lineFormat: lineFormat, hyperlinkClick: hyperlinkClick, hyperlinkMouseOver: hyperlinkMouseOver, type: type)
         self.style = style
         self.rows = rows
@@ -235,6 +241,7 @@ public class Table: ShapeBase {
         self.lastRow = lastRow
         self.rightToLeft = rightToLeft
         self.verticalBanding = verticalBanding
+        self.transparency = transparency
         self.type = ModelType.table
     }
 
@@ -249,6 +256,7 @@ public class Table: ShapeBase {
         case lastRow
         case rightToLeft
         case verticalBanding
+        case transparency
     }
 
     required init(from decoder: Decoder) throws {
@@ -264,6 +272,7 @@ public class Table: ShapeBase {
         lastRow = try? values.decode(Bool.self, forKey: .lastRow)
         rightToLeft = try? values.decode(Bool.self, forKey: .rightToLeft)
         verticalBanding = try? values.decode(Bool.self, forKey: .verticalBanding)
+        transparency = try? values.decode(Double.self, forKey: .transparency)
         self.type = ModelType.table
     }
 
@@ -299,6 +308,9 @@ public class Table: ShapeBase {
         }
         if (verticalBanding != nil) {
             try? container.encode(verticalBanding, forKey: .verticalBanding)
+        }
+        if (transparency != nil) {
+            try? container.encode(transparency, forKey: .transparency)
         }
     }
 
