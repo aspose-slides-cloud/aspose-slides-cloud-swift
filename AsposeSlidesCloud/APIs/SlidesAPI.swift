@@ -11921,9 +11921,72 @@ open class SlidesAPI {
     /**
      Highlight all matches of sample in text frame text using specified color.
      - parameter name: Document name.
-     - parameter slideIndex: Slide index.
-     - parameter shapeIndex: Shape index.
      - parameter regex: Regular expression.
+     - parameter color: Highlighting color.
+     - parameter ignoreCase: True to search ignoring char case.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func highlightPresentationRegex(_ name: String, _ regex: String, _ color: String, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: DocumentReplaceResult?,_ error: Error?) -> Void)) {
+        highlightPresentationRegexWithRequestBuilder(name, regex, color, ignoreCase, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Highlight all matches of sample in text frame text using specified color.
+     - POST /slides/{name}/highlightRegex
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter name: Document name.
+     - parameter regex: Regular expression.
+     - parameter color: Highlighting color.
+     - parameter ignoreCase: True to search ignoring char case.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - returns: RequestBuilder<DocumentReplaceResult> 
+     */
+    open class func highlightPresentationRegexWithRequestBuilder(_ name: String, _ regex: String, _ color: String, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<DocumentReplaceResult> {
+        var methodPath = "/slides/{name}/highlightRegex"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "regex": regex, 
+            "color": color, 
+            "ignoreCase": ignoreCase, 
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<DocumentReplaceResult>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
+     Highlight all matches of sample using specified color.
+     - parameter name: Document name.
+     - parameter text: Text sample to highlight.
      - parameter color: Highlighting color.
      - parameter wholeWordsOnly: Match only whole words.
      - parameter ignoreCase: True to search ignoring char case.
@@ -11932,8 +11995,77 @@ open class SlidesAPI {
      - parameter storage: Document storage.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func highlightShapeRegex(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ regex: String, _ color: String, _ wholeWordsOnly: Bool? = nil, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Shape?,_ error: Error?) -> Void)) {
-        highlightShapeRegexWithRequestBuilder(name, slideIndex, shapeIndex, regex, color, wholeWordsOnly, ignoreCase, password, folder, storage).executeAuthorized { (response, error) -> Void in
+    open class func highlightPresentationText(_ name: String, _ text: String, _ color: String, _ wholeWordsOnly: Bool? = nil, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: DocumentReplaceResult?,_ error: Error?) -> Void)) {
+        highlightPresentationTextWithRequestBuilder(name, text, color, wholeWordsOnly, ignoreCase, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Highlight all matches of sample using specified color.
+     - POST /slides/{name}/highlightText
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter name: Document name.
+     - parameter text: Text sample to highlight.
+     - parameter color: Highlighting color.
+     - parameter wholeWordsOnly: Match only whole words.
+     - parameter ignoreCase: True to search ignoring char case.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - returns: RequestBuilder<DocumentReplaceResult> 
+     */
+    open class func highlightPresentationTextWithRequestBuilder(_ name: String, _ text: String, _ color: String, _ wholeWordsOnly: Bool? = nil, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<DocumentReplaceResult> {
+        var methodPath = "/slides/{name}/highlightText"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "text": text, 
+            "color": color, 
+            "wholeWordsOnly": wholeWordsOnly, 
+            "ignoreCase": ignoreCase, 
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<DocumentReplaceResult>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
+     Highlight all matches of sample in text frame text using specified color.
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index.
+     - parameter regex: Regular expression.
+     - parameter color: Highlighting color.
+     - parameter ignoreCase: True to search ignoring char case.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func highlightShapeRegex(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ regex: String, _ color: String, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Shape?,_ error: Error?) -> Void)) {
+        highlightShapeRegexWithRequestBuilder(name, slideIndex, shapeIndex, regex, color, ignoreCase, password, folder, storage).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -11955,14 +12087,13 @@ open class SlidesAPI {
      - parameter shapeIndex: Shape index.
      - parameter regex: Regular expression.
      - parameter color: Highlighting color.
-     - parameter wholeWordsOnly: Match only whole words.
      - parameter ignoreCase: True to search ignoring char case.
      - parameter password: Document password.
      - parameter folder: Document folder.
      - parameter storage: Document storage.
      - returns: RequestBuilder<Shape> 
      */
-    open class func highlightShapeRegexWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ regex: String, _ color: String, _ wholeWordsOnly: Bool? = nil, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Shape> {
+    open class func highlightShapeRegexWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ regex: String, _ color: String, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Shape> {
         var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/highlightRegex"
         methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
         methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
@@ -11978,7 +12109,6 @@ open class SlidesAPI {
         url?.queryItems = APIHelper.mapValuesToQueryItems([
             "regex": regex, 
             "color": color, 
-            "wholeWordsOnly": wholeWordsOnly, 
             "ignoreCase": ignoreCase, 
             "folder": folder, 
             "storage": storage
@@ -13257,6 +13387,126 @@ open class SlidesAPI {
 
 
         let url = URLComponents(string: URLString)
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<Data>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
+     Replace text with a new value using a regex.
+     - parameter name: Document name.
+     - parameter pattern: Text value pattern to be replaced.
+     - parameter newValue: Text value to replace with.
+     - parameter ignoreCase: True if character case must be ignored.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func replacePresentationRegex(_ name: String, _ pattern: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: DocumentReplaceResult?,_ error: Error?) -> Void)) {
+        replacePresentationRegexWithRequestBuilder(name, pattern, newValue, ignoreCase, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Replace text with a new value using a regex.
+     - POST /slides/{name}/replaceRegex
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter name: Document name.
+     - parameter pattern: Text value pattern to be replaced.
+     - parameter newValue: Text value to replace with.
+     - parameter ignoreCase: True if character case must be ignored.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Document storage.
+     - returns: RequestBuilder<DocumentReplaceResult> 
+     */
+    open class func replacePresentationRegexWithRequestBuilder(_ name: String, _ pattern: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<DocumentReplaceResult> {
+        var methodPath = "/slides/{name}/replaceRegex"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "pattern": pattern, 
+            "newValue": newValue, 
+            "ignoreCase": ignoreCase, 
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<DocumentReplaceResult>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
+     Replace text with a new value using a regex.
+     - parameter document: Document data.
+     - parameter pattern: Text regex pattern to be replaced.
+     - parameter newValue: Text value to replace with.
+     - parameter ignoreCase: True if character case must be ignored.
+     - parameter password: Document password.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func replacePresentationRegexOnline(_ document: Data, _ pattern: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ password: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        replacePresentationRegexOnlineWithRequestBuilder(document, pattern, newValue, ignoreCase, password).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Replace text with a new value using a regex.
+     - POST /slides/replaceRegex
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{output=none}]
+     - parameter document: Document data.
+     - parameter pattern: Text regex pattern to be replaced.
+     - parameter newValue: Text value to replace with.
+     - parameter ignoreCase: True if character case must be ignored.
+     - parameter password: Document password.
+     - returns: RequestBuilder<Data> 
+     */
+    open class func replacePresentationRegexOnlineWithRequestBuilder(_ document: Data, _ pattern: String, _ newValue: String, _ ignoreCase: Bool? = nil, _ password: String = "") -> RequestBuilder<Data> {
+        let methodPath = "/slides/replaceRegex"
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+        fileParams.append(document)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "pattern": pattern, 
+            "newValue": newValue, 
+            "ignoreCase": ignoreCase
+        ])
         let nillableHeaders: [String: Any?] = [
             "password": password
         ]

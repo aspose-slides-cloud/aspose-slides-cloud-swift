@@ -36,6 +36,8 @@ class TextTests : XCTestCase {
         ("testTextReplaceRequest", testTextReplaceRequest),
         ("testHighlightShapeText", testHighlightShapeText),
         ("testHighlightShapeRegex", testHighlightShapeRegex),
+        ("testHighlightPresentationText", testHighlightPresentationText),
+        ("testHighlightPresentationRegex", testHighlightPresentationRegex),
     ];
     
     internal let testTimeout: TimeInterval = 200.0 
@@ -99,36 +101,46 @@ class TextTests : XCTestCase {
                 SlidesAPI.copyFile("TempTests/" + fileName, folderName + "/" + fileName) { (copyResult, error) -> Void in
                     XCTAssertNil(error)
                     XCTAssertNotNil(copyResult)
-                    SlidesAPI.replacePresentationText(fileName, oldValue, newValue, true, nil, password, folderName) { (resultWithEmpty, error) -> Void in
+                    SlidesAPI.replacePresentationRegex(fileName, oldValue, newValue, nil, password, folderName) { (resultRegex, error) -> Void in
                         XCTAssertNil(error)
-                        XCTAssertNotNil(resultWithEmpty)
-                        XCTAssertNotNil(resultWithEmpty!.matches)
+                        XCTAssertNotNil(resultRegex)
+                        XCTAssertNotNil(resultRegex!.matches)
                         SlidesAPI.copyFile("TempTests/" + fileName, folderName + "/" + fileName) { (copyResult, error) -> Void in
                             XCTAssertNil(error)
                             XCTAssertNotNil(copyResult)
-                            SlidesAPI.replacePresentationText(fileName, oldValue, newValue, true, true, password, folderName) { (resultWholeWords, error) -> Void in
+                            SlidesAPI.replacePresentationText(fileName, oldValue, newValue, true, nil, password, folderName) { (resultWithEmpty, error) -> Void in
                                 XCTAssertNil(error)
                                 XCTAssertNotNil(resultWithEmpty)
                                 XCTAssertNotNil(resultWithEmpty!.matches)
                                 SlidesAPI.copyFile("TempTests/" + fileName, folderName + "/" + fileName) { (copyResult, error) -> Void in
                                     XCTAssertNil(error)
                                     XCTAssertNotNil(copyResult)
-                                    SlidesAPI.replaceSlideText(fileName, slideIndex, oldValue, newValue, nil, password, folderName) { (slideResult, error) -> Void in
+                                    SlidesAPI.replacePresentationText(fileName, oldValue, newValue, true, true, password, folderName) { (resultWholeWords, error) -> Void in
                                         XCTAssertNil(error)
-                                        XCTAssertNotNil(slideResult)
-                                        XCTAssertNotNil(slideResult!.matches)
+                                        XCTAssertNotNil(resultWithEmpty)
+                                        XCTAssertNotNil(resultWithEmpty!.matches)
                                         SlidesAPI.copyFile("TempTests/" + fileName, folderName + "/" + fileName) { (copyResult, error) -> Void in
                                             XCTAssertNil(error)
                                             XCTAssertNotNil(copyResult)
-                                            SlidesAPI.replaceSlideText(fileName, slideIndex, oldValue, newValue, true, password, folderName) { (slideResultWithEmpty, error) -> Void in
+                                            SlidesAPI.replaceSlideText(fileName, slideIndex, oldValue, newValue, nil, password, folderName) { (slideResult, error) -> Void in
                                                 XCTAssertNil(error)
-                                                XCTAssertNotNil(slideResultWithEmpty)
-                                                XCTAssertNotNil(slideResultWithEmpty!.matches)
-                                                XCTAssertLessThan(result!.matches!, resultWithEmpty!.matches!)
-                                                XCTAssertLessThan(resultWholeWords!.matches!, resultWithEmpty!.matches!)
-                                                XCTAssertLessThan(slideResult!.matches!, result!.matches!)
-                                                XCTAssertLessThan(slideResult!.matches!, slideResultWithEmpty!.matches!)
-                                                expectation.fulfill()
+                                                XCTAssertNotNil(slideResult)
+                                                XCTAssertNotNil(slideResult!.matches)
+                                                SlidesAPI.copyFile("TempTests/" + fileName, folderName + "/" + fileName) { (copyResult, error) -> Void in
+                                                    XCTAssertNil(error)
+                                                    XCTAssertNotNil(copyResult)
+                                                    SlidesAPI.replaceSlideText(fileName, slideIndex, oldValue, newValue, true, password, folderName) { (slideResultWithEmpty, error) -> Void in
+                                                        XCTAssertNil(error)
+                                                        XCTAssertNotNil(slideResultWithEmpty)
+                                                        XCTAssertNotNil(slideResultWithEmpty!.matches)
+                                                        XCTAssertEqual(result!.matches!, resultRegex!.matches!)
+                                                        XCTAssertLessThan(result!.matches!, resultWithEmpty!.matches!)
+                                                        XCTAssertLessThan(resultWholeWords!.matches!, resultWithEmpty!.matches!)
+                                                        XCTAssertLessThan(slideResult!.matches!, result!.matches!)
+                                                        XCTAssertLessThan(slideResult!.matches!, slideResultWithEmpty!.matches!)
+                                                        expectation.fulfill()
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -154,16 +166,20 @@ class TextTests : XCTestCase {
             SlidesAPI.replacePresentationTextOnline(source!, oldValue, newValue, nil, nil, password) { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
-                SlidesAPI.replacePresentationTextOnline(source!, oldValue, newValue, true, nil, password) { (resultWithEmpty, error) -> Void in
+                SlidesAPI.replacePresentationRegexOnline(source!, oldValue, newValue, nil, password) { (resultRegex, error) -> Void in
                     XCTAssertNil(error)
-                    XCTAssertNotNil(resultWithEmpty)
-                    SlidesAPI.replaceSlideTextOnline(source!, slideIndex, oldValue, newValue, nil, password) { (slideResult, error) -> Void in
+                    XCTAssertNotNil(resultRegex)
+                    SlidesAPI.replacePresentationTextOnline(source!, oldValue, newValue, true, nil, password) { (resultWithEmpty, error) -> Void in
                         XCTAssertNil(error)
-                        XCTAssertNotNil(slideResult)
-                        SlidesAPI.replaceSlideTextOnline(source!, slideIndex, oldValue, newValue, true, password) { (slideResultWithEmpty, error) -> Void in
+                        XCTAssertNotNil(resultWithEmpty)
+                        SlidesAPI.replaceSlideTextOnline(source!, slideIndex, oldValue, newValue, nil, password) { (slideResult, error) -> Void in
                             XCTAssertNil(error)
-                            XCTAssertNotNil(slideResultWithEmpty)
-                            expectation.fulfill()
+                            XCTAssertNotNil(slideResult)
+                            SlidesAPI.replaceSlideTextOnline(source!, slideIndex, oldValue, newValue, true, password) { (slideResultWithEmpty, error) -> Void in
+                                XCTAssertNil(error)
+                                XCTAssertNotNil(slideResultWithEmpty)
+                                expectation.fulfill()
+                            }
                         }
                     }
                 }
@@ -213,7 +229,7 @@ class TextTests : XCTestCase {
             let textToHighlight = "highlight"
             let color = "#FFF5FF8A"
             let regex = "h.ghl[abci]ght"
-            SlidesAPI.highlightShapeRegex(fileName, slideIndex, shapeIndex, regex, color, nil, false, password, folderName) { (result, error) -> Void in
+            SlidesAPI.highlightShapeRegex(fileName, slideIndex, shapeIndex, regex, color, false, password, folderName) { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 SlidesAPI.getParagraph(fileName, slideIndex, shapeIndex, paragraphIndex, password, folderName) { (paragraph, error) -> Void in
@@ -230,4 +246,76 @@ class TextTests : XCTestCase {
         }
         self.waitForExpectations(timeout: testTimeout, handler: nil)
     }
-}
+
+    func testHighlightPresentationText() {
+        let expectation = self.expectation(description: "testHighlightPresentationText")
+        TestUtils.initialize("") { (response, error) -> Void in
+            let folderName = "TempSlidesSDK"
+            let fileName = "test.pptx"
+            let password = "password"
+            let textToHighlight = "highlight"
+            let color = "#FFF5FF8A"
+            SlidesAPI.highlightPresentationText(fileName, textToHighlight, color, nil, false, password, folderName) { (result, error) -> Void in
+                XCTAssertNil(error)
+                XCTAssertNotNil(result)
+
+                SlidesAPI.highlightPresentationText(fileName, textToHighlight, color, nil, true, password, folderName) { (resultIgnoreCase, error) -> Void in
+                    XCTAssertNil(error)
+                    XCTAssertNotNil(resultIgnoreCase)
+                    XCTAssertEqual(result!.matches!, resultIgnoreCase!.matches!)
+
+                    let slideIndex = 6
+                    let shapeIndex = 1
+                    let paragraphIndex = 1
+                    SlidesAPI.getParagraph(fileName, slideIndex, shapeIndex, paragraphIndex, password, folderName) { (paragraph, error) -> Void in
+                        XCTAssertNil(error)
+                        XCTAssertNotNil(paragraph)
+                        XCTAssertNotNil(paragraph!.portionList)
+                        XCTAssertNotEqual(textToHighlight, paragraph!.portionList![0].text)
+                        XCTAssertNotEqual(color, paragraph!.portionList![0].highlightColor)
+                        XCTAssertEqual(textToHighlight, paragraph!.portionList![1].text)
+                        XCTAssertEqual(color, paragraph!.portionList![1].highlightColor)
+                        expectation.fulfill()
+                    }
+                }
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testHighlightShapeRegex() {
+        let expectation = self.expectation(description: "testHighlightShapeRegex")
+        TestUtils.initialize("") { (response, error) -> Void in
+            let folderName = "TempSlidesSDK"
+            let fileName = "test.pptx"
+            let password = "password"
+            let textToHighlight = "highlight"
+            let color = "#FFF5FF8A"
+            let regex = "h.ghl[abci]ght"
+            SlidesAPI.highlightPresentationRegex(fileName, regex, color, false, password, folderName) { (result, error) -> Void in
+                XCTAssertNil(error)
+                XCTAssertNotNil(result)
+
+                SlidesAPI.highlightPresentationRegex(fileName, regex, color, false, password, folderName) { (resultIgnoreCase, error) -> Void in
+                    XCTAssertNil(error)
+                    XCTAssertNotNil(resultIgnoreCase)
+                    XCTAssertEqual(result!.matches!, resultIgnoreCase!.matches!)
+
+                    let slideIndex = 6
+                    let shapeIndex = 1
+                    let paragraphIndex = 1
+                    SlidesAPI.getParagraph(fileName, slideIndex, shapeIndex, paragraphIndex, password, folderName) { (paragraph, error) -> Void in
+                        XCTAssertNil(error)
+                        XCTAssertNotNil(paragraph)
+                        XCTAssertNotNil(paragraph!.portionList)
+                        XCTAssertNotEqual(textToHighlight, paragraph!.portionList![0].text)
+                        XCTAssertNotEqual(color, paragraph!.portionList![0].highlightColor)
+                        XCTAssertEqual(textToHighlight, paragraph!.portionList![1].text)
+                        XCTAssertEqual(color, paragraph!.portionList![1].highlightColor)
+                        expectation.fulfill()
+                    }
+                }
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }}

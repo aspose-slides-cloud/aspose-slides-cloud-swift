@@ -643,6 +643,10 @@ class ClassRegistry {
             let value = Operation()
             try? value.fillValues(object)
             return (value, nil)
+        } else if className == "OperationError" {
+            let value = OperationError()
+            try? value.fillValues(object)
+            return (value, nil)
         } else if className == "OperationProgress" {
             let value = OperationProgress()
             try? value.fillValues(object)

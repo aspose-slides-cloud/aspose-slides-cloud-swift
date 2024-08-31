@@ -598,4 +598,217 @@ open class SlidesAsyncAPI {
 
         return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams, headers: headerParameters)
     }
+    /**
+     * enum for parameter format
+     */
+    public enum Format_startSplit: String { 
+        case jpeg = "Jpeg"
+        case png = "Png"
+        case gif = "Gif"
+        case bmp = "Bmp"
+        case tiff = "Tiff"
+        case html = "Html"
+        case pdf = "Pdf"
+        case xps = "Xps"
+        case pptx = "Pptx"
+        case odp = "Odp"
+        case otp = "Otp"
+        case ppt = "Ppt"
+        case pps = "Pps"
+        case ppsx = "Ppsx"
+        case pptm = "Pptm"
+        case ppsm = "Ppsm"
+        case potx = "Potx"
+        case pot = "Pot"
+        case potm = "Potm"
+        case svg = "Svg"
+        case fodp = "Fodp"
+        case xaml = "Xaml"
+        case html5 = "Html5"
+        case md = "Md"
+        case xml = "Xml"
+    }
+
+    /**
+     - parameter name: 
+     - parameter format: 
+     - parameter options: 
+     - parameter width: 
+     - parameter height: 
+     - parameter from: 
+     - parameter to: 
+     - parameter destFolder: 
+     - parameter password: 
+     - parameter folder: 
+     - parameter storage: 
+     - parameter fontsFolder: 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func startSplit(_ name: String, _ format: String, _ options: ExportOptions? = nil, _ width: Int? = nil, _ height: Int? = nil, _ from: Int? = nil, _ to: Int? = nil, _ destFolder: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "", _ fontsFolder: String = "", completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
+        startSplitWithRequestBuilder(name, format, options, width, height, from, to, destFolder, password, folder, storage, fontsFolder).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - POST /slides/async/{name}/split/{format}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter name: 
+     - parameter format: 
+     - parameter options: 
+     - parameter width: 
+     - parameter height: 
+     - parameter from: 
+     - parameter to: 
+     - parameter destFolder: 
+     - parameter password: 
+     - parameter folder: 
+     - parameter storage: 
+     - parameter fontsFolder: 
+     - returns: RequestBuilder<String> 
+     */
+    open class func startSplitWithRequestBuilder(_ name: String, _ format: String, _ options: ExportOptions? = nil, _ width: Int? = nil, _ height: Int? = nil, _ from: Int? = nil, _ to: Int? = nil, _ destFolder: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "", _ fontsFolder: String = "") -> RequestBuilder<String> {
+        var methodPath = "/slides/async/{name}/split/{format}"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "format", format)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: options)
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "width": width?.encodeToJSON(), 
+            "height": height?.encodeToJSON(), 
+            "from": from?.encodeToJSON(), 
+            "to": to?.encodeToJSON(), 
+            "destFolder": destFolder, 
+            "folder": folder, 
+            "storage": storage, 
+            "fontsFolder": fontsFolder
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<String>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams, headers: headerParameters)
+    }
+    /**
+     * enum for parameter format
+     */
+    public enum Format_startUploadAndSplit: String { 
+        case jpeg = "Jpeg"
+        case png = "Png"
+        case gif = "Gif"
+        case bmp = "Bmp"
+        case tiff = "Tiff"
+        case html = "Html"
+        case pdf = "Pdf"
+        case xps = "Xps"
+        case pptx = "Pptx"
+        case odp = "Odp"
+        case otp = "Otp"
+        case ppt = "Ppt"
+        case pps = "Pps"
+        case ppsx = "Ppsx"
+        case pptm = "Pptm"
+        case ppsm = "Ppsm"
+        case potx = "Potx"
+        case pot = "Pot"
+        case potm = "Potm"
+        case svg = "Svg"
+        case fodp = "Fodp"
+        case xaml = "Xaml"
+        case html5 = "Html5"
+        case md = "Md"
+        case xml = "Xml"
+    }
+
+    /**
+     - parameter document: Document data.
+     - parameter format: 
+     - parameter destFolder: 
+     - parameter width: 
+     - parameter height: 
+     - parameter from: 
+     - parameter to: 
+     - parameter password: 
+     - parameter storage: 
+     - parameter fontsFolder: 
+     - parameter options: 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func startUploadAndSplit(_ document: Data, _ format: String, _ destFolder: String = "", _ width: Int? = nil, _ height: Int? = nil, _ from: Int? = nil, _ to: Int? = nil, _ password: String = "", _ storage: String = "", _ fontsFolder: String = "", _ options: ExportOptions? = nil, completion: @escaping ((_ data: String?,_ error: Error?) -> Void)) {
+        startUploadAndSplitWithRequestBuilder(document, format, destFolder, width, height, from, to, password, storage, fontsFolder, options).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - POST /slides/async/split/{format}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter document: Document data.
+     - parameter format: 
+     - parameter destFolder: 
+     - parameter width: 
+     - parameter height: 
+     - parameter from: 
+     - parameter to: 
+     - parameter password: 
+     - parameter storage: 
+     - parameter fontsFolder: 
+     - parameter options: 
+     - returns: RequestBuilder<String> 
+     */
+    open class func startUploadAndSplitWithRequestBuilder(_ document: Data, _ format: String, _ destFolder: String = "", _ width: Int? = nil, _ height: Int? = nil, _ from: Int? = nil, _ to: Int? = nil, _ password: String = "", _ storage: String = "", _ fontsFolder: String = "", _ options: ExportOptions? = nil) -> RequestBuilder<String> {
+        var methodPath = "/slides/async/split/{format}"
+        methodPath = APIHelper.replacePathParameter(methodPath, "format", format)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: options)
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+        fileParams.append(document)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "destFolder": destFolder, 
+            "width": width?.encodeToJSON(), 
+            "height": height?.encodeToJSON(), 
+            "from": from?.encodeToJSON(), 
+            "to": to?.encodeToJSON(), 
+            "storage": storage, 
+            "fontsFolder": fontsFolder
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<String>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams, headers: headerParameters)
+    }
 }

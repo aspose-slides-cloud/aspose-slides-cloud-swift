@@ -80,6 +80,31 @@ class SlidesAsyncAPITests : XCTestCase {
         ("testStartSavePresentationInvalidStorage", testStartSavePresentationInvalidStorage),
         ("testStartSavePresentationInvalidFontsFolder", testStartSavePresentationInvalidFontsFolder),
         ("testStartSavePresentationInvalidSlides", testStartSavePresentationInvalidSlides),
+        ("testStartSplit", testStartSplit),
+        ("testStartSplitInvalidName", testStartSplitInvalidName),
+        ("testStartSplitInvalidFormat", testStartSplitInvalidFormat),
+        ("testStartSplitInvalidOptions", testStartSplitInvalidOptions),
+        ("testStartSplitInvalidWidth", testStartSplitInvalidWidth),
+        ("testStartSplitInvalidHeight", testStartSplitInvalidHeight),
+        ("testStartSplitInvalidFrom", testStartSplitInvalidFrom),
+        ("testStartSplitInvalidTo", testStartSplitInvalidTo),
+        ("testStartSplitInvalidDestFolder", testStartSplitInvalidDestFolder),
+        ("testStartSplitInvalidPassword", testStartSplitInvalidPassword),
+        ("testStartSplitInvalidFolder", testStartSplitInvalidFolder),
+        ("testStartSplitInvalidStorage", testStartSplitInvalidStorage),
+        ("testStartSplitInvalidFontsFolder", testStartSplitInvalidFontsFolder),
+        ("testStartUploadAndSplit", testStartUploadAndSplit),
+        ("testStartUploadAndSplitInvalidDocument", testStartUploadAndSplitInvalidDocument),
+        ("testStartUploadAndSplitInvalidFormat", testStartUploadAndSplitInvalidFormat),
+        ("testStartUploadAndSplitInvalidDestFolder", testStartUploadAndSplitInvalidDestFolder),
+        ("testStartUploadAndSplitInvalidWidth", testStartUploadAndSplitInvalidWidth),
+        ("testStartUploadAndSplitInvalidHeight", testStartUploadAndSplitInvalidHeight),
+        ("testStartUploadAndSplitInvalidFrom", testStartUploadAndSplitInvalidFrom),
+        ("testStartUploadAndSplitInvalidTo", testStartUploadAndSplitInvalidTo),
+        ("testStartUploadAndSplitInvalidPassword", testStartUploadAndSplitInvalidPassword),
+        ("testStartUploadAndSplitInvalidStorage", testStartUploadAndSplitInvalidStorage),
+        ("testStartUploadAndSplitInvalidFontsFolder", testStartUploadAndSplitInvalidFontsFolder),
+        ("testStartUploadAndSplitInvalidOptions", testStartUploadAndSplitInvalidOptions),
     ];
     
     internal let testTimeout: TimeInterval = 200.0 
@@ -1000,6 +1025,594 @@ class SlidesAsyncAPITests : XCTestCase {
         TestUtils.initialize("startSavePresentation", "slides", "[Int]", paramSlides) { (response, error) -> Void in
             SlidesAsyncAPI.startSavePresentation(paramName, paramFormat, paramOutPath, paramOptions, paramPassword, paramFolder, paramStorage, paramFontsFolder, paramSlides) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "startSavePresentation", parameterName: "slides", parameterType: "[Int]", parameterValue: paramSlides as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplit() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let paramName : String = TestUtils.getTestValue(functionName: "startSplit", name: "name", type: "String")
+        let paramFormat : String = TestUtils.getTestValue(functionName: "startSplit", name: "format", type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValue(functionName: "startSplit", name: "options", type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValue(functionName: "startSplit", name: "width", type: "Int")
+        let paramHeight : Int = TestUtils.getTestValue(functionName: "startSplit", name: "height", type: "Int")
+        let paramFrom : Int = TestUtils.getTestValue(functionName: "startSplit", name: "from", type: "Int")
+        let paramTo : Int = TestUtils.getTestValue(functionName: "startSplit", name: "to", type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValue(functionName: "startSplit", name: "destFolder", type: "String")
+        let paramPassword : String = TestUtils.getTestValue(functionName: "startSplit", name: "password", type: "String")
+        let paramFolder : String = TestUtils.getTestValue(functionName: "startSplit", name: "folder", type: "String")
+        let paramStorage : String = TestUtils.getTestValue(functionName: "startSplit", name: "storage", type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValue(functionName: "startSplit", name: "fontsFolder", type: "String")
+        TestUtils.initialize("startSplit") { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidName() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "name"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "name", "String", paramName) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidFormat() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "format"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "format", "String", paramFormat) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "format", parameterType: "String", parameterValue: paramFormat as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidOptions() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "options"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "options", "ExportOptions", paramOptions) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "options", parameterType: "ExportOptions", parameterValue: paramOptions as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidWidth() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "width"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "width", "Int", paramWidth) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "width", parameterType: "Int", parameterValue: paramWidth as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidHeight() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "height"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "height", "Int", paramHeight) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "height", parameterType: "Int", parameterValue: paramHeight as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidFrom() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "from"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "from", "Int", paramFrom) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "from", parameterType: "Int", parameterValue: paramFrom as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidTo() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "to"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "to", "Int", paramTo) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "to", parameterType: "Int", parameterValue: paramTo as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidDestFolder() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "destFolder"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "destFolder", "String", paramDestFolder) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "destFolder", parameterType: "String", parameterValue: paramDestFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidPassword() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "password"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "password", "String", paramPassword) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidFolder() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "folder"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "folder", "String", paramFolder) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidStorage() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "storage"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "storage", "String", paramStorage) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartSplitInvalidFontsFolder() {
+        let expectation = self.expectation(description: "teststartSplit")
+        let invalidFieldName = "fontsFolder"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("startSplit", "fontsFolder", "String", paramFontsFolder) { (response, error) -> Void in
+            SlidesAsyncAPI.startSplit(paramName, paramFormat, paramOptions, paramWidth, paramHeight, paramFrom, paramTo, paramDestFolder, paramPassword, paramFolder, paramStorage, paramFontsFolder) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startSplit", parameterName: "fontsFolder", parameterType: "String", parameterValue: paramFontsFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplit() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let paramDocument : Data = TestUtils.getTestValue(functionName: "startUploadAndSplit", name: "document", type: "Data")
+        let paramFormat : String = TestUtils.getTestValue(functionName: "startUploadAndSplit", name: "format", type: "String")
+        let paramDestFolder : String = TestUtils.getTestValue(functionName: "startUploadAndSplit", name: "destFolder", type: "String")
+        let paramWidth : Int = TestUtils.getTestValue(functionName: "startUploadAndSplit", name: "width", type: "Int")
+        let paramHeight : Int = TestUtils.getTestValue(functionName: "startUploadAndSplit", name: "height", type: "Int")
+        let paramFrom : Int = TestUtils.getTestValue(functionName: "startUploadAndSplit", name: "from", type: "Int")
+        let paramTo : Int = TestUtils.getTestValue(functionName: "startUploadAndSplit", name: "to", type: "Int")
+        let paramPassword : String = TestUtils.getTestValue(functionName: "startUploadAndSplit", name: "password", type: "String")
+        let paramStorage : String = TestUtils.getTestValue(functionName: "startUploadAndSplit", name: "storage", type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValue(functionName: "startUploadAndSplit", name: "fontsFolder", type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValue(functionName: "startUploadAndSplit", name: "options", type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit") { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplitInvalidDocument() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let invalidFieldName = "document"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit", "document", "Data", paramDocument) { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "document", parameterType: "Data", parameterValue: paramDocument as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplitInvalidFormat() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let invalidFieldName = "format"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit", "format", "String", paramFormat) { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "format", parameterType: "String", parameterValue: paramFormat as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplitInvalidDestFolder() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let invalidFieldName = "destFolder"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit", "destFolder", "String", paramDestFolder) { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "destFolder", parameterType: "String", parameterValue: paramDestFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplitInvalidWidth() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let invalidFieldName = "width"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit", "width", "Int", paramWidth) { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "width", parameterType: "Int", parameterValue: paramWidth as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplitInvalidHeight() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let invalidFieldName = "height"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit", "height", "Int", paramHeight) { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "height", parameterType: "Int", parameterValue: paramHeight as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplitInvalidFrom() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let invalidFieldName = "from"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit", "from", "Int", paramFrom) { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "from", parameterType: "Int", parameterValue: paramFrom as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplitInvalidTo() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let invalidFieldName = "to"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit", "to", "Int", paramTo) { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "to", parameterType: "Int", parameterValue: paramTo as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplitInvalidPassword() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let invalidFieldName = "password"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit", "password", "String", paramPassword) { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplitInvalidStorage() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let invalidFieldName = "storage"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit", "storage", "String", paramStorage) { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplitInvalidFontsFolder() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let invalidFieldName = "fontsFolder"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit", "fontsFolder", "String", paramFontsFolder) { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "fontsFolder", parameterType: "String", parameterValue: paramFontsFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testStartUploadAndSplitInvalidOptions() {
+        let expectation = self.expectation(description: "teststartUploadAndSplit")
+        let invalidFieldName = "options"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFormat : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "format", invalidFieldName: invalidFieldName, type: "String")
+        let paramDestFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "destFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramWidth : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "width", invalidFieldName: invalidFieldName, type: "Int")
+        let paramHeight : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "height", invalidFieldName: invalidFieldName, type: "Int")
+        let paramFrom : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "from", invalidFieldName: invalidFieldName, type: "Int")
+        let paramTo : Int = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "to", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramFontsFolder : String = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "fontsFolder", invalidFieldName: invalidFieldName, type: "String")
+        let paramOptions : ExportOptions = TestUtils.getTestValueForInvalid(functionName: "startUploadAndSplit", name: "options", invalidFieldName: invalidFieldName, type: "ExportOptions")
+        TestUtils.initialize("startUploadAndSplit", "options", "ExportOptions", paramOptions) { (response, error) -> Void in
+            SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "options", parameterType: "ExportOptions", parameterValue: paramOptions as Any)
                 expectation.fulfill()
             }
         }

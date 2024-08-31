@@ -38,6 +38,8 @@ public class Operation: Codable {
         case savePresentation = "SavePresentation"
         case merge = "Merge"
         case mergeAndSave = "MergeAndSave"
+        case split = "Split"
+        case uploadAndSplit = "UploadAndSplit"
     }
     public enum Status: String, Codable { 
         case created = "Created"
@@ -56,7 +58,7 @@ public class Operation: Codable {
     public var failed: Date?
     public var canceled: Date?
     public var finished: Date?
-    public var error: String?
+    public var error: OperationError?
 
     func fillValues(_ source: [String:Any]) throws {
         let _idValue = source["_id"] ?? source["Id"]
@@ -145,11 +147,17 @@ public class Operation: Codable {
         }
         let errorValue = source["error"] ?? source["Error"]
         if errorValue != nil {
-            self.error = errorValue! as? String
+            let errorDictionaryValue = errorValue! as? [String:Any]
+            if errorDictionaryValue != nil {
+                let (errorInstance, error) = ClassRegistry.getClassFromDictionary(OperationError.self, errorDictionaryValue!)
+                if error == nil && errorInstance != nil {
+                    self.error = errorInstance! as? OperationError
+                }
+            }
         }
     }
 
-    public init(_id: String? = nil, method: Method? = nil, status: Status? = nil, progress: OperationProgress? = nil, created: Date? = nil, started: Date? = nil, failed: Date? = nil, canceled: Date? = nil, finished: Date? = nil, error: String? = nil) {
+    public init(_id: String? = nil, method: Method? = nil, status: Status? = nil, progress: OperationProgress? = nil, created: Date? = nil, started: Date? = nil, failed: Date? = nil, canceled: Date? = nil, finished: Date? = nil, error: OperationError? = nil) {
         self._id = _id
         self.method = method
         self.status = status
