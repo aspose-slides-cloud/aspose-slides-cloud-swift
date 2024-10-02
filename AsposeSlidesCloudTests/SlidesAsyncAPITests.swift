@@ -31,6 +31,10 @@ import XCTest
 
 class SlidesAsyncAPITests : XCTestCase {
     static var allTests : [(String, (SlidesAPITests) -> () -> ())] = [
+        ("testDownload", testDownload),
+        ("testDownloadInvalidPath", testDownloadInvalidPath),
+        ("testDownloadInvalidStorageName", testDownloadInvalidStorageName),
+        ("testDownloadInvalidVersionId", testDownloadInvalidVersionId),
         ("testGetOperationResult", testGetOperationResult),
         ("testGetOperationResultInvalid_id", testGetOperationResultInvalid_id),
         ("testGetOperationStatus", testGetOperationStatus),
@@ -105,6 +109,10 @@ class SlidesAsyncAPITests : XCTestCase {
         ("testStartUploadAndSplitInvalidStorage", testStartUploadAndSplitInvalidStorage),
         ("testStartUploadAndSplitInvalidFontsFolder", testStartUploadAndSplitInvalidFontsFolder),
         ("testStartUploadAndSplitInvalidOptions", testStartUploadAndSplitInvalidOptions),
+        ("testUpload", testUpload),
+        ("testUploadInvalidPath", testUploadInvalidPath),
+        ("testUploadInvalidFile", testUploadInvalidFile),
+        ("testUploadInvalidStorageName", testUploadInvalidStorageName),
     ];
     
     internal let testTimeout: TimeInterval = 200.0 
@@ -116,6 +124,66 @@ class SlidesAsyncAPITests : XCTestCase {
     override func tearDown() {
         super.tearDown()
     }    
+
+    func testDownload() {
+        let expectation = self.expectation(description: "testdownload")
+        let paramPath : String = TestUtils.getTestValue(functionName: "download", name: "path", type: "String")
+        let paramStorageName : String = TestUtils.getTestValue(functionName: "download", name: "storageName", type: "String")
+        let paramVersionId : String = TestUtils.getTestValue(functionName: "download", name: "versionId", type: "String")
+        TestUtils.initialize("download") { (response, error) -> Void in
+            SlidesAsyncAPI.download(paramPath, paramStorageName, paramVersionId) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDownloadInvalidPath() {
+        let expectation = self.expectation(description: "testdownload")
+        let invalidFieldName = "path"
+        let paramPath : String = TestUtils.getTestValueForInvalid(functionName: "download", name: "path", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorageName : String = TestUtils.getTestValueForInvalid(functionName: "download", name: "storageName", invalidFieldName: invalidFieldName, type: "String")
+        let paramVersionId : String = TestUtils.getTestValueForInvalid(functionName: "download", name: "versionId", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("download", "path", "String", paramPath) { (response, error) -> Void in
+            SlidesAsyncAPI.download(paramPath, paramStorageName, paramVersionId) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "download", parameterName: "path", parameterType: "String", parameterValue: paramPath as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDownloadInvalidStorageName() {
+        let expectation = self.expectation(description: "testdownload")
+        let invalidFieldName = "storageName"
+        let paramPath : String = TestUtils.getTestValueForInvalid(functionName: "download", name: "path", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorageName : String = TestUtils.getTestValueForInvalid(functionName: "download", name: "storageName", invalidFieldName: invalidFieldName, type: "String")
+        let paramVersionId : String = TestUtils.getTestValueForInvalid(functionName: "download", name: "versionId", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("download", "storageName", "String", paramStorageName) { (response, error) -> Void in
+            SlidesAsyncAPI.download(paramPath, paramStorageName, paramVersionId) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "download", parameterName: "storageName", parameterType: "String", parameterValue: paramStorageName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDownloadInvalidVersionId() {
+        let expectation = self.expectation(description: "testdownload")
+        let invalidFieldName = "versionId"
+        let paramPath : String = TestUtils.getTestValueForInvalid(functionName: "download", name: "path", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorageName : String = TestUtils.getTestValueForInvalid(functionName: "download", name: "storageName", invalidFieldName: invalidFieldName, type: "String")
+        let paramVersionId : String = TestUtils.getTestValueForInvalid(functionName: "download", name: "versionId", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("download", "versionId", "String", paramVersionId) { (response, error) -> Void in
+            SlidesAsyncAPI.download(paramPath, paramStorageName, paramVersionId) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "download", parameterName: "versionId", parameterType: "String", parameterValue: paramVersionId as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
 
     func testGetOperationResult() {
         let expectation = self.expectation(description: "testgetOperationResult")
@@ -1613,6 +1681,66 @@ class SlidesAsyncAPITests : XCTestCase {
         TestUtils.initialize("startUploadAndSplit", "options", "ExportOptions", paramOptions) { (response, error) -> Void in
             SlidesAsyncAPI.startUploadAndSplit(paramDocument, paramFormat, paramDestFolder, paramWidth, paramHeight, paramFrom, paramTo, paramPassword, paramStorage, paramFontsFolder, paramOptions) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "startUploadAndSplit", parameterName: "options", parameterType: "ExportOptions", parameterValue: paramOptions as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testUpload() {
+        let expectation = self.expectation(description: "testupload")
+        let paramPath : String = TestUtils.getTestValue(functionName: "upload", name: "path", type: "String")
+        let paramFile : Data = TestUtils.getTestValue(functionName: "upload", name: "file", type: "Data")
+        let paramStorageName : String = TestUtils.getTestValue(functionName: "upload", name: "storageName", type: "String")
+        TestUtils.initialize("upload") { (response, error) -> Void in
+            SlidesAsyncAPI.upload(paramPath, paramFile, paramStorageName) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testUploadInvalidPath() {
+        let expectation = self.expectation(description: "testupload")
+        let invalidFieldName = "path"
+        let paramPath : String = TestUtils.getTestValueForInvalid(functionName: "upload", name: "path", invalidFieldName: invalidFieldName, type: "String")
+        let paramFile : Data = TestUtils.getTestValueForInvalid(functionName: "upload", name: "file", invalidFieldName: invalidFieldName, type: "Data")
+        let paramStorageName : String = TestUtils.getTestValueForInvalid(functionName: "upload", name: "storageName", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("upload", "path", "String", paramPath) { (response, error) -> Void in
+            SlidesAsyncAPI.upload(paramPath, paramFile, paramStorageName) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "upload", parameterName: "path", parameterType: "String", parameterValue: paramPath as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testUploadInvalidFile() {
+        let expectation = self.expectation(description: "testupload")
+        let invalidFieldName = "file"
+        let paramPath : String = TestUtils.getTestValueForInvalid(functionName: "upload", name: "path", invalidFieldName: invalidFieldName, type: "String")
+        let paramFile : Data = TestUtils.getTestValueForInvalid(functionName: "upload", name: "file", invalidFieldName: invalidFieldName, type: "Data")
+        let paramStorageName : String = TestUtils.getTestValueForInvalid(functionName: "upload", name: "storageName", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("upload", "file", "Data", paramFile) { (response, error) -> Void in
+            SlidesAsyncAPI.upload(paramPath, paramFile, paramStorageName) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "upload", parameterName: "file", parameterType: "Data", parameterValue: paramFile as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testUploadInvalidStorageName() {
+        let expectation = self.expectation(description: "testupload")
+        let invalidFieldName = "storageName"
+        let paramPath : String = TestUtils.getTestValueForInvalid(functionName: "upload", name: "path", invalidFieldName: invalidFieldName, type: "String")
+        let paramFile : Data = TestUtils.getTestValueForInvalid(functionName: "upload", name: "file", invalidFieldName: invalidFieldName, type: "Data")
+        let paramStorageName : String = TestUtils.getTestValueForInvalid(functionName: "upload", name: "storageName", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("upload", "storageName", "String", paramStorageName) { (response, error) -> Void in
+            SlidesAsyncAPI.upload(paramPath, paramFile, paramStorageName) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "upload", parameterName: "storageName", parameterType: "String", parameterValue: paramStorageName as Any)
                 expectation.fulfill()
             }
         }

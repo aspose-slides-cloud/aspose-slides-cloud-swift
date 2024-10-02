@@ -32,6 +32,50 @@ import Foundation
 
 open class SlidesAsyncAPI {
     /**
+     - parameter path: 
+     - parameter storageName: 
+     - parameter versionId: 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func download(_ path: String, _ storageName: String = "", _ versionId: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        downloadWithRequestBuilder(path, storageName, versionId).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - GET /slides/async/storage/file/{path}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{output=none}]
+     - parameter path: 
+     - parameter storageName: 
+     - parameter versionId: 
+     - returns: RequestBuilder<Data> 
+     */
+    open class func downloadWithRequestBuilder(_ path: String, _ storageName: String = "", _ versionId: String = "") -> RequestBuilder<Data> {
+        var methodPath = "/slides/async/storage/file/{path}"
+        methodPath = APIHelper.replacePathParameter(methodPath, "path", path)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "storageName": storageName, 
+            "versionId": versionId
+        ])
+
+        let requestBuilder: RequestBuilder<Data>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams)
+    }
+    /**
      - parameter _id: 
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -810,5 +854,49 @@ open class SlidesAsyncAPI {
         let requestBuilder: RequestBuilder<String>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams, headers: headerParameters)
+    }
+    /**
+     - parameter path: 
+     - parameter file: File to upload
+     - parameter storageName: 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func upload(_ path: String, _ file: Data, _ storageName: String = "", completion: @escaping ((_ data: FilesUploadResult?,_ error: Error?) -> Void)) {
+        uploadWithRequestBuilder(path, file, storageName).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - PUT /slides/async/storage/file/{path}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={"empty": false}}]
+     - parameter path: 
+     - parameter file: File to upload
+     - parameter storageName: 
+     - returns: RequestBuilder<FilesUploadResult> 
+     */
+    open class func uploadWithRequestBuilder(_ path: String, _ file: Data, _ storageName: String = "") -> RequestBuilder<FilesUploadResult> {
+        var methodPath = "/slides/async/storage/file/{path}"
+        methodPath = APIHelper.replacePathParameter(methodPath, "path", path)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+        fileParams.append(file)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "storageName": storageName
+        ])
+
+        let requestBuilder: RequestBuilder<FilesUploadResult>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams)
     }
 }
