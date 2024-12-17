@@ -105,8 +105,8 @@ public class HtmlExportOptions: ExportOptions {
         }
     }
 
-    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, saveAsZip: Bool? = nil, subDirectoryName: String? = nil, showHiddenSlides: Bool? = nil, svgResponsiveLayout: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, saveAsZip: Bool? = nil, subDirectoryName: String? = nil, showHiddenSlides: Bool? = nil, svgResponsiveLayout: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.saveAsZip = saveAsZip
         self.subDirectoryName = subDirectoryName
         self.showHiddenSlides = showHiddenSlides

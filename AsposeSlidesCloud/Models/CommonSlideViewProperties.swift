@@ -36,6 +36,8 @@ public class CommonSlideViewProperties: Codable {
     public var scale: Int?
     /** True if the view content should automatically scale to best fit the current window size. */
     public var variableScale: Bool?
+    /** Drawing guides */
+    public var drawingGuides: [DrawingGuide]?
 
     func fillValues(_ source: [String:Any]) throws {
         let scaleValue = source["scale"] ?? source["Scale"]
@@ -46,16 +48,43 @@ public class CommonSlideViewProperties: Codable {
         if variableScaleValue != nil {
             self.variableScale = variableScaleValue! as? Bool
         }
+        let drawingGuidesValue = source["drawingGuides"] ?? source["DrawingGuides"]
+        if drawingGuidesValue != nil {
+            var drawingGuidesArray: [DrawingGuide] = []
+            let drawingGuidesDictionaryValue = drawingGuidesValue! as? [Any]
+            if drawingGuidesDictionaryValue != nil {
+                drawingGuidesDictionaryValue!.forEach { drawingGuidesAnyItem in
+                    let drawingGuidesItem = drawingGuidesAnyItem as? [String:Any]
+                    var added = false
+                    if drawingGuidesItem != nil {
+                        let (drawingGuidesInstance, error) = ClassRegistry.getClassFromDictionary(DrawingGuide.self, drawingGuidesItem!)
+                        if error == nil && drawingGuidesInstance != nil {
+                            let drawingGuidesArrayItem = drawingGuidesInstance! as? DrawingGuide
+                            if drawingGuidesArrayItem != nil {
+                                drawingGuidesArray.append(drawingGuidesArrayItem!)
+                                added = true
+                            }
+                        }
+                    }
+                    if !added {
+                        drawingGuidesArray.append(DrawingGuide())
+                    }
+                }
+            }
+            self.drawingGuides = drawingGuidesArray
+        }
     }
 
-    public init(scale: Int? = nil, variableScale: Bool? = nil) {
+    public init(scale: Int? = nil, variableScale: Bool? = nil, drawingGuides: [DrawingGuide]? = nil) {
         self.scale = scale
         self.variableScale = variableScale
+        self.drawingGuides = drawingGuides
     }
 
     private enum CodingKeys: String, CodingKey {
         case scale
         case variableScale
+        case drawingGuides
     }
 
 }

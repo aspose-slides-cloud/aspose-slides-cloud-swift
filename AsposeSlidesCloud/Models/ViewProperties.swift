@@ -76,6 +76,8 @@ public class ViewProperties: ResourceBase {
     public var notesViewProperties: CommonSlideViewProperties?
     /** True if the comments should be shown. */
     public var showComments: ShowComments?
+    /** The grid spacing that should be used for the grid underlying the presentation document, in points. */
+    public var gridSpacing: Double?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -163,9 +165,13 @@ public class ViewProperties: ResourceBase {
                 }
             }
         }
+        let gridSpacingValue = source["gridSpacing"] ?? source["GridSpacing"]
+        if gridSpacingValue != nil {
+            self.gridSpacing = gridSpacingValue! as? Double
+        }
     }
 
-    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, lastView: LastView? = nil, horizontalBarState: HorizontalBarState? = nil, verticalBarState: VerticalBarState? = nil, preferSingleView: Bool? = nil, restoredLeft: NormalViewRestoredProperties? = nil, restoredTop: NormalViewRestoredProperties? = nil, slideViewProperties: CommonSlideViewProperties? = nil, notesViewProperties: CommonSlideViewProperties? = nil, showComments: ShowComments? = nil) {
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, lastView: LastView? = nil, horizontalBarState: HorizontalBarState? = nil, verticalBarState: VerticalBarState? = nil, preferSingleView: Bool? = nil, restoredLeft: NormalViewRestoredProperties? = nil, restoredTop: NormalViewRestoredProperties? = nil, slideViewProperties: CommonSlideViewProperties? = nil, notesViewProperties: CommonSlideViewProperties? = nil, showComments: ShowComments? = nil, gridSpacing: Double? = nil) {
         super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.lastView = lastView
         self.horizontalBarState = horizontalBarState
@@ -176,6 +182,7 @@ public class ViewProperties: ResourceBase {
         self.slideViewProperties = slideViewProperties
         self.notesViewProperties = notesViewProperties
         self.showComments = showComments
+        self.gridSpacing = gridSpacing
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -188,6 +195,7 @@ public class ViewProperties: ResourceBase {
         case slideViewProperties
         case notesViewProperties
         case showComments
+        case gridSpacing
     }
 
     required init(from decoder: Decoder) throws {
@@ -202,6 +210,7 @@ public class ViewProperties: ResourceBase {
         slideViewProperties = try? values.decode(CommonSlideViewProperties.self, forKey: .slideViewProperties)
         notesViewProperties = try? values.decode(CommonSlideViewProperties.self, forKey: .notesViewProperties)
         showComments = try? values.decode(ShowComments.self, forKey: .showComments)
+        gridSpacing = try? values.decode(Double.self, forKey: .gridSpacing)
     }
 
     public override func encode(to encoder: Encoder) throws {
@@ -233,6 +242,9 @@ public class ViewProperties: ResourceBase {
         }
         if (showComments != nil) {
             try? container.encode(showComments, forKey: .showComments)
+        }
+        if (gridSpacing != nil) {
+            try? container.encode(gridSpacing, forKey: .gridSpacing)
         }
     }
 

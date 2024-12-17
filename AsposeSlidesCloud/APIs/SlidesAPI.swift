@@ -314,6 +314,73 @@ open class SlidesAPI {
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
     }
     /**
+     Deletes cropped areas of a pictire.
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a picture frame).
+     - parameter resolution: Target resolution in DPI.
+     - parameter deletePictureCroppedAreas: true to delete picture cropped areas.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func compressImage(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ resolution: Double? = nil, _ deletePictureCroppedAreas: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        compressImageWithRequestBuilder(name, slideIndex, shapeIndex, resolution, deletePictureCroppedAreas, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+
+    /**
+     Deletes cropped areas of a pictire.
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/compressImage
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a picture frame).
+     - parameter resolution: Target resolution in DPI.
+     - parameter deletePictureCroppedAreas: true to delete picture cropped areas.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - returns: RequestBuilder<Void> 
+     */
+    open class func compressImageWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ resolution: Double? = nil, _ deletePictureCroppedAreas: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Void> {
+        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/compressImage"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "shapeIndex", shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "resolution": resolution, 
+            "deletePictureCroppedAreas": deletePictureCroppedAreas, 
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<Void>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
      * enum for parameter format
      */
     public enum Format_convert: String { 
@@ -10333,7 +10400,7 @@ open class SlidesAPI {
      - parameter folder: Document folder.
      - parameter storage: Document storage.
      - parameter shapeType: Shape type.
-     - parameter subShape: Sub-shape path (e.g. \"3\", \"3/shapes/2).
+     - parameter subShape: Sub-shape path (e.g. \"3\", \"3/shapes/2\").
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func getShapes(_ name: String, _ slideIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "", _ shapeType: String = "", _ subShape: String = "", completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
@@ -10360,7 +10427,7 @@ open class SlidesAPI {
      - parameter folder: Document folder.
      - parameter storage: Document storage.
      - parameter shapeType: Shape type.
-     - parameter subShape: Sub-shape path (e.g. \"3\", \"3/shapes/2).
+     - parameter subShape: Sub-shape path (e.g. \"3\", \"3/shapes/2\").
      - returns: RequestBuilder<Shapes> 
      */
     open class func getShapesWithRequestBuilder(_ name: String, _ slideIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "", _ shapeType: String = "", _ subShape: String = "") -> RequestBuilder<Shapes> {

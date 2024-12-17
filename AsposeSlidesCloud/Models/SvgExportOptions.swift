@@ -128,8 +128,8 @@ public class SvgExportOptions: ExportOptions {
         }
     }
 
-    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, vectorizeText: Bool? = nil, metafileRasterizationDpi: Int? = nil, disable3DText: Bool? = nil, disableGradientSplit: Bool? = nil, disableLineEndCropping: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, externalFontsHandling: ExternalFontsHandling? = nil, useFrameSize: Bool? = nil, useFrameRotation: Bool? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, vectorizeText: Bool? = nil, metafileRasterizationDpi: Int? = nil, disable3DText: Bool? = nil, disableGradientSplit: Bool? = nil, disableLineEndCropping: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, externalFontsHandling: ExternalFontsHandling? = nil, useFrameSize: Bool? = nil, useFrameRotation: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.vectorizeText = vectorizeText
         self.metafileRasterizationDpi = metafileRasterizationDpi
         self.disable3DText = disable3DText

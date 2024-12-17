@@ -73,8 +73,8 @@ public class Html5ExportOptions: ExportOptions {
         }
     }
 
-    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, animateTransitions: Bool? = nil, animateShapes: Bool? = nil, embedImages: Bool? = nil, notesCommentsLayouting: NotesCommentsLayoutingOptions? = nil, templatesPath: String? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, animateTransitions: Bool? = nil, animateShapes: Bool? = nil, embedImages: Bool? = nil, notesCommentsLayouting: NotesCommentsLayoutingOptions? = nil, templatesPath: String? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
         self.animateTransitions = animateTransitions
         self.animateShapes = animateShapes
         self.embedImages = embedImages

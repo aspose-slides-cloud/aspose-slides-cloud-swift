@@ -35,7 +35,7 @@ public class Shape: GeometryShape {
     /** Gets or sets the text. */
     public var text: String?
     /** Get or sets list to paragraphs list */
-    public var paragraphs: ResourceUri?
+    public var paragraphs: [Paragraph]?
     /** Returns TextFrame&#39;s formatting properties. */
     public var textFrameFormat: TextFrameFormat?
 
@@ -47,13 +47,28 @@ public class Shape: GeometryShape {
         }
         let paragraphsValue = source["paragraphs"] ?? source["Paragraphs"]
         if paragraphsValue != nil {
-            let paragraphsDictionaryValue = paragraphsValue! as? [String:Any]
+            var paragraphsArray: [Paragraph] = []
+            let paragraphsDictionaryValue = paragraphsValue! as? [Any]
             if paragraphsDictionaryValue != nil {
-                let (paragraphsInstance, error) = ClassRegistry.getClassFromDictionary(ResourceUri.self, paragraphsDictionaryValue!)
-                if error == nil && paragraphsInstance != nil {
-                    self.paragraphs = paragraphsInstance! as? ResourceUri
+                paragraphsDictionaryValue!.forEach { paragraphsAnyItem in
+                    let paragraphsItem = paragraphsAnyItem as? [String:Any]
+                    var added = false
+                    if paragraphsItem != nil {
+                        let (paragraphsInstance, error) = ClassRegistry.getClassFromDictionary(Paragraph.self, paragraphsItem!)
+                        if error == nil && paragraphsInstance != nil {
+                            let paragraphsArrayItem = paragraphsInstance! as? Paragraph
+                            if paragraphsArrayItem != nil {
+                                paragraphsArray.append(paragraphsArrayItem!)
+                                added = true
+                            }
+                        }
+                    }
+                    if !added {
+                        paragraphsArray.append(Paragraph())
+                    }
                 }
             }
+            self.paragraphs = paragraphsArray
         }
         let textFrameFormatValue = source["textFrameFormat"] ?? source["TextFrameFormat"]
         if textFrameFormatValue != nil {
@@ -67,7 +82,7 @@ public class Shape: GeometryShape {
         }
     }
 
-    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, isDecorative: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil, shapeType: ShapeType? = nil, text: String? = nil, paragraphs: ResourceUri? = nil, textFrameFormat: TextFrameFormat? = nil) {
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, isDecorative: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil, shapeType: ShapeType? = nil, text: String? = nil, paragraphs: [Paragraph]? = nil, textFrameFormat: TextFrameFormat? = nil) {
         super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, isDecorative: isDecorative, x: x, y: y, zOrderPosition: zOrderPosition, fillFormat: fillFormat, effectFormat: effectFormat, threeDFormat: threeDFormat, lineFormat: lineFormat, hyperlinkClick: hyperlinkClick, hyperlinkMouseOver: hyperlinkMouseOver, type: type, shapeType: shapeType)
         self.text = text
         self.paragraphs = paragraphs
@@ -85,7 +100,7 @@ public class Shape: GeometryShape {
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
         text = try? values.decode(String.self, forKey: .text)
-        paragraphs = try? values.decode(ResourceUri.self, forKey: .paragraphs)
+        paragraphs = try? values.decode([Paragraph].self, forKey: .paragraphs)
         textFrameFormat = try? values.decode(TextFrameFormat.self, forKey: .textFrameFormat)
         self.type = ModelType.shape
     }

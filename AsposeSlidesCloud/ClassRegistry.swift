@@ -323,6 +323,10 @@ class ClassRegistry {
             let value = DocumentReplaceResult()
             try? value.fillValues(object)
             return (value, nil)
+        } else if className == "DrawingGuide" {
+            let value = DrawingGuide()
+            try? value.fillValues(object)
+            return (value, nil)
         } else if className == "DuotoneEffect" {
             let value = DuotoneEffect()
             try? value.fillValues(object)

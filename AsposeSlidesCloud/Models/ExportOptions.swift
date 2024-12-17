@@ -38,6 +38,8 @@ public class ExportOptions: Codable {
     }
     /** Default regular font for rendering the presentation.  */
     public var defaultRegularFont: String?
+    /** True to delete delete all embedded binary objects. */
+    public var deleteEmbeddedBinaryObjects: Bool?
     /** Default regular font for rendering the presentation.  */
     public var gradientStyle: GradientStyle?
     /** Gets of sets list of font fallback rules. */
@@ -50,6 +52,10 @@ public class ExportOptions: Codable {
         let defaultRegularFontValue = source["defaultRegularFont"] ?? source["DefaultRegularFont"]
         if defaultRegularFontValue != nil {
             self.defaultRegularFont = defaultRegularFontValue! as? String
+        }
+        let deleteEmbeddedBinaryObjectsValue = source["deleteEmbeddedBinaryObjects"] ?? source["DeleteEmbeddedBinaryObjects"]
+        if deleteEmbeddedBinaryObjectsValue != nil {
+            self.deleteEmbeddedBinaryObjects = deleteEmbeddedBinaryObjectsValue! as? Bool
         }
         let gradientStyleValue = source["gradientStyle"] ?? source["GradientStyle"]
         if gradientStyleValue != nil {
@@ -117,8 +123,9 @@ public class ExportOptions: Codable {
         }
     }
 
-    public init(defaultRegularFont: String? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil) {
+    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil) {
         self.defaultRegularFont = defaultRegularFont
+        self.deleteEmbeddedBinaryObjects = deleteEmbeddedBinaryObjects
         self.gradientStyle = gradientStyle
         self.fontFallbackRules = fontFallbackRules
         self.fontSubstRules = fontSubstRules
@@ -127,6 +134,7 @@ public class ExportOptions: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case defaultRegularFont
+        case deleteEmbeddedBinaryObjects
         case gradientStyle
         case fontFallbackRules
         case fontSubstRules
