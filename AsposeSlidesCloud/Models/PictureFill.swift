@@ -83,6 +83,10 @@ public class PictureFill: FillFormat {
     public var base64Data: String?
     /** SVG image data. */
     public var svgData: String?
+    /** true to delete picture cropped areas on save. */
+    public var deletePictureCroppedAreas: Bool?
+    /** true to compress the picture image with the specified resolution (in dpi) on save. */
+    public var resolution: Double?
     /** Fill mode. */
     public var pictureFillMode: PictureFillMode?
     /** Image transform effects. */
@@ -164,6 +168,14 @@ public class PictureFill: FillFormat {
         if svgDataValue != nil {
             self.svgData = svgDataValue! as? String
         }
+        let deletePictureCroppedAreasValue = source["deletePictureCroppedAreas"] ?? source["DeletePictureCroppedAreas"]
+        if deletePictureCroppedAreasValue != nil {
+            self.deletePictureCroppedAreas = deletePictureCroppedAreasValue! as? Bool
+        }
+        let resolutionValue = source["resolution"] ?? source["Resolution"]
+        if resolutionValue != nil {
+            self.resolution = resolutionValue! as? Double
+        }
         let pictureFillModeValue = source["pictureFillMode"] ?? source["PictureFillMode"]
         if pictureFillModeValue != nil {
             let pictureFillModeStringValue = pictureFillModeValue! as? String
@@ -201,7 +213,7 @@ public class PictureFill: FillFormat {
         }
     }
 
-    public init(type: ModelType? = nil, cropBottom: Double? = nil, cropLeft: Double? = nil, cropRight: Double? = nil, cropTop: Double? = nil, dpi: Int? = nil, tileOffsetX: Double? = nil, tileOffsetY: Double? = nil, tileScaleX: Double? = nil, tileScaleY: Double? = nil, tileAlignment: TileAlignment? = nil, tileFlip: TileFlip? = nil, image: ResourceUri? = nil, base64Data: String? = nil, svgData: String? = nil, pictureFillMode: PictureFillMode? = nil, imageTransformList: [ImageTransformEffect]? = nil) {
+    public init(type: ModelType? = nil, cropBottom: Double? = nil, cropLeft: Double? = nil, cropRight: Double? = nil, cropTop: Double? = nil, dpi: Int? = nil, tileOffsetX: Double? = nil, tileOffsetY: Double? = nil, tileScaleX: Double? = nil, tileScaleY: Double? = nil, tileAlignment: TileAlignment? = nil, tileFlip: TileFlip? = nil, image: ResourceUri? = nil, base64Data: String? = nil, svgData: String? = nil, deletePictureCroppedAreas: Bool? = nil, resolution: Double? = nil, pictureFillMode: PictureFillMode? = nil, imageTransformList: [ImageTransformEffect]? = nil) {
         super.init(type: type)
         self.cropBottom = cropBottom
         self.cropLeft = cropLeft
@@ -217,6 +229,8 @@ public class PictureFill: FillFormat {
         self.image = image
         self.base64Data = base64Data
         self.svgData = svgData
+        self.deletePictureCroppedAreas = deletePictureCroppedAreas
+        self.resolution = resolution
         self.pictureFillMode = pictureFillMode
         self.imageTransformList = imageTransformList
         self.type = ModelType.picture
@@ -237,6 +251,8 @@ public class PictureFill: FillFormat {
         case image
         case base64Data
         case svgData
+        case deletePictureCroppedAreas
+        case resolution
         case pictureFillMode
         case imageTransformList
     }
@@ -258,6 +274,8 @@ public class PictureFill: FillFormat {
         image = try? values.decode(ResourceUri.self, forKey: .image)
         base64Data = try? values.decode(String.self, forKey: .base64Data)
         svgData = try? values.decode(String.self, forKey: .svgData)
+        deletePictureCroppedAreas = try? values.decode(Bool.self, forKey: .deletePictureCroppedAreas)
+        resolution = try? values.decode(Double.self, forKey: .resolution)
         pictureFillMode = try? values.decode(PictureFillMode.self, forKey: .pictureFillMode)
         imageTransformList = try? values.decode([ImageTransformEffect].self, forKey: .imageTransformList)
         self.type = ModelType.picture
@@ -307,6 +325,12 @@ public class PictureFill: FillFormat {
         }
         if (svgData != nil) {
             try? container.encode(svgData, forKey: .svgData)
+        }
+        if (deletePictureCroppedAreas != nil) {
+            try? container.encode(deletePictureCroppedAreas, forKey: .deletePictureCroppedAreas)
+        }
+        if (resolution != nil) {
+            try? container.encode(resolution, forKey: .resolution)
         }
         if (pictureFillMode != nil) {
             try? container.encode(pictureFillMode, forKey: .pictureFillMode)

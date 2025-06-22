@@ -39,6 +39,7 @@ public class SaveShape: Task {
         case bmp = "Bmp"
         case tiff = "Tiff"
         case svg = "Svg"
+        case emf = "Emf"
     }
     /** Format. */
     public var format: Format?

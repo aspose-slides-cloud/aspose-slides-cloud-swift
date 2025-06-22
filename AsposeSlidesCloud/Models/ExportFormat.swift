@@ -58,5 +58,6 @@ public enum ExportFormat: String, Codable {
     case mpeg4 = "Mpeg4"
     case md = "Md"
     case xml = "Xml"
+    case emf = "Emf"
 
 }

@@ -46,6 +46,8 @@ public class ExportOptions: Codable {
     public var fontFallbackRules: [FontFallbackRule]?
     /** Gets of sets list of font substitution rules. */
     public var fontSubstRules: [FontSubstRule]?
+    /** True to skip hyperlinks with javascript calls when saving the presentation. */
+    public var skipJavaScriptLinks: Bool?
     public var format: String?
 
     func fillValues(_ source: [String:Any]) throws {
@@ -117,18 +119,23 @@ public class ExportOptions: Codable {
             }
             self.fontSubstRules = fontSubstRulesArray
         }
+        let skipJavaScriptLinksValue = source["skipJavaScriptLinks"] ?? source["SkipJavaScriptLinks"]
+        if skipJavaScriptLinksValue != nil {
+            self.skipJavaScriptLinks = skipJavaScriptLinksValue! as? Bool
+        }
         let formatValue = source["format"] ?? source["Format"]
         if formatValue != nil {
             self.format = formatValue! as? String
         }
     }
 
-    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil) {
+    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, skipJavaScriptLinks: Bool? = nil, format: String? = nil) {
         self.defaultRegularFont = defaultRegularFont
         self.deleteEmbeddedBinaryObjects = deleteEmbeddedBinaryObjects
         self.gradientStyle = gradientStyle
         self.fontFallbackRules = fontFallbackRules
         self.fontSubstRules = fontSubstRules
+        self.skipJavaScriptLinks = skipJavaScriptLinks
         self.format = format
     }
 
@@ -138,6 +145,7 @@ public class ExportOptions: Codable {
         case gradientStyle
         case fontFallbackRules
         case fontSubstRules
+        case skipJavaScriptLinks
         case format
     }
 

@@ -411,6 +411,7 @@ open class SlidesAPI {
         case mpeg4 = "Mpeg4"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -504,6 +505,7 @@ open class SlidesAPI {
         case mpeg4 = "Mpeg4"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -2952,6 +2954,73 @@ open class SlidesAPI {
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams, headers: headerParameters)
     }
     /**
+     Create video captions track.
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a picture frame).
+     - parameter label: Caption track label.
+     - parameter data: Caption track data.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func createVideoCaptionTrack(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ label: String, _ data: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: CaptionTrack?,_ error: Error?) -> Void)) {
+        createVideoCaptionTrackWithRequestBuilder(name, slideIndex, shapeIndex, label, data, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Create video captions track.
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/captionTracks
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a picture frame).
+     - parameter label: Caption track label.
+     - parameter data: Caption track data.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - returns: RequestBuilder<CaptionTrack> 
+     */
+    open class func createVideoCaptionTrackWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ label: String, _ data: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<CaptionTrack> {
+        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/captionTracks"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "shapeIndex", shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: data)
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "label": label, 
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<CaptionTrack>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: fileParams, headers: headerParameters)
+    }
+    /**
      Adds a text watermark to each slide of the presentation. Text watermark can be setup via method arguments or withing Shape DTO for detailed customization. Both options are applicable simultaneously. 
      - parameter name: Document name.
      - parameter shape: Shape DTO
@@ -4318,67 +4387,6 @@ open class SlidesAPI {
         let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<Paragraphs>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
-    }
-    /**
-     Deletes cropped areas of a pictire.
-     - parameter name: Document name.
-     - parameter slideIndex: Slide index.
-     - parameter shapeIndex: Shape index (must refer to a picture frame).
-     - parameter password: Document password.
-     - parameter folder: Document folder.
-     - parameter storage: Presentation storage.
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func deletePictureCroppedAreas(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
-        deletePictureCroppedAreasWithRequestBuilder(name, slideIndex, shapeIndex, password, folder, storage).executeAuthorized { (response, error) -> Void in
-            if error == nil {
-                completion((), error)
-            } else {
-                completion(nil, error)
-            }
-        }
-    }
-
-
-    /**
-     Deletes cropped areas of a pictire.
-     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/pictureCroppedAreas
-     - OAuth:
-       - type: oauth2
-       - name: JWT
-     - parameter name: Document name.
-     - parameter slideIndex: Slide index.
-     - parameter shapeIndex: Shape index (must refer to a picture frame).
-     - parameter password: Document password.
-     - parameter folder: Document folder.
-     - parameter storage: Presentation storage.
-     - returns: RequestBuilder<Void> 
-     */
-    open class func deletePictureCroppedAreasWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Void> {
-        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/pictureCroppedAreas"
-        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
-        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
-        methodPath = APIHelper.replacePathParameter(methodPath, "shapeIndex", shapeIndex)
-        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
-        let parameters: [String:Any]? = nil
-
-
-        var fileParams = [Data]()
-        fileParams.removeAll()
-
-        var url = URLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "folder": folder, 
-            "storage": storage
-        ])
-        let nillableHeaders: [String: Any?] = [
-            "password": password
-        ]
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
-
-        let requestBuilder: RequestBuilder<Void>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getNonDecodableBuilder()
 
         return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
     }
@@ -6579,6 +6587,131 @@ open class SlidesAPI {
         return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
     }
     /**
+     Delete video captions track.
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a video frame).
+     - parameter captionsIndex: Captions track index.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteVideoCaptionTrack(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ captionsIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        deleteVideoCaptionTrackWithRequestBuilder(name, slideIndex, shapeIndex, captionsIndex, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+
+    /**
+     Delete video captions track.
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/captionTracks/{captionsIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a video frame).
+     - parameter captionsIndex: Captions track index.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - returns: RequestBuilder<Void> 
+     */
+    open class func deleteVideoCaptionTrackWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ captionsIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Void> {
+        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/captionTracks/{captionsIndex}"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "shapeIndex", shapeIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "captionsIndex", captionsIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<Void>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
+     Delete all video captions tracks.
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a video frame).
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteVideoCaptionTracks(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        deleteVideoCaptionTracksWithRequestBuilder(name, slideIndex, shapeIndex, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+
+    /**
+     Delete all video captions tracks.
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/captionTracks
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a video frame).
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - returns: RequestBuilder<Void> 
+     */
+    open class func deleteVideoCaptionTracksWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Void> {
+        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/captionTracks"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "shapeIndex", shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<Void>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
      Removes shapes with name \"watermark\" from the presentation.
      - parameter name: Document name.
      - parameter shapeName: Name of the watermark shape. If null, default value \"watermark\"is used.
@@ -6750,10 +6883,11 @@ open class SlidesAPI {
      - parameter password: Document password.
      - parameter folder: Document folder.
      - parameter storage: Document storage.
+     - parameter quality: Image quality (0 to 100; has effect only on Jpeg format).
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func downloadImage(_ name: String, _ index: Int, _ format: String, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
-        downloadImageWithRequestBuilder(name, index, format, password, folder, storage).executeAuthorized { (response, error) -> Void in
+    open class func downloadImage(_ name: String, _ index: Int, _ format: String, _ password: String = "", _ folder: String = "", _ storage: String = "", _ quality: Int? = nil, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        downloadImageWithRequestBuilder(name, index, format, password, folder, storage, quality).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -6772,9 +6906,10 @@ open class SlidesAPI {
      - parameter password: Document password.
      - parameter folder: Document folder.
      - parameter storage: Document storage.
+     - parameter quality: Image quality (0 to 100; has effect only on Jpeg format).
      - returns: RequestBuilder<Data> 
      */
-    open class func downloadImageWithRequestBuilder(_ name: String, _ index: Int, _ format: String, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Data> {
+    open class func downloadImageWithRequestBuilder(_ name: String, _ index: Int, _ format: String, _ password: String = "", _ folder: String = "", _ storage: String = "", _ quality: Int? = nil) -> RequestBuilder<Data> {
         var methodPath = "/slides/{name}/images/{index}/{format}"
         methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
         methodPath = APIHelper.replacePathParameter(methodPath, "index", index)
@@ -6789,7 +6924,8 @@ open class SlidesAPI {
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
             "folder": folder, 
-            "storage": storage
+            "storage": storage, 
+            "quality": quality?.encodeToJSON()
         ])
         let nillableHeaders: [String: Any?] = [
             "password": password
@@ -6920,10 +7056,11 @@ open class SlidesAPI {
      - parameter index: Image index.
      - parameter format: Export format (png, jpg, gif).
      - parameter password: Document password.
+     - parameter quality: Image quality (0 to 100; has effect only on Jpeg format).
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func downloadImageOnline(_ document: Data, _ index: Int, _ format: String, _ password: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
-        downloadImageOnlineWithRequestBuilder(document, index, format, password).executeAuthorized { (response, error) -> Void in
+    open class func downloadImageOnline(_ document: Data, _ index: Int, _ format: String, _ password: String = "", _ quality: Int? = nil, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        downloadImageOnlineWithRequestBuilder(document, index, format, password, quality).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -6940,9 +7077,10 @@ open class SlidesAPI {
      - parameter index: Image index.
      - parameter format: Export format (png, jpg, gif).
      - parameter password: Document password.
+     - parameter quality: Image quality (0 to 100; has effect only on Jpeg format).
      - returns: RequestBuilder<Data> 
      */
-    open class func downloadImageOnlineWithRequestBuilder(_ document: Data, _ index: Int, _ format: String, _ password: String = "") -> RequestBuilder<Data> {
+    open class func downloadImageOnlineWithRequestBuilder(_ document: Data, _ index: Int, _ format: String, _ password: String = "", _ quality: Int? = nil) -> RequestBuilder<Data> {
         var methodPath = "/slides/images/{index}/{format}"
         methodPath = APIHelper.replacePathParameter(methodPath, "index", index)
         methodPath = APIHelper.replacePathParameter(methodPath, "format", format)
@@ -6954,8 +7092,10 @@ open class SlidesAPI {
         fileParams.removeAll()
         fileParams.append(document)
 
-
-        let url = URLComponents(string: URLString)
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "quality": quality?.encodeToJSON()
+        ])
         let nillableHeaders: [String: Any?] = [
             "password": password
         ]
@@ -6983,10 +7123,11 @@ open class SlidesAPI {
      - parameter password: Document password.
      - parameter folder: Document folder.
      - parameter storage: Document storage.
+     - parameter quality: Image quality (0 to 100; has effect only on Jpeg format).
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func downloadImages(_ name: String, _ format: String, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
-        downloadImagesWithRequestBuilder(name, format, password, folder, storage).executeAuthorized { (response, error) -> Void in
+    open class func downloadImages(_ name: String, _ format: String, _ password: String = "", _ folder: String = "", _ storage: String = "", _ quality: Int? = nil, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        downloadImagesWithRequestBuilder(name, format, password, folder, storage, quality).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -7004,9 +7145,10 @@ open class SlidesAPI {
      - parameter password: Document password.
      - parameter folder: Document folder.
      - parameter storage: Document storage.
+     - parameter quality: Image quality (0 to 100; has effect only on Jpeg format).
      - returns: RequestBuilder<Data> 
      */
-    open class func downloadImagesWithRequestBuilder(_ name: String, _ format: String, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Data> {
+    open class func downloadImagesWithRequestBuilder(_ name: String, _ format: String, _ password: String = "", _ folder: String = "", _ storage: String = "", _ quality: Int? = nil) -> RequestBuilder<Data> {
         var methodPath = "/slides/{name}/images/download/{format}"
         methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
         methodPath = APIHelper.replacePathParameter(methodPath, "format", format)
@@ -7020,7 +7162,8 @@ open class SlidesAPI {
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
             "folder": folder, 
-            "storage": storage
+            "storage": storage, 
+            "quality": quality?.encodeToJSON()
         ])
         let nillableHeaders: [String: Any?] = [
             "password": password
@@ -7144,10 +7287,11 @@ open class SlidesAPI {
      - parameter document: Document data.
      - parameter format: Export format (png, jpg, gif).
      - parameter password: Document password.
+     - parameter quality: Image quality (0 to 100; has effect only on Jpeg format).
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func downloadImagesOnline(_ document: Data, _ format: String, _ password: String = "", completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
-        downloadImagesOnlineWithRequestBuilder(document, format, password).executeAuthorized { (response, error) -> Void in
+    open class func downloadImagesOnline(_ document: Data, _ format: String, _ password: String = "", _ quality: Int? = nil, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        downloadImagesOnlineWithRequestBuilder(document, format, password, quality).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -7163,9 +7307,10 @@ open class SlidesAPI {
      - parameter document: Document data.
      - parameter format: Export format (png, jpg, gif).
      - parameter password: Document password.
+     - parameter quality: Image quality (0 to 100; has effect only on Jpeg format).
      - returns: RequestBuilder<Data> 
      */
-    open class func downloadImagesOnlineWithRequestBuilder(_ document: Data, _ format: String, _ password: String = "") -> RequestBuilder<Data> {
+    open class func downloadImagesOnlineWithRequestBuilder(_ document: Data, _ format: String, _ password: String = "", _ quality: Int? = nil) -> RequestBuilder<Data> {
         var methodPath = "/slides/images/download/{format}"
         methodPath = APIHelper.replacePathParameter(methodPath, "format", format)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
@@ -7176,8 +7321,10 @@ open class SlidesAPI {
         fileParams.removeAll()
         fileParams.append(document)
 
-
-        let url = URLComponents(string: URLString)
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "quality": quality?.encodeToJSON()
+        ])
         let nillableHeaders: [String: Any?] = [
             "password": password
         ]
@@ -7479,6 +7626,7 @@ open class SlidesAPI {
         case mpeg4 = "Mpeg4"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -7554,6 +7702,7 @@ open class SlidesAPI {
         case bmp = "Bmp"
         case tiff = "Tiff"
         case svg = "Svg"
+        case emf = "Emf"
     }
 
     /**
@@ -7653,6 +7802,7 @@ open class SlidesAPI {
         case bmp = "Bmp"
         case tiff = "Tiff"
         case svg = "Svg"
+        case emf = "Emf"
     }
 
     /**
@@ -7706,6 +7856,7 @@ open class SlidesAPI {
         case bmp = "Bmp"
         case tiff = "Tiff"
         case svg = "Svg"
+        case emf = "Emf"
     }
 
     /**
@@ -7818,6 +7969,7 @@ open class SlidesAPI {
         case html5 = "Html5"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -7918,6 +8070,7 @@ open class SlidesAPI {
         case html5 = "Html5"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -8005,6 +8158,7 @@ open class SlidesAPI {
         case bmp = "Bmp"
         case tiff = "Tiff"
         case svg = "Svg"
+        case emf = "Emf"
     }
 
     /**
@@ -11930,6 +12084,71 @@ open class SlidesAPI {
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
     }
     /**
+     Gets video captions tracks.
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a picture frame).
+     - parameter includeData: true to include caption data string values in the response.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getVideoCaptionTracks(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ includeData: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: CaptionTracks?,_ error: Error?) -> Void)) {
+        getVideoCaptionTracksWithRequestBuilder(name, slideIndex, shapeIndex, includeData, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Gets video captions tracks.
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/captionTracks
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter shapeIndex: Shape index (must refer to a picture frame).
+     - parameter includeData: true to include caption data string values in the response.
+     - parameter password: Document password.
+     - parameter folder: Document folder.
+     - parameter storage: Presentation storage.
+     - returns: RequestBuilder<CaptionTracks> 
+     */
+    open class func getVideoCaptionTracksWithRequestBuilder(_ name: String, _ slideIndex: Int, _ shapeIndex: Int, _ includeData: Bool? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<CaptionTracks> {
+        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/captionTracks"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
+        methodPath = APIHelper.replacePathParameter(methodPath, "shapeIndex", shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "includeData": includeData, 
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<CaptionTracks>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
      Read presentation view properties.
      - parameter name: Document name.
      - parameter password: Document password.
@@ -12270,10 +12489,12 @@ open class SlidesAPI {
      - parameter password: Document password.
      - parameter folder: Document folder.
      - parameter storage: Document storage.
+     - parameter position: Slide index before which the HTML should be added (add to the end by default).
+     - parameter useSlideWithIndexAsStart: true to insert data starting from an empty space on the slide with the specified index; false to add data to the created slides.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func importFromHtml(_ name: String, _ html: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
-        importFromHtmlWithRequestBuilder(name, html, password, folder, storage).executeAuthorized { (response, error) -> Void in
+    open class func importFromHtml(_ name: String, _ html: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "", _ position: Int? = nil, _ useSlideWithIndexAsStart: Bool? = nil, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+        importFromHtmlWithRequestBuilder(name, html, password, folder, storage, position, useSlideWithIndexAsStart).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -12295,9 +12516,11 @@ open class SlidesAPI {
      - parameter password: Document password.
      - parameter folder: Document folder.
      - parameter storage: Document storage.
+     - parameter position: Slide index before which the HTML should be added (add to the end by default).
+     - parameter useSlideWithIndexAsStart: true to insert data starting from an empty space on the slide with the specified index; false to add data to the created slides.
      - returns: RequestBuilder<Document> 
      */
-    open class func importFromHtmlWithRequestBuilder(_ name: String, _ html: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<Document> {
+    open class func importFromHtmlWithRequestBuilder(_ name: String, _ html: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "", _ position: Int? = nil, _ useSlideWithIndexAsStart: Bool? = nil) -> RequestBuilder<Document> {
         var methodPath = "/slides/{name}/fromHtml"
         methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
@@ -12310,7 +12533,9 @@ open class SlidesAPI {
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
             "folder": folder, 
-            "storage": storage
+            "storage": storage, 
+            "position": position?.encodeToJSON(), 
+            "useSlideWithIndexAsStart": useSlideWithIndexAsStart
         ])
         let nillableHeaders: [String: Any?] = [
             "password": password
@@ -14071,6 +14296,7 @@ open class SlidesAPI {
         case mpeg4 = "Mpeg4"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -14152,6 +14378,7 @@ open class SlidesAPI {
         case bmp = "Bmp"
         case tiff = "Tiff"
         case svg = "Svg"
+        case emf = "Emf"
     }
 
     /**
@@ -14257,6 +14484,7 @@ open class SlidesAPI {
         case bmp = "Bmp"
         case tiff = "Tiff"
         case svg = "Svg"
+        case emf = "Emf"
     }
 
     /**
@@ -14375,6 +14603,7 @@ open class SlidesAPI {
         case html5 = "Html5"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -14481,6 +14710,7 @@ open class SlidesAPI {
         case html5 = "Html5"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -14574,6 +14804,7 @@ open class SlidesAPI {
         case bmp = "Bmp"
         case tiff = "Tiff"
         case svg = "Svg"
+        case emf = "Emf"
     }
 
     /**
@@ -16156,6 +16387,7 @@ open class SlidesAPI {
         case html5 = "Html5"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -16266,6 +16498,7 @@ open class SlidesAPI {
         case html5 = "Html5"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -16373,6 +16606,7 @@ open class SlidesAPI {
         case html5 = "Html5"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**

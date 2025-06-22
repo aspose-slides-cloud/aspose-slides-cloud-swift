@@ -37,5 +37,6 @@ public enum ShapeExportFormat: String, Codable {
     case bmp = "Bmp"
     case tiff = "Tiff"
     case svg = "Svg"
+    case emf = "Emf"
 
 }

@@ -203,7 +203,7 @@ class MergeTests : XCTestCase {
             presentation1.password = "password"
             presentation1.slides = [ 1, 2 ]
             let presentation2 = PresentationToMerge()
-            presentation2.path = "https://drive.google.com/uc?export=download&id=1ycMzd7e--Ro9H8eH2GL5fPP7-2HjX4My"
+            presentation2.path = "https://www.dropbox.com/scl/fi/nz3yt2wpg4eugiw12bz3g/info.pptx?rlkey=wju4vbi6h46q8733tzzvfgufz&e=1&st=pqt66x86&dl=1"
             presentation2.source = PresentationToMerge.Source.url
             presentation2.slides = [ 1 ]
             request.presentations = [ presentation1, presentation2 ]

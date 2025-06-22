@@ -67,6 +67,8 @@ public class SvgExportOptions: ExportOptions {
     public var useFrameSize: Bool?
     /** Determines whether to perform the specified rotation of the shape when rendering or not. */
     public var useFrameRotation: Bool?
+    /** true to disable ligatures in the rendered output. */
+    public var disableFontLigatures: Bool?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -126,10 +128,14 @@ public class SvgExportOptions: ExportOptions {
         if useFrameRotationValue != nil {
             self.useFrameRotation = useFrameRotationValue! as? Bool
         }
+        let disableFontLigaturesValue = source["disableFontLigatures"] ?? source["DisableFontLigatures"]
+        if disableFontLigaturesValue != nil {
+            self.disableFontLigatures = disableFontLigaturesValue! as? Bool
+        }
     }
 
-    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, vectorizeText: Bool? = nil, metafileRasterizationDpi: Int? = nil, disable3DText: Bool? = nil, disableGradientSplit: Bool? = nil, disableLineEndCropping: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, externalFontsHandling: ExternalFontsHandling? = nil, useFrameSize: Bool? = nil, useFrameRotation: Bool? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, skipJavaScriptLinks: Bool? = nil, format: String? = nil, vectorizeText: Bool? = nil, metafileRasterizationDpi: Int? = nil, disable3DText: Bool? = nil, disableGradientSplit: Bool? = nil, disableLineEndCropping: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, externalFontsHandling: ExternalFontsHandling? = nil, useFrameSize: Bool? = nil, useFrameRotation: Bool? = nil, disableFontLigatures: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, skipJavaScriptLinks: skipJavaScriptLinks, format: format)
         self.vectorizeText = vectorizeText
         self.metafileRasterizationDpi = metafileRasterizationDpi
         self.disable3DText = disable3DText
@@ -141,6 +147,7 @@ public class SvgExportOptions: ExportOptions {
         self.externalFontsHandling = externalFontsHandling
         self.useFrameSize = useFrameSize
         self.useFrameRotation = useFrameRotation
+        self.disableFontLigatures = disableFontLigatures
         self.format = "svg"
     }
 
@@ -156,6 +163,7 @@ public class SvgExportOptions: ExportOptions {
         case externalFontsHandling
         case useFrameSize
         case useFrameRotation
+        case disableFontLigatures
     }
 
     required init(from decoder: Decoder) throws {
@@ -172,6 +180,7 @@ public class SvgExportOptions: ExportOptions {
         externalFontsHandling = try? values.decode(ExternalFontsHandling.self, forKey: .externalFontsHandling)
         useFrameSize = try? values.decode(Bool.self, forKey: .useFrameSize)
         useFrameRotation = try? values.decode(Bool.self, forKey: .useFrameRotation)
+        disableFontLigatures = try? values.decode(Bool.self, forKey: .disableFontLigatures)
         self.format = "svg"
     }
 
@@ -210,6 +219,9 @@ public class SvgExportOptions: ExportOptions {
         }
         if (useFrameRotation != nil) {
             try? container.encode(useFrameRotation, forKey: .useFrameRotation)
+        }
+        if (disableFontLigatures != nil) {
+            try? container.encode(disableFontLigatures, forKey: .disableFontLigatures)
         }
     }
 

@@ -39,9 +39,11 @@ public class Html5ExportOptions: ExportOptions {
     /** Gets or sets embed images option. */
     public var embedImages: Bool?
     /** Slides layouting options */
-    public var notesCommentsLayouting: NotesCommentsLayoutingOptions?
+    public var slidesLayoutOptions: SlidesLayoutOptions?
     /** Path to custom templates */
     public var templatesPath: String?
+    /** true to disable ligatures in the rendered output. */
+    public var disableFontLigatures: Bool?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -57,13 +59,13 @@ public class Html5ExportOptions: ExportOptions {
         if embedImagesValue != nil {
             self.embedImages = embedImagesValue! as? Bool
         }
-        let notesCommentsLayoutingValue = source["notesCommentsLayouting"] ?? source["NotesCommentsLayouting"]
-        if notesCommentsLayoutingValue != nil {
-            let notesCommentsLayoutingDictionaryValue = notesCommentsLayoutingValue! as? [String:Any]
-            if notesCommentsLayoutingDictionaryValue != nil {
-                let (notesCommentsLayoutingInstance, error) = ClassRegistry.getClassFromDictionary(NotesCommentsLayoutingOptions.self, notesCommentsLayoutingDictionaryValue!)
-                if error == nil && notesCommentsLayoutingInstance != nil {
-                    self.notesCommentsLayouting = notesCommentsLayoutingInstance! as? NotesCommentsLayoutingOptions
+        let slidesLayoutOptionsValue = source["slidesLayoutOptions"] ?? source["SlidesLayoutOptions"]
+        if slidesLayoutOptionsValue != nil {
+            let slidesLayoutOptionsDictionaryValue = slidesLayoutOptionsValue! as? [String:Any]
+            if slidesLayoutOptionsDictionaryValue != nil {
+                let (slidesLayoutOptionsInstance, error) = ClassRegistry.getClassFromDictionary(SlidesLayoutOptions.self, slidesLayoutOptionsDictionaryValue!)
+                if error == nil && slidesLayoutOptionsInstance != nil {
+                    self.slidesLayoutOptions = slidesLayoutOptionsInstance! as? SlidesLayoutOptions
                 }
             }
         }
@@ -71,15 +73,20 @@ public class Html5ExportOptions: ExportOptions {
         if templatesPathValue != nil {
             self.templatesPath = templatesPathValue! as? String
         }
+        let disableFontLigaturesValue = source["disableFontLigatures"] ?? source["DisableFontLigatures"]
+        if disableFontLigaturesValue != nil {
+            self.disableFontLigatures = disableFontLigaturesValue! as? Bool
+        }
     }
 
-    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, animateTransitions: Bool? = nil, animateShapes: Bool? = nil, embedImages: Bool? = nil, notesCommentsLayouting: NotesCommentsLayoutingOptions? = nil, templatesPath: String? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, skipJavaScriptLinks: Bool? = nil, format: String? = nil, animateTransitions: Bool? = nil, animateShapes: Bool? = nil, embedImages: Bool? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil, templatesPath: String? = nil, disableFontLigatures: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, skipJavaScriptLinks: skipJavaScriptLinks, format: format)
         self.animateTransitions = animateTransitions
         self.animateShapes = animateShapes
         self.embedImages = embedImages
-        self.notesCommentsLayouting = notesCommentsLayouting
+        self.slidesLayoutOptions = slidesLayoutOptions
         self.templatesPath = templatesPath
+        self.disableFontLigatures = disableFontLigatures
         self.format = "html5"
     }
 
@@ -87,8 +94,9 @@ public class Html5ExportOptions: ExportOptions {
         case animateTransitions
         case animateShapes
         case embedImages
-        case notesCommentsLayouting
+        case slidesLayoutOptions
         case templatesPath
+        case disableFontLigatures
     }
 
     required init(from decoder: Decoder) throws {
@@ -97,8 +105,9 @@ public class Html5ExportOptions: ExportOptions {
         animateTransitions = try? values.decode(Bool.self, forKey: .animateTransitions)
         animateShapes = try? values.decode(Bool.self, forKey: .animateShapes)
         embedImages = try? values.decode(Bool.self, forKey: .embedImages)
-        notesCommentsLayouting = try? values.decode(NotesCommentsLayoutingOptions.self, forKey: .notesCommentsLayouting)
+        slidesLayoutOptions = try? values.decode(SlidesLayoutOptions.self, forKey: .slidesLayoutOptions)
         templatesPath = try? values.decode(String.self, forKey: .templatesPath)
+        disableFontLigatures = try? values.decode(Bool.self, forKey: .disableFontLigatures)
         self.format = "html5"
     }
 
@@ -114,11 +123,14 @@ public class Html5ExportOptions: ExportOptions {
         if (embedImages != nil) {
             try? container.encode(embedImages, forKey: .embedImages)
         }
-        if (notesCommentsLayouting != nil) {
-            try? container.encode(notesCommentsLayouting, forKey: .notesCommentsLayouting)
+        if (slidesLayoutOptions != nil) {
+            try? container.encode(slidesLayoutOptions, forKey: .slidesLayoutOptions)
         }
         if (templatesPath != nil) {
             try? container.encode(templatesPath, forKey: .templatesPath)
+        }
+        if (disableFontLigatures != nil) {
+            try? container.encode(disableFontLigatures, forKey: .disableFontLigatures)
         }
     }
 

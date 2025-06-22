@@ -32,16 +32,6 @@ import Foundation
 /** Provides options that control how a presentation is saved in SWF format. */
 public class SwfExportOptions: ExportOptions {
 
-    public enum NotesPosition: String, Codable { 
-        case _none = "None"
-        case bottomFull = "BottomFull"
-        case bottomTruncated = "BottomTruncated"
-    }
-    public enum CommentsPosition: String, Codable { 
-        case _none = "None"
-        case bottom = "Bottom"
-        case _right = "Right"
-    }
     /** Specifies whether the generated document should include hidden slides or not. Default is false.  */
     public var showHiddenSlides: Bool?
     /** Specifies whether the generated SWF document should be compressed or not. Default is true.  */
@@ -72,16 +62,8 @@ public class SwfExportOptions: ExportOptions {
     public var logoLink: String?
     /** Specifies the quality of JPEG images. Default is 95. */
     public var jpegQuality: Int?
-    /** Gets or sets the position of the notes on the page. */
-    public var notesPosition: NotesPosition?
-    /** Gets or sets the position of the comments on the page. */
-    public var commentsPosition: CommentsPosition?
-    /** Gets or sets the width of the comment output area in pixels (Applies only if comments are displayed on the right). */
-    public var commentsAreaWidth: Int?
-    /** Gets or sets the color of comments area (Applies only if comments are displayed on the right). */
-    public var commentsAreaColor: String?
-    /** True if comments that have no author are displayed. (Applies only if comments are displayed). */
-    public var showCommentsByNoAuthor: Bool?
+    /** Slides layouting options */
+    public var slidesLayoutOptions: SlidesLayoutOptions?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -145,42 +127,20 @@ public class SwfExportOptions: ExportOptions {
         if jpegQualityValue != nil {
             self.jpegQuality = jpegQualityValue! as? Int
         }
-        let notesPositionValue = source["notesPosition"] ?? source["NotesPosition"]
-        if notesPositionValue != nil {
-            let notesPositionStringValue = notesPositionValue! as? String
-            if notesPositionStringValue != nil {
-                let notesPositionEnumValue = NotesPosition(rawValue: notesPositionStringValue!)
-                if notesPositionEnumValue != nil {
-                    self.notesPosition = notesPositionEnumValue!
+        let slidesLayoutOptionsValue = source["slidesLayoutOptions"] ?? source["SlidesLayoutOptions"]
+        if slidesLayoutOptionsValue != nil {
+            let slidesLayoutOptionsDictionaryValue = slidesLayoutOptionsValue! as? [String:Any]
+            if slidesLayoutOptionsDictionaryValue != nil {
+                let (slidesLayoutOptionsInstance, error) = ClassRegistry.getClassFromDictionary(SlidesLayoutOptions.self, slidesLayoutOptionsDictionaryValue!)
+                if error == nil && slidesLayoutOptionsInstance != nil {
+                    self.slidesLayoutOptions = slidesLayoutOptionsInstance! as? SlidesLayoutOptions
                 }
             }
-        }
-        let commentsPositionValue = source["commentsPosition"] ?? source["CommentsPosition"]
-        if commentsPositionValue != nil {
-            let commentsPositionStringValue = commentsPositionValue! as? String
-            if commentsPositionStringValue != nil {
-                let commentsPositionEnumValue = CommentsPosition(rawValue: commentsPositionStringValue!)
-                if commentsPositionEnumValue != nil {
-                    self.commentsPosition = commentsPositionEnumValue!
-                }
-            }
-        }
-        let commentsAreaWidthValue = source["commentsAreaWidth"] ?? source["CommentsAreaWidth"]
-        if commentsAreaWidthValue != nil {
-            self.commentsAreaWidth = commentsAreaWidthValue! as? Int
-        }
-        let commentsAreaColorValue = source["commentsAreaColor"] ?? source["CommentsAreaColor"]
-        if commentsAreaColorValue != nil {
-            self.commentsAreaColor = commentsAreaColorValue! as? String
-        }
-        let showCommentsByNoAuthorValue = source["showCommentsByNoAuthor"] ?? source["ShowCommentsByNoAuthor"]
-        if showCommentsByNoAuthorValue != nil {
-            self.showCommentsByNoAuthor = showCommentsByNoAuthorValue! as? Bool
         }
     }
 
-    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, showHiddenSlides: Bool? = nil, compressed: Bool? = nil, viewerIncluded: Bool? = nil, showPageBorder: Bool? = nil, showFullScreen: Bool? = nil, showPageStepper: Bool? = nil, showSearch: Bool? = nil, showTopPane: Bool? = nil, showBottomPane: Bool? = nil, showLeftPane: Bool? = nil, startOpenLeftPane: Bool? = nil, enableContextMenu: Bool? = nil, logoImage: String? = nil, logoLink: String? = nil, jpegQuality: Int? = nil, notesPosition: NotesPosition? = nil, commentsPosition: CommentsPosition? = nil, commentsAreaWidth: Int? = nil, commentsAreaColor: String? = nil, showCommentsByNoAuthor: Bool? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, skipJavaScriptLinks: Bool? = nil, format: String? = nil, showHiddenSlides: Bool? = nil, compressed: Bool? = nil, viewerIncluded: Bool? = nil, showPageBorder: Bool? = nil, showFullScreen: Bool? = nil, showPageStepper: Bool? = nil, showSearch: Bool? = nil, showTopPane: Bool? = nil, showBottomPane: Bool? = nil, showLeftPane: Bool? = nil, startOpenLeftPane: Bool? = nil, enableContextMenu: Bool? = nil, logoImage: String? = nil, logoLink: String? = nil, jpegQuality: Int? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, skipJavaScriptLinks: skipJavaScriptLinks, format: format)
         self.showHiddenSlides = showHiddenSlides
         self.compressed = compressed
         self.viewerIncluded = viewerIncluded
@@ -196,11 +156,7 @@ public class SwfExportOptions: ExportOptions {
         self.logoImage = logoImage
         self.logoLink = logoLink
         self.jpegQuality = jpegQuality
-        self.notesPosition = notesPosition
-        self.commentsPosition = commentsPosition
-        self.commentsAreaWidth = commentsAreaWidth
-        self.commentsAreaColor = commentsAreaColor
-        self.showCommentsByNoAuthor = showCommentsByNoAuthor
+        self.slidesLayoutOptions = slidesLayoutOptions
         self.format = "swf"
     }
 
@@ -220,11 +176,7 @@ public class SwfExportOptions: ExportOptions {
         case logoImage
         case logoLink
         case jpegQuality
-        case notesPosition
-        case commentsPosition
-        case commentsAreaWidth
-        case commentsAreaColor
-        case showCommentsByNoAuthor
+        case slidesLayoutOptions
     }
 
     required init(from decoder: Decoder) throws {
@@ -245,11 +197,7 @@ public class SwfExportOptions: ExportOptions {
         logoImage = try? values.decode(String.self, forKey: .logoImage)
         logoLink = try? values.decode(String.self, forKey: .logoLink)
         jpegQuality = try? values.decode(Int.self, forKey: .jpegQuality)
-        notesPosition = try? values.decode(NotesPosition.self, forKey: .notesPosition)
-        commentsPosition = try? values.decode(CommentsPosition.self, forKey: .commentsPosition)
-        commentsAreaWidth = try? values.decode(Int.self, forKey: .commentsAreaWidth)
-        commentsAreaColor = try? values.decode(String.self, forKey: .commentsAreaColor)
-        showCommentsByNoAuthor = try? values.decode(Bool.self, forKey: .showCommentsByNoAuthor)
+        slidesLayoutOptions = try? values.decode(SlidesLayoutOptions.self, forKey: .slidesLayoutOptions)
         self.format = "swf"
     }
 
@@ -301,20 +249,8 @@ public class SwfExportOptions: ExportOptions {
         if (jpegQuality != nil) {
             try? container.encode(jpegQuality, forKey: .jpegQuality)
         }
-        if (notesPosition != nil) {
-            try? container.encode(notesPosition, forKey: .notesPosition)
-        }
-        if (commentsPosition != nil) {
-            try? container.encode(commentsPosition, forKey: .commentsPosition)
-        }
-        if (commentsAreaWidth != nil) {
-            try? container.encode(commentsAreaWidth, forKey: .commentsAreaWidth)
-        }
-        if (commentsAreaColor != nil) {
-            try? container.encode(commentsAreaColor, forKey: .commentsAreaColor)
-        }
-        if (showCommentsByNoAuthor != nil) {
-            try? container.encode(showCommentsByNoAuthor, forKey: .showCommentsByNoAuthor)
+        if (slidesLayoutOptions != nil) {
+            try? container.encode(slidesLayoutOptions, forKey: .slidesLayoutOptions)
         }
     }
 

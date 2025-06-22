@@ -56,6 +56,8 @@ public class HtmlExportOptions: ExportOptions {
     public var deletePicturesCroppedAreas: Bool?
     /** Slides layouting options */
     public var slidesLayoutOptions: SlidesLayoutOptions?
+    /** true to disable ligatures in the rendered output. */
+    public var disableFontLigatures: Bool?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -103,10 +105,14 @@ public class HtmlExportOptions: ExportOptions {
                 }
             }
         }
+        let disableFontLigaturesValue = source["disableFontLigatures"] ?? source["DisableFontLigatures"]
+        if disableFontLigaturesValue != nil {
+            self.disableFontLigatures = disableFontLigaturesValue! as? Bool
+        }
     }
 
-    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, saveAsZip: Bool? = nil, subDirectoryName: String? = nil, showHiddenSlides: Bool? = nil, svgResponsiveLayout: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, skipJavaScriptLinks: Bool? = nil, format: String? = nil, saveAsZip: Bool? = nil, subDirectoryName: String? = nil, showHiddenSlides: Bool? = nil, svgResponsiveLayout: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, slidesLayoutOptions: SlidesLayoutOptions? = nil, disableFontLigatures: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, skipJavaScriptLinks: skipJavaScriptLinks, format: format)
         self.saveAsZip = saveAsZip
         self.subDirectoryName = subDirectoryName
         self.showHiddenSlides = showHiddenSlides
@@ -115,6 +121,7 @@ public class HtmlExportOptions: ExportOptions {
         self.picturesCompression = picturesCompression
         self.deletePicturesCroppedAreas = deletePicturesCroppedAreas
         self.slidesLayoutOptions = slidesLayoutOptions
+        self.disableFontLigatures = disableFontLigatures
         self.format = "html"
     }
 
@@ -127,6 +134,7 @@ public class HtmlExportOptions: ExportOptions {
         case picturesCompression
         case deletePicturesCroppedAreas
         case slidesLayoutOptions
+        case disableFontLigatures
     }
 
     required init(from decoder: Decoder) throws {
@@ -140,6 +148,7 @@ public class HtmlExportOptions: ExportOptions {
         picturesCompression = try? values.decode(PicturesCompression.self, forKey: .picturesCompression)
         deletePicturesCroppedAreas = try? values.decode(Bool.self, forKey: .deletePicturesCroppedAreas)
         slidesLayoutOptions = try? values.decode(SlidesLayoutOptions.self, forKey: .slidesLayoutOptions)
+        disableFontLigatures = try? values.decode(Bool.self, forKey: .disableFontLigatures)
         self.format = "html"
     }
 
@@ -169,6 +178,9 @@ public class HtmlExportOptions: ExportOptions {
         }
         if (slidesLayoutOptions != nil) {
             try? container.encode(slidesLayoutOptions, forKey: .slidesLayoutOptions)
+        }
+        if (disableFontLigatures != nil) {
+            try? container.encode(disableFontLigatures, forKey: .disableFontLigatures)
         }
     }
 

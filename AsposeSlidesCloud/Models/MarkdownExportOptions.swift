@@ -68,6 +68,11 @@ public class MarkdownExportOptions: ExportOptions {
         case unix = "Unix"
         case mac = "Mac"
     }
+    public enum HandleRepeatedSpaces: String, Codable { 
+        case _none = "None"
+        case alternateSpacesToNbsp = "AlternateSpacesToNbsp"
+        case multipleSpacesToNbsp = "MultipleSpacesToNbsp"
+    }
     /** Specifies markdown specification to convert presentation. Default is TextOnly. */
     public var exportType: ExportType?
     /** Specifies markdown specification to convert presentation. Default is MultiMarkdown. */
@@ -82,6 +87,12 @@ public class MarkdownExportOptions: ExportOptions {
     public var showComments: Bool?
     /** Specifies whether the generated document should include hidden slides. Default is false.  */
     public var showHiddenSlides: Bool?
+    /** true to remove empty or whitespace-only lines from the final Markdown output. Default is false.  */
+    public var removeEmptyLines: Bool?
+    /** Specifies how repeated space characters are preserved to maintain visual alignment.  */
+    public var handleRepeatedSpaces: HandleRepeatedSpaces?
+    /** The format of slide number headers.  */
+    public var slideNumberFormat: String?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -131,10 +142,28 @@ public class MarkdownExportOptions: ExportOptions {
         if showHiddenSlidesValue != nil {
             self.showHiddenSlides = showHiddenSlidesValue! as? Bool
         }
+        let removeEmptyLinesValue = source["removeEmptyLines"] ?? source["RemoveEmptyLines"]
+        if removeEmptyLinesValue != nil {
+            self.removeEmptyLines = removeEmptyLinesValue! as? Bool
+        }
+        let handleRepeatedSpacesValue = source["handleRepeatedSpaces"] ?? source["HandleRepeatedSpaces"]
+        if handleRepeatedSpacesValue != nil {
+            let handleRepeatedSpacesStringValue = handleRepeatedSpacesValue! as? String
+            if handleRepeatedSpacesStringValue != nil {
+                let handleRepeatedSpacesEnumValue = HandleRepeatedSpaces(rawValue: handleRepeatedSpacesStringValue!)
+                if handleRepeatedSpacesEnumValue != nil {
+                    self.handleRepeatedSpaces = handleRepeatedSpacesEnumValue!
+                }
+            }
+        }
+        let slideNumberFormatValue = source["slideNumberFormat"] ?? source["SlideNumberFormat"]
+        if slideNumberFormatValue != nil {
+            self.slideNumberFormat = slideNumberFormatValue! as? String
+        }
     }
 
-    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, exportType: ExportType? = nil, flavor: Flavor? = nil, newLineType: NewLineType? = nil, imagesSaveFolderName: String? = nil, showSlideNumber: Bool? = nil, showComments: Bool? = nil, showHiddenSlides: Bool? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, skipJavaScriptLinks: Bool? = nil, format: String? = nil, exportType: ExportType? = nil, flavor: Flavor? = nil, newLineType: NewLineType? = nil, imagesSaveFolderName: String? = nil, showSlideNumber: Bool? = nil, showComments: Bool? = nil, showHiddenSlides: Bool? = nil, removeEmptyLines: Bool? = nil, handleRepeatedSpaces: HandleRepeatedSpaces? = nil, slideNumberFormat: String? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, skipJavaScriptLinks: skipJavaScriptLinks, format: format)
         self.exportType = exportType
         self.flavor = flavor
         self.newLineType = newLineType
@@ -142,6 +171,9 @@ public class MarkdownExportOptions: ExportOptions {
         self.showSlideNumber = showSlideNumber
         self.showComments = showComments
         self.showHiddenSlides = showHiddenSlides
+        self.removeEmptyLines = removeEmptyLines
+        self.handleRepeatedSpaces = handleRepeatedSpaces
+        self.slideNumberFormat = slideNumberFormat
         self.format = "md"
     }
 
@@ -153,6 +185,9 @@ public class MarkdownExportOptions: ExportOptions {
         case showSlideNumber
         case showComments
         case showHiddenSlides
+        case removeEmptyLines
+        case handleRepeatedSpaces
+        case slideNumberFormat
     }
 
     required init(from decoder: Decoder) throws {
@@ -165,6 +200,9 @@ public class MarkdownExportOptions: ExportOptions {
         showSlideNumber = try? values.decode(Bool.self, forKey: .showSlideNumber)
         showComments = try? values.decode(Bool.self, forKey: .showComments)
         showHiddenSlides = try? values.decode(Bool.self, forKey: .showHiddenSlides)
+        removeEmptyLines = try? values.decode(Bool.self, forKey: .removeEmptyLines)
+        handleRepeatedSpaces = try? values.decode(HandleRepeatedSpaces.self, forKey: .handleRepeatedSpaces)
+        slideNumberFormat = try? values.decode(String.self, forKey: .slideNumberFormat)
         self.format = "md"
     }
 
@@ -191,6 +229,15 @@ public class MarkdownExportOptions: ExportOptions {
         }
         if (showHiddenSlides != nil) {
             try? container.encode(showHiddenSlides, forKey: .showHiddenSlides)
+        }
+        if (removeEmptyLines != nil) {
+            try? container.encode(removeEmptyLines, forKey: .removeEmptyLines)
+        }
+        if (handleRepeatedSpaces != nil) {
+            try? container.encode(handleRepeatedSpaces, forKey: .handleRepeatedSpaces)
+        }
+        if (slideNumberFormat != nil) {
+            try? container.encode(slideNumberFormat, forKey: .slideNumberFormat)
         }
     }
 

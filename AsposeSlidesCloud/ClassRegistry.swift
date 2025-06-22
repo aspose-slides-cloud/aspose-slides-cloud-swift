@@ -227,6 +227,14 @@ class ClassRegistry {
             let value = Camera()
             try? value.fillValues(object)
             return (value, nil)
+        } else if className == "CaptionTrack" {
+            let value = CaptionTrack()
+            try? value.fillValues(object)
+            return (value, nil)
+        } else if className == "CaptionTracks" {
+            let value = CaptionTracks()
+            try? value.fillValues(object)
+            return (value, nil)
         } else if className == "Chart" {
             let value = Chart()
             try? value.fillValues(object)
@@ -1125,6 +1133,8 @@ class ClassRegistry {
         "BoxElement": "MathElement",
         "BubbleChartDataPoint": "ScatterChartDataPoint",
         "BubbleSeries": "XYSeries",
+        "CaptionTrack": "ResourceBase",
+        "CaptionTracks": "ResourceBase",
         "Chart": "ShapeBase",
         "ClosePathSegment": "PathSegment",
         "ColorChangeEffect": "ImageTransformEffect",
@@ -1316,6 +1326,8 @@ class ClassRegistry {
         typeDeterminers["BubbleChartDataPoint"]!["Type"] = "Bubble"
         typeDeterminers["BubbleSeries"] = [ : ]
         typeDeterminers["BubbleSeries"]!["DataPointType"] = "Bubble"
+        typeDeterminers["CaptionTrack"] = [ : ]
+        typeDeterminers["CaptionTracks"] = [ : ]
         typeDeterminers["Chart"] = [ : ]
         typeDeterminers["Chart"]!["Type"] = "Chart"
         typeDeterminers["ClosePathSegment"] = [ : ]

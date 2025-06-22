@@ -46,6 +46,8 @@ public class PptxExportOptions: ExportOptions {
     public var conformance: Conformance?
     /** Specifies whether the ZIP64 format is used for the Presentation document. The default value is Zip64Mode.IfNecessary. */
     public var zip64Mode: Zip64Mode?
+    /** True to refresh the presentation thumbnail on save */
+    public var refreshThumbnail: Bool?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -69,18 +71,24 @@ public class PptxExportOptions: ExportOptions {
                 }
             }
         }
+        let refreshThumbnailValue = source["refreshThumbnail"] ?? source["RefreshThumbnail"]
+        if refreshThumbnailValue != nil {
+            self.refreshThumbnail = refreshThumbnailValue! as? Bool
+        }
     }
 
-    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, format: String? = nil, conformance: Conformance? = nil, zip64Mode: Zip64Mode? = nil) {
-        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, format: format)
+    public init(defaultRegularFont: String? = nil, deleteEmbeddedBinaryObjects: Bool? = nil, gradientStyle: GradientStyle? = nil, fontFallbackRules: [FontFallbackRule]? = nil, fontSubstRules: [FontSubstRule]? = nil, skipJavaScriptLinks: Bool? = nil, format: String? = nil, conformance: Conformance? = nil, zip64Mode: Zip64Mode? = nil, refreshThumbnail: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, deleteEmbeddedBinaryObjects: deleteEmbeddedBinaryObjects, gradientStyle: gradientStyle, fontFallbackRules: fontFallbackRules, fontSubstRules: fontSubstRules, skipJavaScriptLinks: skipJavaScriptLinks, format: format)
         self.conformance = conformance
         self.zip64Mode = zip64Mode
+        self.refreshThumbnail = refreshThumbnail
         self.format = "pptx"
     }
 
     private enum CodingKeys: String, CodingKey {
         case conformance
         case zip64Mode
+        case refreshThumbnail
     }
 
     required init(from decoder: Decoder) throws {
@@ -88,6 +96,7 @@ public class PptxExportOptions: ExportOptions {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         conformance = try? values.decode(Conformance.self, forKey: .conformance)
         zip64Mode = try? values.decode(Zip64Mode.self, forKey: .zip64Mode)
+        refreshThumbnail = try? values.decode(Bool.self, forKey: .refreshThumbnail)
         self.format = "pptx"
     }
 
@@ -99,6 +108,9 @@ public class PptxExportOptions: ExportOptions {
         }
         if (zip64Mode != nil) {
             try? container.encode(zip64Mode, forKey: .zip64Mode)
+        }
+        if (refreshThumbnail != nil) {
+            try? container.encode(refreshThumbnail, forKey: .refreshThumbnail)
         }
     }
 

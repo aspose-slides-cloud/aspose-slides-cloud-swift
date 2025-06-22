@@ -64,12 +64,22 @@ public class AudioFrame: GeometryShape {
     public var playMode: PlayMode?
     /** Returns or sets the audio volume. */
     public var volume: Volume?
+    /** Audio volume percent. */
+    public var volumeValue: Double?
     /** Audio data encoded in base64. */
     public var base64Data: String?
     /** Determines whether an audio is playing across the slides. */
     public var playAcrossSlides: Bool?
     /** Determines whether audio is automatically rewound to start after playing. */
     public var rewindAudio: Bool?
+    /** Time duration for the initial fade-in of the media in milliseconds. */
+    public var fadeInDuration: Double?
+    /** Time duration for the ending fade-out of the media in milliseconds. */
+    public var fadeOutDuration: Double?
+    /** Time duration to be removed from the beginning of the media during playback in milliseconds. */
+    public var trimFromStart: Double?
+    /** Time duration to be removed from the end of the media during playback in milliseconds. */
+    public var trimFromEnd: Double?
     /** Picture fill format. */
     public var pictureFillFormat: PictureFill?
 
@@ -123,6 +133,10 @@ public class AudioFrame: GeometryShape {
                 }
             }
         }
+        let volumeValueValue = source["volumeValue"] ?? source["VolumeValue"]
+        if volumeValueValue != nil {
+            self.volumeValue = volumeValueValue! as? Double
+        }
         let base64DataValue = source["base64Data"] ?? source["Base64Data"]
         if base64DataValue != nil {
             self.base64Data = base64DataValue! as? String
@@ -134,6 +148,22 @@ public class AudioFrame: GeometryShape {
         let rewindAudioValue = source["rewindAudio"] ?? source["RewindAudio"]
         if rewindAudioValue != nil {
             self.rewindAudio = rewindAudioValue! as? Bool
+        }
+        let fadeInDurationValue = source["fadeInDuration"] ?? source["FadeInDuration"]
+        if fadeInDurationValue != nil {
+            self.fadeInDuration = fadeInDurationValue! as? Double
+        }
+        let fadeOutDurationValue = source["fadeOutDuration"] ?? source["FadeOutDuration"]
+        if fadeOutDurationValue != nil {
+            self.fadeOutDuration = fadeOutDurationValue! as? Double
+        }
+        let trimFromStartValue = source["trimFromStart"] ?? source["TrimFromStart"]
+        if trimFromStartValue != nil {
+            self.trimFromStart = trimFromStartValue! as? Double
+        }
+        let trimFromEndValue = source["trimFromEnd"] ?? source["TrimFromEnd"]
+        if trimFromEndValue != nil {
+            self.trimFromEnd = trimFromEndValue! as? Double
         }
         let pictureFillFormatValue = source["pictureFillFormat"] ?? source["PictureFillFormat"]
         if pictureFillFormatValue != nil {
@@ -147,7 +177,7 @@ public class AudioFrame: GeometryShape {
         }
     }
 
-    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, isDecorative: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil, shapeType: ShapeType? = nil, audioCdEndTrack: Int? = nil, audioCdEndTrackTime: Int? = nil, audioCdStartTrack: Int? = nil, audioCdStartTrackTime: Int? = nil, embedded: Bool? = nil, hideAtShowing: Bool? = nil, playLoopMode: Bool? = nil, playMode: PlayMode? = nil, volume: Volume? = nil, base64Data: String? = nil, playAcrossSlides: Bool? = nil, rewindAudio: Bool? = nil, pictureFillFormat: PictureFill? = nil) {
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, isDecorative: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil, shapeType: ShapeType? = nil, audioCdEndTrack: Int? = nil, audioCdEndTrackTime: Int? = nil, audioCdStartTrack: Int? = nil, audioCdStartTrackTime: Int? = nil, embedded: Bool? = nil, hideAtShowing: Bool? = nil, playLoopMode: Bool? = nil, playMode: PlayMode? = nil, volume: Volume? = nil, volumeValue: Double? = nil, base64Data: String? = nil, playAcrossSlides: Bool? = nil, rewindAudio: Bool? = nil, fadeInDuration: Double? = nil, fadeOutDuration: Double? = nil, trimFromStart: Double? = nil, trimFromEnd: Double? = nil, pictureFillFormat: PictureFill? = nil) {
         super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, isDecorative: isDecorative, x: x, y: y, zOrderPosition: zOrderPosition, fillFormat: fillFormat, effectFormat: effectFormat, threeDFormat: threeDFormat, lineFormat: lineFormat, hyperlinkClick: hyperlinkClick, hyperlinkMouseOver: hyperlinkMouseOver, type: type, shapeType: shapeType)
         self.audioCdEndTrack = audioCdEndTrack
         self.audioCdEndTrackTime = audioCdEndTrackTime
@@ -158,9 +188,14 @@ public class AudioFrame: GeometryShape {
         self.playLoopMode = playLoopMode
         self.playMode = playMode
         self.volume = volume
+        self.volumeValue = volumeValue
         self.base64Data = base64Data
         self.playAcrossSlides = playAcrossSlides
         self.rewindAudio = rewindAudio
+        self.fadeInDuration = fadeInDuration
+        self.fadeOutDuration = fadeOutDuration
+        self.trimFromStart = trimFromStart
+        self.trimFromEnd = trimFromEnd
         self.pictureFillFormat = pictureFillFormat
         self.type = ModelType.audioFrame
     }
@@ -175,9 +210,14 @@ public class AudioFrame: GeometryShape {
         case playLoopMode
         case playMode
         case volume
+        case volumeValue
         case base64Data
         case playAcrossSlides
         case rewindAudio
+        case fadeInDuration
+        case fadeOutDuration
+        case trimFromStart
+        case trimFromEnd
         case pictureFillFormat
     }
 
@@ -193,9 +233,14 @@ public class AudioFrame: GeometryShape {
         playLoopMode = try? values.decode(Bool.self, forKey: .playLoopMode)
         playMode = try? values.decode(PlayMode.self, forKey: .playMode)
         volume = try? values.decode(Volume.self, forKey: .volume)
+        volumeValue = try? values.decode(Double.self, forKey: .volumeValue)
         base64Data = try? values.decode(String.self, forKey: .base64Data)
         playAcrossSlides = try? values.decode(Bool.self, forKey: .playAcrossSlides)
         rewindAudio = try? values.decode(Bool.self, forKey: .rewindAudio)
+        fadeInDuration = try? values.decode(Double.self, forKey: .fadeInDuration)
+        fadeOutDuration = try? values.decode(Double.self, forKey: .fadeOutDuration)
+        trimFromStart = try? values.decode(Double.self, forKey: .trimFromStart)
+        trimFromEnd = try? values.decode(Double.self, forKey: .trimFromEnd)
         pictureFillFormat = try? values.decode(PictureFill.self, forKey: .pictureFillFormat)
         self.type = ModelType.audioFrame
     }
@@ -230,6 +275,9 @@ public class AudioFrame: GeometryShape {
         if (volume != nil) {
             try? container.encode(volume, forKey: .volume)
         }
+        if (volumeValue != nil) {
+            try? container.encode(volumeValue, forKey: .volumeValue)
+        }
         if (base64Data != nil) {
             try? container.encode(base64Data, forKey: .base64Data)
         }
@@ -238,6 +286,18 @@ public class AudioFrame: GeometryShape {
         }
         if (rewindAudio != nil) {
             try? container.encode(rewindAudio, forKey: .rewindAudio)
+        }
+        if (fadeInDuration != nil) {
+            try? container.encode(fadeInDuration, forKey: .fadeInDuration)
+        }
+        if (fadeOutDuration != nil) {
+            try? container.encode(fadeOutDuration, forKey: .fadeOutDuration)
+        }
+        if (trimFromStart != nil) {
+            try? container.encode(trimFromStart, forKey: .trimFromStart)
+        }
+        if (trimFromEnd != nil) {
+            try? container.encode(trimFromEnd, forKey: .trimFromEnd)
         }
         if (pictureFillFormat != nil) {
             try? container.encode(pictureFillFormat, forKey: .pictureFillFormat)

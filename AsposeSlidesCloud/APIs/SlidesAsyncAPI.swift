@@ -180,6 +180,7 @@ open class SlidesAsyncAPI {
         case mpeg4 = "Mpeg4"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -275,6 +276,7 @@ open class SlidesAsyncAPI {
         case mpeg4 = "Mpeg4"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -373,6 +375,7 @@ open class SlidesAsyncAPI {
         case mpeg4 = "Mpeg4"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -572,6 +575,7 @@ open class SlidesAsyncAPI {
         case mpeg4 = "Mpeg4"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -671,6 +675,7 @@ open class SlidesAsyncAPI {
         case html5 = "Html5"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
@@ -779,6 +784,7 @@ open class SlidesAsyncAPI {
         case html5 = "Html5"
         case md = "Md"
         case xml = "Xml"
+        case emf = "Emf"
     }
 
     /**
