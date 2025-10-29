@@ -59,7 +59,7 @@ class ImageTests : XCTestCase {
                 XCTAssertNil(error)
                 XCTAssertNotNil(presentationResult)
                 XCTAssertNotNil(presentationResult!.list)
-                SlidesAPI.getSlideImages(fileName, 1, password, folderName) { (slideResult, error) -> Void in
+                SlidesAPI.getSlideImages(fileName, 1, nil, "", password, folderName) { (slideResult, error) -> Void in
                     XCTAssertNil(error)
                     XCTAssertNotNil(slideResult)
                     XCTAssertNotNil(slideResult!.list)

@@ -148,6 +148,15 @@ class SlidesAPITests : XCTestCase {
         ("testCreateAnimationInteractiveSequenceEffectInvalidPassword", testCreateAnimationInteractiveSequenceEffectInvalidPassword),
         ("testCreateAnimationInteractiveSequenceEffectInvalidFolder", testCreateAnimationInteractiveSequenceEffectInvalidFolder),
         ("testCreateAnimationInteractiveSequenceEffectInvalidStorage", testCreateAnimationInteractiveSequenceEffectInvalidStorage),
+        ("testCreateCaptionTrack", testCreateCaptionTrack),
+        ("testCreateCaptionTrackInvalidName", testCreateCaptionTrackInvalidName),
+        ("testCreateCaptionTrackInvalidSlideIndex", testCreateCaptionTrackInvalidSlideIndex),
+        ("testCreateCaptionTrackInvalidShapeIndex", testCreateCaptionTrackInvalidShapeIndex),
+        ("testCreateCaptionTrackInvalidLabel", testCreateCaptionTrackInvalidLabel),
+        ("testCreateCaptionTrackInvalidData", testCreateCaptionTrackInvalidData),
+        ("testCreateCaptionTrackInvalidPassword", testCreateCaptionTrackInvalidPassword),
+        ("testCreateCaptionTrackInvalidFolder", testCreateCaptionTrackInvalidFolder),
+        ("testCreateCaptionTrackInvalidStorage", testCreateCaptionTrackInvalidStorage),
         ("testCreateChartCategory", testCreateChartCategory),
         ("testCreateChartCategoryInvalidName", testCreateChartCategoryInvalidName),
         ("testCreateChartCategoryInvalidSlideIndex", testCreateChartCategoryInvalidSlideIndex),
@@ -384,15 +393,6 @@ class SlidesAPITests : XCTestCase {
         ("testCreateVbaModuleInvalidPassword", testCreateVbaModuleInvalidPassword),
         ("testCreateVbaModuleInvalidFolder", testCreateVbaModuleInvalidFolder),
         ("testCreateVbaModuleInvalidStorage", testCreateVbaModuleInvalidStorage),
-        ("testCreateVideoCaptionTrack", testCreateVideoCaptionTrack),
-        ("testCreateVideoCaptionTrackInvalidName", testCreateVideoCaptionTrackInvalidName),
-        ("testCreateVideoCaptionTrackInvalidSlideIndex", testCreateVideoCaptionTrackInvalidSlideIndex),
-        ("testCreateVideoCaptionTrackInvalidShapeIndex", testCreateVideoCaptionTrackInvalidShapeIndex),
-        ("testCreateVideoCaptionTrackInvalidLabel", testCreateVideoCaptionTrackInvalidLabel),
-        ("testCreateVideoCaptionTrackInvalidData", testCreateVideoCaptionTrackInvalidData),
-        ("testCreateVideoCaptionTrackInvalidPassword", testCreateVideoCaptionTrackInvalidPassword),
-        ("testCreateVideoCaptionTrackInvalidFolder", testCreateVideoCaptionTrackInvalidFolder),
-        ("testCreateVideoCaptionTrackInvalidStorage", testCreateVideoCaptionTrackInvalidStorage),
         ("testCreateWatermark", testCreateWatermark),
         ("testCreateWatermarkInvalidName", testCreateWatermarkInvalidName),
         ("testCreateWatermarkInvalidShape", testCreateWatermarkInvalidShape),
@@ -457,6 +457,21 @@ class SlidesAPITests : XCTestCase {
         ("testDeleteBackgroundInvalidPassword", testDeleteBackgroundInvalidPassword),
         ("testDeleteBackgroundInvalidFolder", testDeleteBackgroundInvalidFolder),
         ("testDeleteBackgroundInvalidStorage", testDeleteBackgroundInvalidStorage),
+        ("testDeleteCaptionTrack", testDeleteCaptionTrack),
+        ("testDeleteCaptionTrackInvalidName", testDeleteCaptionTrackInvalidName),
+        ("testDeleteCaptionTrackInvalidSlideIndex", testDeleteCaptionTrackInvalidSlideIndex),
+        ("testDeleteCaptionTrackInvalidShapeIndex", testDeleteCaptionTrackInvalidShapeIndex),
+        ("testDeleteCaptionTrackInvalidCaptionsIndex", testDeleteCaptionTrackInvalidCaptionsIndex),
+        ("testDeleteCaptionTrackInvalidPassword", testDeleteCaptionTrackInvalidPassword),
+        ("testDeleteCaptionTrackInvalidFolder", testDeleteCaptionTrackInvalidFolder),
+        ("testDeleteCaptionTrackInvalidStorage", testDeleteCaptionTrackInvalidStorage),
+        ("testDeleteCaptionTracks", testDeleteCaptionTracks),
+        ("testDeleteCaptionTracksInvalidName", testDeleteCaptionTracksInvalidName),
+        ("testDeleteCaptionTracksInvalidSlideIndex", testDeleteCaptionTracksInvalidSlideIndex),
+        ("testDeleteCaptionTracksInvalidShapeIndex", testDeleteCaptionTracksInvalidShapeIndex),
+        ("testDeleteCaptionTracksInvalidPassword", testDeleteCaptionTracksInvalidPassword),
+        ("testDeleteCaptionTracksInvalidFolder", testDeleteCaptionTracksInvalidFolder),
+        ("testDeleteCaptionTracksInvalidStorage", testDeleteCaptionTracksInvalidStorage),
         ("testDeleteChartCategory", testDeleteChartCategory),
         ("testDeleteChartCategoryInvalidName", testDeleteChartCategoryInvalidName),
         ("testDeleteChartCategoryInvalidSlideIndex", testDeleteChartCategoryInvalidSlideIndex),
@@ -796,21 +811,6 @@ class SlidesAPITests : XCTestCase {
         ("testDeleteVbaModuleInvalidPassword", testDeleteVbaModuleInvalidPassword),
         ("testDeleteVbaModuleInvalidFolder", testDeleteVbaModuleInvalidFolder),
         ("testDeleteVbaModuleInvalidStorage", testDeleteVbaModuleInvalidStorage),
-        ("testDeleteVideoCaptionTrack", testDeleteVideoCaptionTrack),
-        ("testDeleteVideoCaptionTrackInvalidName", testDeleteVideoCaptionTrackInvalidName),
-        ("testDeleteVideoCaptionTrackInvalidSlideIndex", testDeleteVideoCaptionTrackInvalidSlideIndex),
-        ("testDeleteVideoCaptionTrackInvalidShapeIndex", testDeleteVideoCaptionTrackInvalidShapeIndex),
-        ("testDeleteVideoCaptionTrackInvalidCaptionsIndex", testDeleteVideoCaptionTrackInvalidCaptionsIndex),
-        ("testDeleteVideoCaptionTrackInvalidPassword", testDeleteVideoCaptionTrackInvalidPassword),
-        ("testDeleteVideoCaptionTrackInvalidFolder", testDeleteVideoCaptionTrackInvalidFolder),
-        ("testDeleteVideoCaptionTrackInvalidStorage", testDeleteVideoCaptionTrackInvalidStorage),
-        ("testDeleteVideoCaptionTracks", testDeleteVideoCaptionTracks),
-        ("testDeleteVideoCaptionTracksInvalidName", testDeleteVideoCaptionTracksInvalidName),
-        ("testDeleteVideoCaptionTracksInvalidSlideIndex", testDeleteVideoCaptionTracksInvalidSlideIndex),
-        ("testDeleteVideoCaptionTracksInvalidShapeIndex", testDeleteVideoCaptionTracksInvalidShapeIndex),
-        ("testDeleteVideoCaptionTracksInvalidPassword", testDeleteVideoCaptionTracksInvalidPassword),
-        ("testDeleteVideoCaptionTracksInvalidFolder", testDeleteVideoCaptionTracksInvalidFolder),
-        ("testDeleteVideoCaptionTracksInvalidStorage", testDeleteVideoCaptionTracksInvalidStorage),
         ("testDeleteWatermark", testDeleteWatermark),
         ("testDeleteWatermarkInvalidName", testDeleteWatermarkInvalidName),
         ("testDeleteWatermarkInvalidShapeName", testDeleteWatermarkInvalidShapeName),
@@ -989,6 +989,14 @@ class SlidesAPITests : XCTestCase {
         ("testGetBackgroundInvalidPassword", testGetBackgroundInvalidPassword),
         ("testGetBackgroundInvalidFolder", testGetBackgroundInvalidFolder),
         ("testGetBackgroundInvalidStorage", testGetBackgroundInvalidStorage),
+        ("testGetCaptionTracks", testGetCaptionTracks),
+        ("testGetCaptionTracksInvalidName", testGetCaptionTracksInvalidName),
+        ("testGetCaptionTracksInvalidSlideIndex", testGetCaptionTracksInvalidSlideIndex),
+        ("testGetCaptionTracksInvalidShapeIndex", testGetCaptionTracksInvalidShapeIndex),
+        ("testGetCaptionTracksInvalidIncludeData", testGetCaptionTracksInvalidIncludeData),
+        ("testGetCaptionTracksInvalidPassword", testGetCaptionTracksInvalidPassword),
+        ("testGetCaptionTracksInvalidFolder", testGetCaptionTracksInvalidFolder),
+        ("testGetCaptionTracksInvalidStorage", testGetCaptionTracksInvalidStorage),
         ("testGetColorScheme", testGetColorScheme),
         ("testGetColorSchemeInvalidName", testGetColorSchemeInvalidName),
         ("testGetColorSchemeInvalidSlideIndex", testGetColorSchemeInvalidSlideIndex),
@@ -1233,6 +1241,8 @@ class SlidesAPITests : XCTestCase {
         ("testGetSlideImages", testGetSlideImages),
         ("testGetSlideImagesInvalidName", testGetSlideImagesInvalidName),
         ("testGetSlideImagesInvalidSlideIndex", testGetSlideImagesInvalidSlideIndex),
+        ("testGetSlideImagesInvalidShapeIndex", testGetSlideImagesInvalidShapeIndex),
+        ("testGetSlideImagesInvalidShapeAltText", testGetSlideImagesInvalidShapeAltText),
         ("testGetSlideImagesInvalidPassword", testGetSlideImagesInvalidPassword),
         ("testGetSlideImagesInvalidFolder", testGetSlideImagesInvalidFolder),
         ("testGetSlideImagesInvalidStorage", testGetSlideImagesInvalidStorage),
@@ -1381,14 +1391,6 @@ class SlidesAPITests : XCTestCase {
         ("testGetVbaProjectInvalidPassword", testGetVbaProjectInvalidPassword),
         ("testGetVbaProjectInvalidFolder", testGetVbaProjectInvalidFolder),
         ("testGetVbaProjectInvalidStorage", testGetVbaProjectInvalidStorage),
-        ("testGetVideoCaptionTracks", testGetVideoCaptionTracks),
-        ("testGetVideoCaptionTracksInvalidName", testGetVideoCaptionTracksInvalidName),
-        ("testGetVideoCaptionTracksInvalidSlideIndex", testGetVideoCaptionTracksInvalidSlideIndex),
-        ("testGetVideoCaptionTracksInvalidShapeIndex", testGetVideoCaptionTracksInvalidShapeIndex),
-        ("testGetVideoCaptionTracksInvalidIncludeData", testGetVideoCaptionTracksInvalidIncludeData),
-        ("testGetVideoCaptionTracksInvalidPassword", testGetVideoCaptionTracksInvalidPassword),
-        ("testGetVideoCaptionTracksInvalidFolder", testGetVideoCaptionTracksInvalidFolder),
-        ("testGetVideoCaptionTracksInvalidStorage", testGetVideoCaptionTracksInvalidStorage),
         ("testGetViewProperties", testGetViewProperties),
         ("testGetViewPropertiesInvalidName", testGetViewPropertiesInvalidName),
         ("testGetViewPropertiesInvalidPassword", testGetViewPropertiesInvalidPassword),
@@ -1793,24 +1795,26 @@ class SlidesAPITests : XCTestCase {
         ("testSetEmbeddedFontInvalidFolder", testSetEmbeddedFontInvalidFolder),
         ("testSetEmbeddedFontInvalidStorage", testSetEmbeddedFontInvalidStorage),
         ("testSetEmbeddedFontInvalidFontsFolder", testSetEmbeddedFontInvalidFontsFolder),
-        ("testSetEmbeddedFontFromRequest", testSetEmbeddedFontFromRequest),
-        ("testSetEmbeddedFontFromRequestInvalidFont", testSetEmbeddedFontFromRequestInvalidFont),
-        ("testSetEmbeddedFontFromRequestInvalidName", testSetEmbeddedFontFromRequestInvalidName),
-        ("testSetEmbeddedFontFromRequestInvalidOnlyUsed", testSetEmbeddedFontFromRequestInvalidOnlyUsed),
-        ("testSetEmbeddedFontFromRequestInvalidPassword", testSetEmbeddedFontFromRequestInvalidPassword),
-        ("testSetEmbeddedFontFromRequestInvalidFolder", testSetEmbeddedFontFromRequestInvalidFolder),
-        ("testSetEmbeddedFontFromRequestInvalidStorage", testSetEmbeddedFontFromRequestInvalidStorage),
-        ("testSetEmbeddedFontFromRequestOnline", testSetEmbeddedFontFromRequestOnline),
-        ("testSetEmbeddedFontFromRequestOnlineInvalidDocument", testSetEmbeddedFontFromRequestOnlineInvalidDocument),
-        ("testSetEmbeddedFontFromRequestOnlineInvalidFont", testSetEmbeddedFontFromRequestOnlineInvalidFont),
-        ("testSetEmbeddedFontFromRequestOnlineInvalidOnlyUsed", testSetEmbeddedFontFromRequestOnlineInvalidOnlyUsed),
-        ("testSetEmbeddedFontFromRequestOnlineInvalidPassword", testSetEmbeddedFontFromRequestOnlineInvalidPassword),
         ("testSetEmbeddedFontOnline", testSetEmbeddedFontOnline),
         ("testSetEmbeddedFontOnlineInvalidDocument", testSetEmbeddedFontOnlineInvalidDocument),
         ("testSetEmbeddedFontOnlineInvalidFontName", testSetEmbeddedFontOnlineInvalidFontName),
         ("testSetEmbeddedFontOnlineInvalidOnlyUsed", testSetEmbeddedFontOnlineInvalidOnlyUsed),
         ("testSetEmbeddedFontOnlineInvalidPassword", testSetEmbeddedFontOnlineInvalidPassword),
         ("testSetEmbeddedFontOnlineInvalidFontsFolder", testSetEmbeddedFontOnlineInvalidFontsFolder),
+        ("testSetEmbeddedFonts", testSetEmbeddedFonts),
+        ("testSetEmbeddedFontsInvalidName", testSetEmbeddedFontsInvalidName),
+        ("testSetEmbeddedFontsInvalidFonts", testSetEmbeddedFontsInvalidFonts),
+        ("testSetEmbeddedFontsInvalidFontNames", testSetEmbeddedFontsInvalidFontNames),
+        ("testSetEmbeddedFontsInvalidOnlyUsed", testSetEmbeddedFontsInvalidOnlyUsed),
+        ("testSetEmbeddedFontsInvalidPassword", testSetEmbeddedFontsInvalidPassword),
+        ("testSetEmbeddedFontsInvalidFolder", testSetEmbeddedFontsInvalidFolder),
+        ("testSetEmbeddedFontsInvalidStorage", testSetEmbeddedFontsInvalidStorage),
+        ("testSetEmbeddedFontsOnline", testSetEmbeddedFontsOnline),
+        ("testSetEmbeddedFontsOnlineInvalidDocument", testSetEmbeddedFontsOnlineInvalidDocument),
+        ("testSetEmbeddedFontsOnlineInvalidFonts", testSetEmbeddedFontsOnlineInvalidFonts),
+        ("testSetEmbeddedFontsOnlineInvalidFontNames", testSetEmbeddedFontsOnlineInvalidFontNames),
+        ("testSetEmbeddedFontsOnlineInvalidOnlyUsed", testSetEmbeddedFontsOnlineInvalidOnlyUsed),
+        ("testSetEmbeddedFontsOnlineInvalidPassword", testSetEmbeddedFontsOnlineInvalidPassword),
         ("testSetNotesSlideHeaderFooter", testSetNotesSlideHeaderFooter),
         ("testSetNotesSlideHeaderFooterInvalidName", testSetNotesSlideHeaderFooterInvalidName),
         ("testSetNotesSlideHeaderFooterInvalidSlideIndex", testSetNotesSlideHeaderFooterInvalidSlideIndex),
@@ -4416,6 +4420,186 @@ class SlidesAPITests : XCTestCase {
         TestUtils.initialize("createAnimationInteractiveSequenceEffect", "storage", "String", paramStorage) { (response, error) -> Void in
             SlidesAPI.createAnimationInteractiveSequenceEffect(paramName, paramSlideIndex, paramSequenceIndex, paramEffect, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createAnimationInteractiveSequenceEffect", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testCreateCaptionTrack() {
+        let expectation = self.expectation(description: "testcreateCaptionTrack")
+        let paramName : String = TestUtils.getTestValue(functionName: "createCaptionTrack", name: "name", type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "createCaptionTrack", name: "slideIndex", type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValue(functionName: "createCaptionTrack", name: "shapeIndex", type: "Int")
+        let paramLabel : String = TestUtils.getTestValue(functionName: "createCaptionTrack", name: "label", type: "String")
+        let paramData : String = TestUtils.getTestValue(functionName: "createCaptionTrack", name: "data", type: "String")
+        let paramPassword : String = TestUtils.getTestValue(functionName: "createCaptionTrack", name: "password", type: "String")
+        let paramFolder : String = TestUtils.getTestValue(functionName: "createCaptionTrack", name: "folder", type: "String")
+        let paramStorage : String = TestUtils.getTestValue(functionName: "createCaptionTrack", name: "storage", type: "String")
+        TestUtils.initialize("createCaptionTrack") { (response, error) -> Void in
+            SlidesAPI.createCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testCreateCaptionTrackInvalidName() {
+        let expectation = self.expectation(description: "testcreateCaptionTrack")
+        let invalidFieldName = "name"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
+        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("createCaptionTrack", "name", "String", paramName) { (response, error) -> Void in
+            SlidesAPI.createCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "createCaptionTrack", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testCreateCaptionTrackInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testcreateCaptionTrack")
+        let invalidFieldName = "slideIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
+        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("createCaptionTrack", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
+            SlidesAPI.createCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "createCaptionTrack", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testCreateCaptionTrackInvalidShapeIndex() {
+        let expectation = self.expectation(description: "testcreateCaptionTrack")
+        let invalidFieldName = "shapeIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
+        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("createCaptionTrack", "shapeIndex", "Int", paramShapeIndex) { (response, error) -> Void in
+            SlidesAPI.createCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "createCaptionTrack", parameterName: "shapeIndex", parameterType: "Int", parameterValue: paramShapeIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testCreateCaptionTrackInvalidLabel() {
+        let expectation = self.expectation(description: "testcreateCaptionTrack")
+        let invalidFieldName = "label"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
+        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("createCaptionTrack", "label", "String", paramLabel) { (response, error) -> Void in
+            SlidesAPI.createCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "createCaptionTrack", parameterName: "label", parameterType: "String", parameterValue: paramLabel as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testCreateCaptionTrackInvalidData() {
+        let expectation = self.expectation(description: "testcreateCaptionTrack")
+        let invalidFieldName = "data"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
+        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("createCaptionTrack", "data", "String", paramData) { (response, error) -> Void in
+            SlidesAPI.createCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "createCaptionTrack", parameterName: "data", parameterType: "String", parameterValue: paramData as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testCreateCaptionTrackInvalidPassword() {
+        let expectation = self.expectation(description: "testcreateCaptionTrack")
+        let invalidFieldName = "password"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
+        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("createCaptionTrack", "password", "String", paramPassword) { (response, error) -> Void in
+            SlidesAPI.createCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "createCaptionTrack", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testCreateCaptionTrackInvalidFolder() {
+        let expectation = self.expectation(description: "testcreateCaptionTrack")
+        let invalidFieldName = "folder"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
+        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("createCaptionTrack", "folder", "String", paramFolder) { (response, error) -> Void in
+            SlidesAPI.createCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "createCaptionTrack", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testCreateCaptionTrackInvalidStorage() {
+        let expectation = self.expectation(description: "testcreateCaptionTrack")
+        let invalidFieldName = "storage"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
+        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("createCaptionTrack", "storage", "String", paramStorage) { (response, error) -> Void in
+            SlidesAPI.createCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "createCaptionTrack", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
                 expectation.fulfill()
             }
         }
@@ -9124,186 +9308,6 @@ class SlidesAPITests : XCTestCase {
         self.waitForExpectations(timeout: testTimeout, handler: nil)
     }
 
-    func testCreateVideoCaptionTrack() {
-        let expectation = self.expectation(description: "testcreateVideoCaptionTrack")
-        let paramName : String = TestUtils.getTestValue(functionName: "createVideoCaptionTrack", name: "name", type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "createVideoCaptionTrack", name: "slideIndex", type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValue(functionName: "createVideoCaptionTrack", name: "shapeIndex", type: "Int")
-        let paramLabel : String = TestUtils.getTestValue(functionName: "createVideoCaptionTrack", name: "label", type: "String")
-        let paramData : String = TestUtils.getTestValue(functionName: "createVideoCaptionTrack", name: "data", type: "String")
-        let paramPassword : String = TestUtils.getTestValue(functionName: "createVideoCaptionTrack", name: "password", type: "String")
-        let paramFolder : String = TestUtils.getTestValue(functionName: "createVideoCaptionTrack", name: "folder", type: "String")
-        let paramStorage : String = TestUtils.getTestValue(functionName: "createVideoCaptionTrack", name: "storage", type: "String")
-        TestUtils.initialize("createVideoCaptionTrack") { (response, error) -> Void in
-            SlidesAPI.createVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                XCTAssertNotNil(response)
-                XCTAssertNil(error)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testCreateVideoCaptionTrackInvalidName() {
-        let expectation = self.expectation(description: "testcreateVideoCaptionTrack")
-        let invalidFieldName = "name"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
-        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("createVideoCaptionTrack", "name", "String", paramName) { (response, error) -> Void in
-            SlidesAPI.createVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "createVideoCaptionTrack", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testCreateVideoCaptionTrackInvalidSlideIndex() {
-        let expectation = self.expectation(description: "testcreateVideoCaptionTrack")
-        let invalidFieldName = "slideIndex"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
-        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("createVideoCaptionTrack", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
-            SlidesAPI.createVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "createVideoCaptionTrack", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testCreateVideoCaptionTrackInvalidShapeIndex() {
-        let expectation = self.expectation(description: "testcreateVideoCaptionTrack")
-        let invalidFieldName = "shapeIndex"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
-        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("createVideoCaptionTrack", "shapeIndex", "Int", paramShapeIndex) { (response, error) -> Void in
-            SlidesAPI.createVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "createVideoCaptionTrack", parameterName: "shapeIndex", parameterType: "Int", parameterValue: paramShapeIndex as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testCreateVideoCaptionTrackInvalidLabel() {
-        let expectation = self.expectation(description: "testcreateVideoCaptionTrack")
-        let invalidFieldName = "label"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
-        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("createVideoCaptionTrack", "label", "String", paramLabel) { (response, error) -> Void in
-            SlidesAPI.createVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "createVideoCaptionTrack", parameterName: "label", parameterType: "String", parameterValue: paramLabel as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testCreateVideoCaptionTrackInvalidData() {
-        let expectation = self.expectation(description: "testcreateVideoCaptionTrack")
-        let invalidFieldName = "data"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
-        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("createVideoCaptionTrack", "data", "String", paramData) { (response, error) -> Void in
-            SlidesAPI.createVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "createVideoCaptionTrack", parameterName: "data", parameterType: "String", parameterValue: paramData as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testCreateVideoCaptionTrackInvalidPassword() {
-        let expectation = self.expectation(description: "testcreateVideoCaptionTrack")
-        let invalidFieldName = "password"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
-        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("createVideoCaptionTrack", "password", "String", paramPassword) { (response, error) -> Void in
-            SlidesAPI.createVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "createVideoCaptionTrack", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testCreateVideoCaptionTrackInvalidFolder() {
-        let expectation = self.expectation(description: "testcreateVideoCaptionTrack")
-        let invalidFieldName = "folder"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
-        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("createVideoCaptionTrack", "folder", "String", paramFolder) { (response, error) -> Void in
-            SlidesAPI.createVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "createVideoCaptionTrack", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testCreateVideoCaptionTrackInvalidStorage() {
-        let expectation = self.expectation(description: "testcreateVideoCaptionTrack")
-        let invalidFieldName = "storage"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramLabel : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "label", invalidFieldName: invalidFieldName, type: "String")
-        let paramData : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "data", invalidFieldName: invalidFieldName, type: "String")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("createVideoCaptionTrack", "storage", "String", paramStorage) { (response, error) -> Void in
-            SlidesAPI.createVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramLabel, paramData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "createVideoCaptionTrack", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
     func testCreateWatermark() {
         let expectation = self.expectation(description: "testcreateWatermark")
         let paramName : String = TestUtils.getTestValue(functionName: "createWatermark", name: "name", type: "String")
@@ -10472,6 +10476,284 @@ class SlidesAPITests : XCTestCase {
         TestUtils.initialize("deleteBackground", "storage", "String", paramStorage) { (response, error) -> Void in
             SlidesAPI.deleteBackground(paramName, paramSlideIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "deleteBackground", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTrack() {
+        let expectation = self.expectation(description: "testdeleteCaptionTrack")
+        let paramName : String = TestUtils.getTestValue(functionName: "deleteCaptionTrack", name: "name", type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "deleteCaptionTrack", name: "slideIndex", type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValue(functionName: "deleteCaptionTrack", name: "shapeIndex", type: "Int")
+        let paramCaptionsIndex : Int = TestUtils.getTestValue(functionName: "deleteCaptionTrack", name: "captionsIndex", type: "Int")
+        let paramPassword : String = TestUtils.getTestValue(functionName: "deleteCaptionTrack", name: "password", type: "String")
+        let paramFolder : String = TestUtils.getTestValue(functionName: "deleteCaptionTrack", name: "folder", type: "String")
+        let paramStorage : String = TestUtils.getTestValue(functionName: "deleteCaptionTrack", name: "storage", type: "String")
+        TestUtils.initialize("deleteCaptionTrack") { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTrackInvalidName() {
+        let expectation = self.expectation(description: "testdeleteCaptionTrack")
+        let invalidFieldName = "name"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTrack", "name", "String", paramName) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTrack", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTrackInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testdeleteCaptionTrack")
+        let invalidFieldName = "slideIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTrack", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTrack", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTrackInvalidShapeIndex() {
+        let expectation = self.expectation(description: "testdeleteCaptionTrack")
+        let invalidFieldName = "shapeIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTrack", "shapeIndex", "Int", paramShapeIndex) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTrack", parameterName: "shapeIndex", parameterType: "Int", parameterValue: paramShapeIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTrackInvalidCaptionsIndex() {
+        let expectation = self.expectation(description: "testdeleteCaptionTrack")
+        let invalidFieldName = "captionsIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTrack", "captionsIndex", "Int", paramCaptionsIndex) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTrack", parameterName: "captionsIndex", parameterType: "Int", parameterValue: paramCaptionsIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTrackInvalidPassword() {
+        let expectation = self.expectation(description: "testdeleteCaptionTrack")
+        let invalidFieldName = "password"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTrack", "password", "String", paramPassword) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTrack", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTrackInvalidFolder() {
+        let expectation = self.expectation(description: "testdeleteCaptionTrack")
+        let invalidFieldName = "folder"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTrack", "folder", "String", paramFolder) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTrack", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTrackInvalidStorage() {
+        let expectation = self.expectation(description: "testdeleteCaptionTrack")
+        let invalidFieldName = "storage"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTrack", "storage", "String", paramStorage) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTrack", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTracks() {
+        let expectation = self.expectation(description: "testdeleteCaptionTracks")
+        let paramName : String = TestUtils.getTestValue(functionName: "deleteCaptionTracks", name: "name", type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "deleteCaptionTracks", name: "slideIndex", type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValue(functionName: "deleteCaptionTracks", name: "shapeIndex", type: "Int")
+        let paramPassword : String = TestUtils.getTestValue(functionName: "deleteCaptionTracks", name: "password", type: "String")
+        let paramFolder : String = TestUtils.getTestValue(functionName: "deleteCaptionTracks", name: "folder", type: "String")
+        let paramStorage : String = TestUtils.getTestValue(functionName: "deleteCaptionTracks", name: "storage", type: "String")
+        TestUtils.initialize("deleteCaptionTracks") { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTracksInvalidName() {
+        let expectation = self.expectation(description: "testdeleteCaptionTracks")
+        let invalidFieldName = "name"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTracks", "name", "String", paramName) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTracks", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTracksInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testdeleteCaptionTracks")
+        let invalidFieldName = "slideIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTracks", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTracks", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTracksInvalidShapeIndex() {
+        let expectation = self.expectation(description: "testdeleteCaptionTracks")
+        let invalidFieldName = "shapeIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTracks", "shapeIndex", "Int", paramShapeIndex) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTracks", parameterName: "shapeIndex", parameterType: "Int", parameterValue: paramShapeIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTracksInvalidPassword() {
+        let expectation = self.expectation(description: "testdeleteCaptionTracks")
+        let invalidFieldName = "password"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTracks", "password", "String", paramPassword) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTracks", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTracksInvalidFolder() {
+        let expectation = self.expectation(description: "testdeleteCaptionTracks")
+        let invalidFieldName = "folder"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTracks", "folder", "String", paramFolder) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTracks", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteCaptionTracksInvalidStorage() {
+        let expectation = self.expectation(description: "testdeleteCaptionTracks")
+        let invalidFieldName = "storage"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("deleteCaptionTracks", "storage", "String", paramStorage) { (response, error) -> Void in
+            SlidesAPI.deleteCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteCaptionTracks", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
                 expectation.fulfill()
             }
         }
@@ -16882,284 +17164,6 @@ class SlidesAPITests : XCTestCase {
         self.waitForExpectations(timeout: testTimeout, handler: nil)
     }
 
-    func testDeleteVideoCaptionTrack() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTrack")
-        let paramName : String = TestUtils.getTestValue(functionName: "deleteVideoCaptionTrack", name: "name", type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "deleteVideoCaptionTrack", name: "slideIndex", type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValue(functionName: "deleteVideoCaptionTrack", name: "shapeIndex", type: "Int")
-        let paramCaptionsIndex : Int = TestUtils.getTestValue(functionName: "deleteVideoCaptionTrack", name: "captionsIndex", type: "Int")
-        let paramPassword : String = TestUtils.getTestValue(functionName: "deleteVideoCaptionTrack", name: "password", type: "String")
-        let paramFolder : String = TestUtils.getTestValue(functionName: "deleteVideoCaptionTrack", name: "folder", type: "String")
-        let paramStorage : String = TestUtils.getTestValue(functionName: "deleteVideoCaptionTrack", name: "storage", type: "String")
-        TestUtils.initialize("deleteVideoCaptionTrack") { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                XCTAssertNotNil(response)
-                XCTAssertNil(error)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTrackInvalidName() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTrack")
-        let invalidFieldName = "name"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTrack", "name", "String", paramName) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTrack", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTrackInvalidSlideIndex() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTrack")
-        let invalidFieldName = "slideIndex"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTrack", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTrack", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTrackInvalidShapeIndex() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTrack")
-        let invalidFieldName = "shapeIndex"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTrack", "shapeIndex", "Int", paramShapeIndex) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTrack", parameterName: "shapeIndex", parameterType: "Int", parameterValue: paramShapeIndex as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTrackInvalidCaptionsIndex() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTrack")
-        let invalidFieldName = "captionsIndex"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTrack", "captionsIndex", "Int", paramCaptionsIndex) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTrack", parameterName: "captionsIndex", parameterType: "Int", parameterValue: paramCaptionsIndex as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTrackInvalidPassword() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTrack")
-        let invalidFieldName = "password"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTrack", "password", "String", paramPassword) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTrack", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTrackInvalidFolder() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTrack")
-        let invalidFieldName = "folder"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTrack", "folder", "String", paramFolder) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTrack", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTrackInvalidStorage() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTrack")
-        let invalidFieldName = "storage"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramCaptionsIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "captionsIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTrack", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTrack", "storage", "String", paramStorage) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTrack(paramName, paramSlideIndex, paramShapeIndex, paramCaptionsIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTrack", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTracks() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTracks")
-        let paramName : String = TestUtils.getTestValue(functionName: "deleteVideoCaptionTracks", name: "name", type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "deleteVideoCaptionTracks", name: "slideIndex", type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValue(functionName: "deleteVideoCaptionTracks", name: "shapeIndex", type: "Int")
-        let paramPassword : String = TestUtils.getTestValue(functionName: "deleteVideoCaptionTracks", name: "password", type: "String")
-        let paramFolder : String = TestUtils.getTestValue(functionName: "deleteVideoCaptionTracks", name: "folder", type: "String")
-        let paramStorage : String = TestUtils.getTestValue(functionName: "deleteVideoCaptionTracks", name: "storage", type: "String")
-        TestUtils.initialize("deleteVideoCaptionTracks") { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                XCTAssertNotNil(response)
-                XCTAssertNil(error)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTracksInvalidName() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTracks")
-        let invalidFieldName = "name"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTracks", "name", "String", paramName) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTracks", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTracksInvalidSlideIndex() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTracks")
-        let invalidFieldName = "slideIndex"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTracks", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTracks", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTracksInvalidShapeIndex() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTracks")
-        let invalidFieldName = "shapeIndex"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTracks", "shapeIndex", "Int", paramShapeIndex) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTracks", parameterName: "shapeIndex", parameterType: "Int", parameterValue: paramShapeIndex as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTracksInvalidPassword() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTracks")
-        let invalidFieldName = "password"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTracks", "password", "String", paramPassword) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTracks", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTracksInvalidFolder() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTracks")
-        let invalidFieldName = "folder"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTracks", "folder", "String", paramFolder) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTracks", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testDeleteVideoCaptionTracksInvalidStorage() {
-        let expectation = self.expectation(description: "testdeleteVideoCaptionTracks")
-        let invalidFieldName = "storage"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "deleteVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("deleteVideoCaptionTracks", "storage", "String", paramStorage) { (response, error) -> Void in
-            SlidesAPI.deleteVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "deleteVideoCaptionTracks", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
     func testDeleteWatermark() {
         let expectation = self.expectation(description: "testdeleteWatermark")
         let paramName : String = TestUtils.getTestValue(functionName: "deleteWatermark", name: "name", type: "String")
@@ -20690,6 +20694,158 @@ class SlidesAPITests : XCTestCase {
         TestUtils.initialize("getBackground", "storage", "String", paramStorage) { (response, error) -> Void in
             SlidesAPI.getBackground(paramName, paramSlideIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "getBackground", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testGetCaptionTracks() {
+        let expectation = self.expectation(description: "testgetCaptionTracks")
+        let paramName : String = TestUtils.getTestValue(functionName: "getCaptionTracks", name: "name", type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "getCaptionTracks", name: "slideIndex", type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValue(functionName: "getCaptionTracks", name: "shapeIndex", type: "Int")
+        let paramIncludeData : Bool = TestUtils.getTestValue(functionName: "getCaptionTracks", name: "includeData", type: "Bool")
+        let paramPassword : String = TestUtils.getTestValue(functionName: "getCaptionTracks", name: "password", type: "String")
+        let paramFolder : String = TestUtils.getTestValue(functionName: "getCaptionTracks", name: "folder", type: "String")
+        let paramStorage : String = TestUtils.getTestValue(functionName: "getCaptionTracks", name: "storage", type: "String")
+        TestUtils.initialize("getCaptionTracks") { (response, error) -> Void in
+            SlidesAPI.getCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testGetCaptionTracksInvalidName() {
+        let expectation = self.expectation(description: "testgetCaptionTracks")
+        let invalidFieldName = "name"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("getCaptionTracks", "name", "String", paramName) { (response, error) -> Void in
+            SlidesAPI.getCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getCaptionTracks", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testGetCaptionTracksInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testgetCaptionTracks")
+        let invalidFieldName = "slideIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("getCaptionTracks", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
+            SlidesAPI.getCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getCaptionTracks", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testGetCaptionTracksInvalidShapeIndex() {
+        let expectation = self.expectation(description: "testgetCaptionTracks")
+        let invalidFieldName = "shapeIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("getCaptionTracks", "shapeIndex", "Int", paramShapeIndex) { (response, error) -> Void in
+            SlidesAPI.getCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getCaptionTracks", parameterName: "shapeIndex", parameterType: "Int", parameterValue: paramShapeIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testGetCaptionTracksInvalidIncludeData() {
+        let expectation = self.expectation(description: "testgetCaptionTracks")
+        let invalidFieldName = "includeData"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("getCaptionTracks", "includeData", "Bool", paramIncludeData) { (response, error) -> Void in
+            SlidesAPI.getCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getCaptionTracks", parameterName: "includeData", parameterType: "Bool", parameterValue: paramIncludeData as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testGetCaptionTracksInvalidPassword() {
+        let expectation = self.expectation(description: "testgetCaptionTracks")
+        let invalidFieldName = "password"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("getCaptionTracks", "password", "String", paramPassword) { (response, error) -> Void in
+            SlidesAPI.getCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getCaptionTracks", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testGetCaptionTracksInvalidFolder() {
+        let expectation = self.expectation(description: "testgetCaptionTracks")
+        let invalidFieldName = "folder"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("getCaptionTracks", "folder", "String", paramFolder) { (response, error) -> Void in
+            SlidesAPI.getCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getCaptionTracks", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testGetCaptionTracksInvalidStorage() {
+        let expectation = self.expectation(description: "testgetCaptionTracks")
+        let invalidFieldName = "storage"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("getCaptionTracks", "storage", "String", paramStorage) { (response, error) -> Void in
+            SlidesAPI.getCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getCaptionTracks", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
                 expectation.fulfill()
             }
         }
@@ -24970,11 +25126,13 @@ class SlidesAPITests : XCTestCase {
         let expectation = self.expectation(description: "testgetSlideImages")
         let paramName : String = TestUtils.getTestValue(functionName: "getSlideImages", name: "name", type: "String")
         let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "getSlideImages", name: "slideIndex", type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValue(functionName: "getSlideImages", name: "shapeIndex", type: "Int")
+        let paramShapeAltText : String = TestUtils.getTestValue(functionName: "getSlideImages", name: "shapeAltText", type: "String")
         let paramPassword : String = TestUtils.getTestValue(functionName: "getSlideImages", name: "password", type: "String")
         let paramFolder : String = TestUtils.getTestValue(functionName: "getSlideImages", name: "folder", type: "String")
         let paramStorage : String = TestUtils.getTestValue(functionName: "getSlideImages", name: "storage", type: "String")
         TestUtils.initialize("getSlideImages") { (response, error) -> Void in
-            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramShapeIndex, paramShapeAltText, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
                 XCTAssertNotNil(response)
                 XCTAssertNil(error)
                 expectation.fulfill()
@@ -24988,11 +25146,13 @@ class SlidesAPITests : XCTestCase {
         let invalidFieldName = "name"
         let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "name", invalidFieldName: invalidFieldName, type: "String")
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeAltText : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeAltText", invalidFieldName: invalidFieldName, type: "String")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("getSlideImages", "name", "String", paramName) { (response, error) -> Void in
-            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramShapeIndex, paramShapeAltText, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "getSlideImages", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
                 expectation.fulfill()
             }
@@ -25005,12 +25165,52 @@ class SlidesAPITests : XCTestCase {
         let invalidFieldName = "slideIndex"
         let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "name", invalidFieldName: invalidFieldName, type: "String")
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeAltText : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeAltText", invalidFieldName: invalidFieldName, type: "String")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("getSlideImages", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
-            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramShapeIndex, paramShapeAltText, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "getSlideImages", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testGetSlideImagesInvalidShapeIndex() {
+        let expectation = self.expectation(description: "testgetSlideImages")
+        let invalidFieldName = "shapeIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeAltText : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeAltText", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("getSlideImages", "shapeIndex", "Int", paramShapeIndex) { (response, error) -> Void in
+            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramShapeIndex, paramShapeAltText, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getSlideImages", parameterName: "shapeIndex", parameterType: "Int", parameterValue: paramShapeIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testGetSlideImagesInvalidShapeAltText() {
+        let expectation = self.expectation(description: "testgetSlideImages")
+        let invalidFieldName = "shapeAltText"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeAltText : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeAltText", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("getSlideImages", "shapeAltText", "String", paramShapeAltText) { (response, error) -> Void in
+            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramShapeIndex, paramShapeAltText, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getSlideImages", parameterName: "shapeAltText", parameterType: "String", parameterValue: paramShapeAltText as Any)
                 expectation.fulfill()
             }
         }
@@ -25022,11 +25222,13 @@ class SlidesAPITests : XCTestCase {
         let invalidFieldName = "password"
         let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "name", invalidFieldName: invalidFieldName, type: "String")
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeAltText : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeAltText", invalidFieldName: invalidFieldName, type: "String")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("getSlideImages", "password", "String", paramPassword) { (response, error) -> Void in
-            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramShapeIndex, paramShapeAltText, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "getSlideImages", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
                 expectation.fulfill()
             }
@@ -25039,11 +25241,13 @@ class SlidesAPITests : XCTestCase {
         let invalidFieldName = "folder"
         let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "name", invalidFieldName: invalidFieldName, type: "String")
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeAltText : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeAltText", invalidFieldName: invalidFieldName, type: "String")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("getSlideImages", "folder", "String", paramFolder) { (response, error) -> Void in
-            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramShapeIndex, paramShapeAltText, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "getSlideImages", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
                 expectation.fulfill()
             }
@@ -25056,11 +25260,13 @@ class SlidesAPITests : XCTestCase {
         let invalidFieldName = "storage"
         let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "name", invalidFieldName: invalidFieldName, type: "String")
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramShapeAltText : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "shapeAltText", invalidFieldName: invalidFieldName, type: "String")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getSlideImages", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("getSlideImages", "storage", "String", paramStorage) { (response, error) -> Void in
-            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+            SlidesAPI.getSlideImages(paramName, paramSlideIndex, paramShapeIndex, paramShapeAltText, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "getSlideImages", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
                 expectation.fulfill()
             }
@@ -27908,158 +28114,6 @@ class SlidesAPITests : XCTestCase {
         TestUtils.initialize("getVbaProject", "storage", "String", paramStorage) { (response, error) -> Void in
             SlidesAPI.getVbaProject(paramName, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "getVbaProject", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testGetVideoCaptionTracks() {
-        let expectation = self.expectation(description: "testgetVideoCaptionTracks")
-        let paramName : String = TestUtils.getTestValue(functionName: "getVideoCaptionTracks", name: "name", type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "getVideoCaptionTracks", name: "slideIndex", type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValue(functionName: "getVideoCaptionTracks", name: "shapeIndex", type: "Int")
-        let paramIncludeData : Bool = TestUtils.getTestValue(functionName: "getVideoCaptionTracks", name: "includeData", type: "Bool")
-        let paramPassword : String = TestUtils.getTestValue(functionName: "getVideoCaptionTracks", name: "password", type: "String")
-        let paramFolder : String = TestUtils.getTestValue(functionName: "getVideoCaptionTracks", name: "folder", type: "String")
-        let paramStorage : String = TestUtils.getTestValue(functionName: "getVideoCaptionTracks", name: "storage", type: "String")
-        TestUtils.initialize("getVideoCaptionTracks") { (response, error) -> Void in
-            SlidesAPI.getVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                XCTAssertNotNil(response)
-                XCTAssertNil(error)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testGetVideoCaptionTracksInvalidName() {
-        let expectation = self.expectation(description: "testgetVideoCaptionTracks")
-        let invalidFieldName = "name"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("getVideoCaptionTracks", "name", "String", paramName) { (response, error) -> Void in
-            SlidesAPI.getVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "getVideoCaptionTracks", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testGetVideoCaptionTracksInvalidSlideIndex() {
-        let expectation = self.expectation(description: "testgetVideoCaptionTracks")
-        let invalidFieldName = "slideIndex"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("getVideoCaptionTracks", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
-            SlidesAPI.getVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "getVideoCaptionTracks", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testGetVideoCaptionTracksInvalidShapeIndex() {
-        let expectation = self.expectation(description: "testgetVideoCaptionTracks")
-        let invalidFieldName = "shapeIndex"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("getVideoCaptionTracks", "shapeIndex", "Int", paramShapeIndex) { (response, error) -> Void in
-            SlidesAPI.getVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "getVideoCaptionTracks", parameterName: "shapeIndex", parameterType: "Int", parameterValue: paramShapeIndex as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testGetVideoCaptionTracksInvalidIncludeData() {
-        let expectation = self.expectation(description: "testgetVideoCaptionTracks")
-        let invalidFieldName = "includeData"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("getVideoCaptionTracks", "includeData", "Bool", paramIncludeData) { (response, error) -> Void in
-            SlidesAPI.getVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "getVideoCaptionTracks", parameterName: "includeData", parameterType: "Bool", parameterValue: paramIncludeData as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testGetVideoCaptionTracksInvalidPassword() {
-        let expectation = self.expectation(description: "testgetVideoCaptionTracks")
-        let invalidFieldName = "password"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("getVideoCaptionTracks", "password", "String", paramPassword) { (response, error) -> Void in
-            SlidesAPI.getVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "getVideoCaptionTracks", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testGetVideoCaptionTracksInvalidFolder() {
-        let expectation = self.expectation(description: "testgetVideoCaptionTracks")
-        let invalidFieldName = "folder"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("getVideoCaptionTracks", "folder", "String", paramFolder) { (response, error) -> Void in
-            SlidesAPI.getVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "getVideoCaptionTracks", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testGetVideoCaptionTracksInvalidStorage() {
-        let expectation = self.expectation(description: "testgetVideoCaptionTracks")
-        let invalidFieldName = "storage"
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramShapeIndex : Int = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "shapeIndex", invalidFieldName: invalidFieldName, type: "Int")
-        let paramIncludeData : Bool = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "includeData", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "getVideoCaptionTracks", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("getVideoCaptionTracks", "storage", "String", paramStorage) { (response, error) -> Void in
-            SlidesAPI.getVideoCaptionTracks(paramName, paramSlideIndex, paramShapeIndex, paramIncludeData, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "getVideoCaptionTracks", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
                 expectation.fulfill()
             }
         }
@@ -36078,212 +36132,6 @@ class SlidesAPITests : XCTestCase {
         self.waitForExpectations(timeout: testTimeout, handler: nil)
     }
 
-    func testSetEmbeddedFontFromRequest() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequest")
-        let paramFont : Data = TestUtils.getTestValue(functionName: "setEmbeddedFontFromRequest", name: "font", type: "Data")
-        let paramName : String = TestUtils.getTestValue(functionName: "setEmbeddedFontFromRequest", name: "name", type: "String")
-        let paramOnlyUsed : Bool = TestUtils.getTestValue(functionName: "setEmbeddedFontFromRequest", name: "onlyUsed", type: "Bool")
-        let paramPassword : String = TestUtils.getTestValue(functionName: "setEmbeddedFontFromRequest", name: "password", type: "String")
-        let paramFolder : String = TestUtils.getTestValue(functionName: "setEmbeddedFontFromRequest", name: "folder", type: "String")
-        let paramStorage : String = TestUtils.getTestValue(functionName: "setEmbeddedFontFromRequest", name: "storage", type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequest") { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequest(paramFont, paramName, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                XCTAssertNotNil(response)
-                XCTAssertNil(error)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testSetEmbeddedFontFromRequestInvalidFont() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequest")
-        let invalidFieldName = "font"
-        let paramFont : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "font", invalidFieldName: invalidFieldName, type: "Data")
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequest", "font", "Data", paramFont) { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequest(paramFont, paramName, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "setEmbeddedFontFromRequest", parameterName: "font", parameterType: "Data", parameterValue: paramFont as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testSetEmbeddedFontFromRequestInvalidName() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequest")
-        let invalidFieldName = "name"
-        let paramFont : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "font", invalidFieldName: invalidFieldName, type: "Data")
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequest", "name", "String", paramName) { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequest(paramFont, paramName, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "setEmbeddedFontFromRequest", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testSetEmbeddedFontFromRequestInvalidOnlyUsed() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequest")
-        let invalidFieldName = "onlyUsed"
-        let paramFont : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "font", invalidFieldName: invalidFieldName, type: "Data")
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequest", "onlyUsed", "Bool", paramOnlyUsed) { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequest(paramFont, paramName, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "setEmbeddedFontFromRequest", parameterName: "onlyUsed", parameterType: "Bool", parameterValue: paramOnlyUsed as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testSetEmbeddedFontFromRequestInvalidPassword() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequest")
-        let invalidFieldName = "password"
-        let paramFont : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "font", invalidFieldName: invalidFieldName, type: "Data")
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequest", "password", "String", paramPassword) { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequest(paramFont, paramName, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "setEmbeddedFontFromRequest", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testSetEmbeddedFontFromRequestInvalidFolder() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequest")
-        let invalidFieldName = "folder"
-        let paramFont : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "font", invalidFieldName: invalidFieldName, type: "Data")
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequest", "folder", "String", paramFolder) { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequest(paramFont, paramName, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "setEmbeddedFontFromRequest", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testSetEmbeddedFontFromRequestInvalidStorage() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequest")
-        let invalidFieldName = "storage"
-        let paramFont : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "font", invalidFieldName: invalidFieldName, type: "Data")
-        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "name", invalidFieldName: invalidFieldName, type: "String")
-        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "folder", invalidFieldName: invalidFieldName, type: "String")
-        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequest", name: "storage", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequest", "storage", "String", paramStorage) { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequest(paramFont, paramName, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "setEmbeddedFontFromRequest", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testSetEmbeddedFontFromRequestOnline() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequestOnline")
-        let paramDocument : Data = TestUtils.getTestValue(functionName: "setEmbeddedFontFromRequestOnline", name: "document", type: "Data")
-        let paramFont : Data = TestUtils.getTestValue(functionName: "setEmbeddedFontFromRequestOnline", name: "font", type: "Data")
-        let paramOnlyUsed : Bool = TestUtils.getTestValue(functionName: "setEmbeddedFontFromRequestOnline", name: "onlyUsed", type: "Bool")
-        let paramPassword : String = TestUtils.getTestValue(functionName: "setEmbeddedFontFromRequestOnline", name: "password", type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequestOnline") { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequestOnline(paramDocument, paramFont, paramOnlyUsed, paramPassword) { (response, error) -> Void in
-                XCTAssertNotNil(response)
-                XCTAssertNil(error)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testSetEmbeddedFontFromRequestOnlineInvalidDocument() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequestOnline")
-        let invalidFieldName = "document"
-        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "document", invalidFieldName: invalidFieldName, type: "Data")
-        let paramFont : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "font", invalidFieldName: invalidFieldName, type: "Data")
-        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequestOnline", "document", "Data", paramDocument) { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequestOnline(paramDocument, paramFont, paramOnlyUsed, paramPassword) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "setEmbeddedFontFromRequestOnline", parameterName: "document", parameterType: "Data", parameterValue: paramDocument as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testSetEmbeddedFontFromRequestOnlineInvalidFont() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequestOnline")
-        let invalidFieldName = "font"
-        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "document", invalidFieldName: invalidFieldName, type: "Data")
-        let paramFont : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "font", invalidFieldName: invalidFieldName, type: "Data")
-        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequestOnline", "font", "Data", paramFont) { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequestOnline(paramDocument, paramFont, paramOnlyUsed, paramPassword) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "setEmbeddedFontFromRequestOnline", parameterName: "font", parameterType: "Data", parameterValue: paramFont as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testSetEmbeddedFontFromRequestOnlineInvalidOnlyUsed() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequestOnline")
-        let invalidFieldName = "onlyUsed"
-        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "document", invalidFieldName: invalidFieldName, type: "Data")
-        let paramFont : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "font", invalidFieldName: invalidFieldName, type: "Data")
-        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequestOnline", "onlyUsed", "Bool", paramOnlyUsed) { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequestOnline(paramDocument, paramFont, paramOnlyUsed, paramPassword) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "setEmbeddedFontFromRequestOnline", parameterName: "onlyUsed", parameterType: "Bool", parameterValue: paramOnlyUsed as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
-    func testSetEmbeddedFontFromRequestOnlineInvalidPassword() {
-        let expectation = self.expectation(description: "testsetEmbeddedFontFromRequestOnline")
-        let invalidFieldName = "password"
-        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "document", invalidFieldName: invalidFieldName, type: "Data")
-        let paramFont : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "font", invalidFieldName: invalidFieldName, type: "Data")
-        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
-        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontFromRequestOnline", name: "password", invalidFieldName: invalidFieldName, type: "String")
-        TestUtils.initialize("setEmbeddedFontFromRequestOnline", "password", "String", paramPassword) { (response, error) -> Void in
-            SlidesAPI.setEmbeddedFontFromRequestOnline(paramDocument, paramFont, paramOnlyUsed, paramPassword) { (response, error) -> Void in
-                TestUtils.assertError(error: error, functionName: "setEmbeddedFontFromRequestOnline", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
-                expectation.fulfill()
-            }
-        }
-        self.waitForExpectations(timeout: testTimeout, handler: nil)
-    }
-
     func testSetEmbeddedFontOnline() {
         let expectation = self.expectation(description: "testsetEmbeddedFontOnline")
         let paramDocument : Data = TestUtils.getTestValue(functionName: "setEmbeddedFontOnline", name: "document", type: "Data")
@@ -36380,6 +36228,260 @@ class SlidesAPITests : XCTestCase {
         TestUtils.initialize("setEmbeddedFontOnline", "fontsFolder", "String", paramFontsFolder) { (response, error) -> Void in
             SlidesAPI.setEmbeddedFontOnline(paramDocument, paramFontName, paramOnlyUsed, paramPassword, paramFontsFolder) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "setEmbeddedFontOnline", parameterName: "fontsFolder", parameterType: "String", parameterValue: paramFontsFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFonts() {
+        let expectation = self.expectation(description: "testsetEmbeddedFonts")
+        let paramName : String = TestUtils.getTestValue(functionName: "setEmbeddedFonts", name: "name", type: "String")
+        let paramFonts : [Data] = TestUtils.getTestValue(functionName: "setEmbeddedFonts", name: "fonts", type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValue(functionName: "setEmbeddedFonts", name: "fontNames", type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValue(functionName: "setEmbeddedFonts", name: "onlyUsed", type: "Bool")
+        let paramPassword : String = TestUtils.getTestValue(functionName: "setEmbeddedFonts", name: "password", type: "String")
+        let paramFolder : String = TestUtils.getTestValue(functionName: "setEmbeddedFonts", name: "folder", type: "String")
+        let paramStorage : String = TestUtils.getTestValue(functionName: "setEmbeddedFonts", name: "storage", type: "String")
+        TestUtils.initialize("setEmbeddedFonts") { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFonts(paramName, paramFonts, paramFontNames, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsInvalidName() {
+        let expectation = self.expectation(description: "testsetEmbeddedFonts")
+        let invalidFieldName = "name"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFonts", "name", "String", paramName) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFonts(paramName, paramFonts, paramFontNames, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFonts", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsInvalidFonts() {
+        let expectation = self.expectation(description: "testsetEmbeddedFonts")
+        let invalidFieldName = "fonts"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFonts", "fonts", "[Data]", paramFonts) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFonts(paramName, paramFonts, paramFontNames, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFonts", parameterName: "fonts", parameterType: "[Data]", parameterValue: paramFonts as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsInvalidFontNames() {
+        let expectation = self.expectation(description: "testsetEmbeddedFonts")
+        let invalidFieldName = "fontNames"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFonts", "fontNames", "[String]", paramFontNames) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFonts(paramName, paramFonts, paramFontNames, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFonts", parameterName: "fontNames", parameterType: "[String]", parameterValue: paramFontNames as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsInvalidOnlyUsed() {
+        let expectation = self.expectation(description: "testsetEmbeddedFonts")
+        let invalidFieldName = "onlyUsed"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFonts", "onlyUsed", "Bool", paramOnlyUsed) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFonts(paramName, paramFonts, paramFontNames, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFonts", parameterName: "onlyUsed", parameterType: "Bool", parameterValue: paramOnlyUsed as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsInvalidPassword() {
+        let expectation = self.expectation(description: "testsetEmbeddedFonts")
+        let invalidFieldName = "password"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFonts", "password", "String", paramPassword) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFonts(paramName, paramFonts, paramFontNames, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFonts", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsInvalidFolder() {
+        let expectation = self.expectation(description: "testsetEmbeddedFonts")
+        let invalidFieldName = "folder"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFonts", "folder", "String", paramFolder) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFonts(paramName, paramFonts, paramFontNames, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFonts", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsInvalidStorage() {
+        let expectation = self.expectation(description: "testsetEmbeddedFonts")
+        let invalidFieldName = "storage"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFonts", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFonts", "storage", "String", paramStorage) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFonts(paramName, paramFonts, paramFontNames, paramOnlyUsed, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFonts", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsOnline() {
+        let expectation = self.expectation(description: "testsetEmbeddedFontsOnline")
+        let paramDocument : Data = TestUtils.getTestValue(functionName: "setEmbeddedFontsOnline", name: "document", type: "Data")
+        let paramFonts : [Data] = TestUtils.getTestValue(functionName: "setEmbeddedFontsOnline", name: "fonts", type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValue(functionName: "setEmbeddedFontsOnline", name: "fontNames", type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValue(functionName: "setEmbeddedFontsOnline", name: "onlyUsed", type: "Bool")
+        let paramPassword : String = TestUtils.getTestValue(functionName: "setEmbeddedFontsOnline", name: "password", type: "String")
+        TestUtils.initialize("setEmbeddedFontsOnline") { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFontsOnline(paramDocument, paramFonts, paramFontNames, paramOnlyUsed, paramPassword) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsOnlineInvalidDocument() {
+        let expectation = self.expectation(description: "testsetEmbeddedFontsOnline")
+        let invalidFieldName = "document"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFontsOnline", "document", "Data", paramDocument) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFontsOnline(paramDocument, paramFonts, paramFontNames, paramOnlyUsed, paramPassword) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFontsOnline", parameterName: "document", parameterType: "Data", parameterValue: paramDocument as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsOnlineInvalidFonts() {
+        let expectation = self.expectation(description: "testsetEmbeddedFontsOnline")
+        let invalidFieldName = "fonts"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFontsOnline", "fonts", "[Data]", paramFonts) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFontsOnline(paramDocument, paramFonts, paramFontNames, paramOnlyUsed, paramPassword) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFontsOnline", parameterName: "fonts", parameterType: "[Data]", parameterValue: paramFonts as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsOnlineInvalidFontNames() {
+        let expectation = self.expectation(description: "testsetEmbeddedFontsOnline")
+        let invalidFieldName = "fontNames"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFontsOnline", "fontNames", "[String]", paramFontNames) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFontsOnline(paramDocument, paramFonts, paramFontNames, paramOnlyUsed, paramPassword) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFontsOnline", parameterName: "fontNames", parameterType: "[String]", parameterValue: paramFontNames as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsOnlineInvalidOnlyUsed() {
+        let expectation = self.expectation(description: "testsetEmbeddedFontsOnline")
+        let invalidFieldName = "onlyUsed"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFontsOnline", "onlyUsed", "Bool", paramOnlyUsed) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFontsOnline(paramDocument, paramFonts, paramFontNames, paramOnlyUsed, paramPassword) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFontsOnline", parameterName: "onlyUsed", parameterType: "Bool", parameterValue: paramOnlyUsed as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSetEmbeddedFontsOnlineInvalidPassword() {
+        let expectation = self.expectation(description: "testsetEmbeddedFontsOnline")
+        let invalidFieldName = "password"
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramFonts : [Data] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "fonts", invalidFieldName: invalidFieldName, type: "[Data]")
+        let paramFontNames : [String] = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "fontNames", invalidFieldName: invalidFieldName, type: "[String]")
+        let paramOnlyUsed : Bool = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "onlyUsed", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "setEmbeddedFontsOnline", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("setEmbeddedFontsOnline", "password", "String", paramPassword) { (response, error) -> Void in
+            SlidesAPI.setEmbeddedFontsOnline(paramDocument, paramFonts, paramFontNames, paramOnlyUsed, paramPassword) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "setEmbeddedFontsOnline", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
                 expectation.fulfill()
             }
         }
