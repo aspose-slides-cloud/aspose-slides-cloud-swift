@@ -52,6 +52,7 @@ public class MathElement: Codable {
         case rightSubSuperscriptElement = "RightSubSuperscriptElement"
         case subscriptElement = "SubscriptElement"
         case superscriptElement = "SuperscriptElement"
+        case phantom = "Phantom"
     }
     public var type: ModelType?
 

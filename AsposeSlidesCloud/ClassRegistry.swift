@@ -711,6 +711,10 @@ class ClassRegistry {
             let value = PdfImportOptions()
             try? value.fillValues(object)
             return (value, nil)
+        } else if className == "PhantomElement" {
+            let value = PhantomElement()
+            try? value.fillValues(object)
+            return (value, nil)
         } else if className == "PictureFill" {
             let value = PictureFill()
             try? value.fillValues(object)
@@ -1198,6 +1202,7 @@ class ClassRegistry {
         "PathOutputFile": "OutputFile",
         "PatternFill": "FillFormat",
         "PdfExportOptions": "ExportOptions",
+        "PhantomElement": "MathElement",
         "PictureFill": "FillFormat",
         "PictureFrame": "GeometryShape",
         "Placeholder": "ResourceBase",
@@ -1432,6 +1437,8 @@ class ClassRegistry {
         typeDeterminers["PatternFill"]!["Type"] = "Pattern"
         typeDeterminers["PdfExportOptions"] = [ : ]
         typeDeterminers["PdfExportOptions"]!["Format"] = "pdf"
+        typeDeterminers["PhantomElement"] = [ : ]
+        typeDeterminers["PhantomElement"]!["Type"] = "Phantom"
         typeDeterminers["PictureFill"] = [ : ]
         typeDeterminers["PictureFill"]!["Type"] = "Picture"
         typeDeterminers["PictureFrame"] = [ : ]

@@ -134,6 +134,8 @@ public class Portion: ResourceBase {
     public var kerningMinimalSize: Double?
     /** True if numbers should ignore East-Asian specific vertical text layout. */
     public var kumimoji: Kumimoji?
+    /** true to enable spell checking for the portion. */
+    public var spellCheck: Bool?
     /** Proving language ID. */
     public var languageId: String?
     /** Alternative proving language ID. */
@@ -287,6 +289,10 @@ public class Portion: ResourceBase {
                 }
             }
         }
+        let spellCheckValue = source["spellCheck"] ?? source["SpellCheck"]
+        if spellCheckValue != nil {
+            self.spellCheck = spellCheckValue! as? Bool
+        }
         let languageIdValue = source["languageId"] ?? source["LanguageId"]
         if languageIdValue != nil {
             self.languageId = languageIdValue! as? String
@@ -399,7 +405,7 @@ public class Portion: ResourceBase {
         }
     }
 
-    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, text: String? = nil, mathParagraph: MathParagraph? = nil, fontBold: FontBold? = nil, fontItalic: FontItalic? = nil, fontUnderline: FontUnderline? = nil, strikethroughType: StrikethroughType? = nil, textCapType: TextCapType? = nil, escapement: Double? = nil, spacing: Double? = nil, fontColor: String? = nil, highlightColor: String? = nil, fontHeight: Double? = nil, normaliseHeight: NormaliseHeight? = nil, proofDisabled: ProofDisabled? = nil, smartTagClean: Bool? = nil, kerningMinimalSize: Double? = nil, kumimoji: Kumimoji? = nil, languageId: String? = nil, alternativeLanguageId: String? = nil, isHardUnderlineFill: IsHardUnderlineFill? = nil, isHardUnderlineLine: IsHardUnderlineLine? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, underlineFillFormat: FillFormat? = nil, underlineLineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, latinFont: String? = nil, eastAsianFont: String? = nil, complexScriptFont: String? = nil) {
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, text: String? = nil, mathParagraph: MathParagraph? = nil, fontBold: FontBold? = nil, fontItalic: FontItalic? = nil, fontUnderline: FontUnderline? = nil, strikethroughType: StrikethroughType? = nil, textCapType: TextCapType? = nil, escapement: Double? = nil, spacing: Double? = nil, fontColor: String? = nil, highlightColor: String? = nil, fontHeight: Double? = nil, normaliseHeight: NormaliseHeight? = nil, proofDisabled: ProofDisabled? = nil, smartTagClean: Bool? = nil, kerningMinimalSize: Double? = nil, kumimoji: Kumimoji? = nil, spellCheck: Bool? = nil, languageId: String? = nil, alternativeLanguageId: String? = nil, isHardUnderlineFill: IsHardUnderlineFill? = nil, isHardUnderlineLine: IsHardUnderlineLine? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, underlineFillFormat: FillFormat? = nil, underlineLineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, latinFont: String? = nil, eastAsianFont: String? = nil, complexScriptFont: String? = nil) {
         super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.text = text
         self.mathParagraph = mathParagraph
@@ -418,6 +424,7 @@ public class Portion: ResourceBase {
         self.smartTagClean = smartTagClean
         self.kerningMinimalSize = kerningMinimalSize
         self.kumimoji = kumimoji
+        self.spellCheck = spellCheck
         self.languageId = languageId
         self.alternativeLanguageId = alternativeLanguageId
         self.isHardUnderlineFill = isHardUnderlineFill
@@ -452,6 +459,7 @@ public class Portion: ResourceBase {
         case smartTagClean
         case kerningMinimalSize
         case kumimoji
+        case spellCheck
         case languageId
         case alternativeLanguageId
         case isHardUnderlineFill
@@ -488,6 +496,7 @@ public class Portion: ResourceBase {
         smartTagClean = try? values.decode(Bool.self, forKey: .smartTagClean)
         kerningMinimalSize = try? values.decode(Double.self, forKey: .kerningMinimalSize)
         kumimoji = try? values.decode(Kumimoji.self, forKey: .kumimoji)
+        spellCheck = try? values.decode(Bool.self, forKey: .spellCheck)
         languageId = try? values.decode(String.self, forKey: .languageId)
         alternativeLanguageId = try? values.decode(String.self, forKey: .alternativeLanguageId)
         isHardUnderlineFill = try? values.decode(IsHardUnderlineFill.self, forKey: .isHardUnderlineFill)
@@ -557,6 +566,9 @@ public class Portion: ResourceBase {
         }
         if (kumimoji != nil) {
             try? container.encode(kumimoji, forKey: .kumimoji)
+        }
+        if (spellCheck != nil) {
+            try? container.encode(spellCheck, forKey: .spellCheck)
         }
         if (languageId != nil) {
             try? container.encode(languageId, forKey: .languageId)

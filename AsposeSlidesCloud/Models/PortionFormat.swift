@@ -158,6 +158,8 @@ public class PortionFormat: Codable {
     public var eastAsianFont: String?
     /** Returns or sets the complex script font info. */
     public var complexScriptFont: String?
+    /** true to enable spell checking for the portion. */
+    public var spellCheck: Bool?
 
     func fillValues(_ source: [String:Any]) throws {
         let fontBoldValue = source["fontBold"] ?? source["FontBold"]
@@ -378,9 +380,13 @@ public class PortionFormat: Codable {
         if complexScriptFontValue != nil {
             self.complexScriptFont = complexScriptFontValue! as? String
         }
+        let spellCheckValue = source["spellCheck"] ?? source["SpellCheck"]
+        if spellCheckValue != nil {
+            self.spellCheck = spellCheckValue! as? Bool
+        }
     }
 
-    public init(fontBold: FontBold? = nil, fontItalic: FontItalic? = nil, fontUnderline: FontUnderline? = nil, strikethroughType: StrikethroughType? = nil, textCapType: TextCapType? = nil, escapement: Double? = nil, spacing: Double? = nil, fontColor: String? = nil, highlightColor: String? = nil, fontHeight: Double? = nil, normaliseHeight: NormaliseHeight? = nil, proofDisabled: ProofDisabled? = nil, smartTagClean: Bool? = nil, kerningMinimalSize: Double? = nil, kumimoji: Kumimoji? = nil, languageId: String? = nil, alternativeLanguageId: String? = nil, isHardUnderlineFill: IsHardUnderlineFill? = nil, isHardUnderlineLine: IsHardUnderlineLine? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, underlineFillFormat: FillFormat? = nil, underlineLineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, latinFont: String? = nil, eastAsianFont: String? = nil, complexScriptFont: String? = nil) {
+    public init(fontBold: FontBold? = nil, fontItalic: FontItalic? = nil, fontUnderline: FontUnderline? = nil, strikethroughType: StrikethroughType? = nil, textCapType: TextCapType? = nil, escapement: Double? = nil, spacing: Double? = nil, fontColor: String? = nil, highlightColor: String? = nil, fontHeight: Double? = nil, normaliseHeight: NormaliseHeight? = nil, proofDisabled: ProofDisabled? = nil, smartTagClean: Bool? = nil, kerningMinimalSize: Double? = nil, kumimoji: Kumimoji? = nil, languageId: String? = nil, alternativeLanguageId: String? = nil, isHardUnderlineFill: IsHardUnderlineFill? = nil, isHardUnderlineLine: IsHardUnderlineLine? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, underlineFillFormat: FillFormat? = nil, underlineLineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, latinFont: String? = nil, eastAsianFont: String? = nil, complexScriptFont: String? = nil, spellCheck: Bool? = nil) {
         self.fontBold = fontBold
         self.fontItalic = fontItalic
         self.fontUnderline = fontUnderline
@@ -410,6 +416,7 @@ public class PortionFormat: Codable {
         self.latinFont = latinFont
         self.eastAsianFont = eastAsianFont
         self.complexScriptFont = complexScriptFont
+        self.spellCheck = spellCheck
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -442,6 +449,7 @@ public class PortionFormat: Codable {
         case latinFont
         case eastAsianFont
         case complexScriptFont
+        case spellCheck
     }
 
 }

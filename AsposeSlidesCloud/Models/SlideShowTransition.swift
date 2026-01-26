@@ -207,6 +207,8 @@ public class SlideShowTransition: Codable {
     public var orientation: Orientation?
     /** Spokes. */
     public var spokes: Int?
+    /** The duration of the slide transition effect in milliseconds. If not set, the duration is determined automatically based on Speed and Type values. */
+    public var duration: Int?
 
     func fillValues(_ source: [String:Any]) throws {
         let typeValue = source["type"] ?? source["Type"]
@@ -389,9 +391,13 @@ public class SlideShowTransition: Codable {
         if spokesValue != nil {
             self.spokes = spokesValue! as? Int
         }
+        let durationValue = source["duration"] ?? source["Duration"]
+        if durationValue != nil {
+            self.duration = durationValue! as? Int
+        }
     }
 
-    public init(type: ModelType? = nil, advanceAfter: Bool? = nil, advanceAfterTime: Int? = nil, advanceOnClick: Bool? = nil, soundIsBuiltIn: Bool? = nil, soundLoop: Bool? = nil, soundMode: SoundMode? = nil, soundName: String? = nil, speed: Speed? = nil, cornerDirection: CornerDirection? = nil, eightDirection: EightDirection? = nil, inOutDirection: InOutDirection? = nil, hasBounce: Bool? = nil, sideDirection: SideDirection? = nil, pattern: Pattern? = nil, leftRightDirection: LeftRightDirection? = nil, morphType: MorphType? = nil, fromBlack: Bool? = nil, orientationDirection: OrientationDirection? = nil, throughBlack: Bool? = nil, cornerAndCenterDirection: CornerAndCenterDirection? = nil, shredPattern: ShredPattern? = nil, orientation: Orientation? = nil, spokes: Int? = nil) {
+    public init(type: ModelType? = nil, advanceAfter: Bool? = nil, advanceAfterTime: Int? = nil, advanceOnClick: Bool? = nil, soundIsBuiltIn: Bool? = nil, soundLoop: Bool? = nil, soundMode: SoundMode? = nil, soundName: String? = nil, speed: Speed? = nil, cornerDirection: CornerDirection? = nil, eightDirection: EightDirection? = nil, inOutDirection: InOutDirection? = nil, hasBounce: Bool? = nil, sideDirection: SideDirection? = nil, pattern: Pattern? = nil, leftRightDirection: LeftRightDirection? = nil, morphType: MorphType? = nil, fromBlack: Bool? = nil, orientationDirection: OrientationDirection? = nil, throughBlack: Bool? = nil, cornerAndCenterDirection: CornerAndCenterDirection? = nil, shredPattern: ShredPattern? = nil, orientation: Orientation? = nil, spokes: Int? = nil, duration: Int? = nil) {
         self.type = type
         self.advanceAfter = advanceAfter
         self.advanceAfterTime = advanceAfterTime
@@ -416,6 +422,7 @@ public class SlideShowTransition: Codable {
         self.shredPattern = shredPattern
         self.orientation = orientation
         self.spokes = spokes
+        self.duration = duration
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -443,6 +450,7 @@ public class SlideShowTransition: Codable {
         case shredPattern
         case orientation
         case spokes
+        case duration
     }
 
 }
