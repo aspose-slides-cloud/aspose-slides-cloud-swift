@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/api-v3.0-lightgrey)  [![GitHub license](https://img.shields.io/github/license/aspose-slides-cloud/aspose-slides-cloud-swift)](https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift)
+![](https://img.shields.io/badge/api-v3.0-lightgrey)  [![GitHub license](https://img.shields.io/github/license/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Swift)](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Swift)
 
 # Swift REST API to Process Presentation in Cloud
 This repository contains Aspose.Slides Cloud SDK for Swift source code. This SDK allows you to [process & manipulate PPT, PPTX, ODP, OTP](https://products.aspose.cloud/slides/swift) using Aspose.slides Cloud REST APIs in your Swift applications.
@@ -60,7 +60,7 @@ You may want to check out Aspose free [Powerpoint to PDF](https://products.aspos
 All Aspose.Slides Cloud SDKs are licensed under MIT License.
 
 ## How to use the SDK?
-The complete source code is available in this repository folder. You can either directly use it in your project via source code or get the library using [Cocoapods](https://cocoapods.org/pods/AsposeSlidesCloud) or [Packages](https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift) (recommended).
+The complete source code is available in this repository folder. You can either directly use it in your project via source code or get the library using [Cocoapods](https://cocoapods.org/pods/AsposeSlidesCloud) or [Packages](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Swift) (recommended).
 
 ## Prerequisites
 To use Aspose Slides Cloud SDK for Java you need to register an account with [Aspose Cloud](https://www.aspose.cloud/) and lookup/create App Key and SID at [Cloud Dashboard](https://dashboard.aspose.cloud/#/apps). There is free quota available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/pricing).
@@ -80,7 +80,7 @@ import PackageDescription
 let package = Package(
     name: "MyPackage",
     dependencies: [
-        .package(url: "https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift", from: "22.4.0"),
+        .package(url: "https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Swift", from: "22.4.0"),
     ],
     targets: [
         .target(
@@ -135,7 +135,7 @@ dispatchMain()
 
 | .NET | Java | PHP | Python | Ruby | Node.js | Android | Swift|Perl|Go|
 |---|---|---|---|---|---|---|--|--|--|
-| [GitHub](https://github.com/aspose-slides-cloud/aspose-slides-cloud-dotnet) | [GitHub](https://github.com/aspose-slides-cloud/aspose-slides-cloud-java) | [GitHub](https://github.com/aspose-slides-cloud/aspose-slides-cloud-php) | [GitHub](https://github.com/aspose-slides-cloud/aspose-slides-cloud-python) | [GitHub](https://github.com/aspose-slides-cloud/aspose-slides-cloud-ruby)  | [GitHub](https://github.com/aspose-slides-cloud/aspose-slides-cloud-nodejs) | [GitHub](https://github.com/aspose-slides-cloud/aspose-slides-cloud-android) | [GitHub](https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift)|[GitHub](https://github.com/aspose-slides-cloud/aspose-slides-cloud-perl) |[GitHub](https://github.com/aspose-slides-cloud/aspose-slides-cloud-go) |
-| [NuGet](https://www.nuget.org/packages/Aspose.slides-Cloud/) | [Maven](https://repository.aspose.cloud/webapp/#/artifacts/browse/tree/General/repo/com/aspose/aspose-slides-cloud) | [Composer](https://packagist.org/packages/aspose/slides-sdk-php) | [PIP](https://pypi.org/project/asposeslidescloud/) | [GEM](https://rubygems.org/gems/aspose_slides_cloud)  | [NPM](https://www.npmjs.com/package/asposeslidescloud) | [Maven](https://repository.aspose.cloud/webapp/#/artifacts/browse/tree/General/repo/com/aspose/aspose-slides-cloud) | [Cocoapods](https://cocoapods.org/pods/AsposeslidesCloud)|[Meta Cpan](https://metacpan.org/release/AsposeSlidesCloud-SlidesApi) | [Go.Dev](https://pkg.go.dev/github.com/aspose-slides-cloud/aspose-slides-cloud-go/) |
+| [GitHub](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-.NET) | [GitHub](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Java) | [GitHub](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-PHP) | [GitHub](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Python) | [GitHub](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Ruby)  | [GitHub](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Node.js) | [GitHub](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Android) | [GitHub](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Swift)|[GitHub](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Perl) |[GitHub](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Go) |
+| [NuGet](https://www.nuget.org/packages/Aspose.slides-Cloud/) | [Maven](https://repository.aspose.cloud/webapp/#/artifacts/browse/tree/General/repo/com/aspose/aspose-slides-cloud) | [Composer](https://packagist.org/packages/aspose/slides-sdk-php) | [PIP](https://pypi.org/project/asposeslidescloud/) | [GEM](https://rubygems.org/gems/aspose_slides_cloud)  | [NPM](https://www.npmjs.com/package/asposeslidescloud) | [Maven](https://repository.aspose.cloud/webapp/#/artifacts/browse/tree/General/repo/com/aspose/aspose-slides-cloud) | [Cocoapods](https://cocoapods.org/pods/AsposeslidesCloud)|[Meta Cpan](https://metacpan.org/release/AsposeSlidesCloud-SlidesApi) | [Go.Dev](https://pkg.go.dev/github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Go/) |
 
-[Product Page](https://products.aspose.cloud/slides/swift) | [Documentation](https://docs.aspose.cloud/display/slidescloud/Home) | [API Reference](https://apireference.aspose.cloud/slides/) | [Code Samples](https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift) | [Blog](https://blog.aspose.cloud/category/slides/) | [Free Support](https://forum.aspose.cloud/c/slides) | [Free Trial](https://dashboard.aspose.cloud/#/apps)
+[Product Page](https://products.aspose.cloud/slides/swift) | [Documentation](https://docs.aspose.cloud/display/slidescloud/Home) | [API Reference](https://apireference.aspose.cloud/slides/) | [Code Samples](https://github.com/aspose-slides-cloud/Aspose.Slides-Cloud-SDK-for-Swift) | [Blog](https://blog.aspose.cloud/category/slides/) | [Free Support](https://forum.aspose.cloud/c/slides) | [Free Trial](https://dashboard.aspose.cloud/#/apps)
