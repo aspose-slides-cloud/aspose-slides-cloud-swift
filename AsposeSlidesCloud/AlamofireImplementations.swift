@@ -134,20 +134,20 @@ open class AlamofireRequestBuilder<T>: RequestBuilder<T> {
             r.setValue(value, forHTTPHeaderField: key)
         }
         if AsposeSlidesCloudAPI.debug {
-            print(">>\(r.httpMethod!) \(r)")
-            print(r.allHTTPHeaderFields!)
+            AsposeSlidesCloudAPI.log(">>\(r.httpMethod!) \(r)")
+            AsposeSlidesCloudAPI.log("\(r.allHTTPHeaderFields!)")
             if r.httpBody != nil {
                 let bodyStr = String(data: r.httpBody!, encoding: .utf8)
                 if bodyStr != nil {
-                    print(bodyStr!)
+                    AsposeSlidesCloudAPI.log(bodyStr!)
                 }
             }
         }
         let task = URLSession.shared.dataTask(with: r) { data, response, error in
             if AsposeSlidesCloudAPI.debug {
-                print("<< \(response!)")
+                AsposeSlidesCloudAPI.log("<< \(response!)")
                 if (data != nil) {
-                    print(String(data: data!, encoding: .utf8)!)
+                    AsposeSlidesCloudAPI.log(String(data: data!, encoding: .utf8)!)
                 }
             }
             let dataResponse = response as? HTTPURLResponse
@@ -262,26 +262,26 @@ open class AlamofireDecodableRequestBuilder<T:Decodable>: AlamofireRequestBuilde
             r.setValue(value, forHTTPHeaderField: key)
         }
         if AsposeSlidesCloudAPI.debug {
-            print(">>\(r.httpMethod!) \(r)")
-            print(r.allHTTPHeaderFields!)
+            AsposeSlidesCloudAPI.log(">>\(r.httpMethod!) \(r)")
+            AsposeSlidesCloudAPI.log("\(r.allHTTPHeaderFields!)")
             if r.httpBody != nil {
                 let s = String(data: r.httpBody!, encoding: .utf8)
                 if s != nil {
-                    print(s!)
+                    AsposeSlidesCloudAPI.log(s!)
                 } else {
-                    print(r.httpBody!)
+                    AsposeSlidesCloudAPI.log("\(r.httpBody!)")
                 }
             }
         }
         let task = URLSession.shared.dataTask(with: r) { data, response, error in
             if AsposeSlidesCloudAPI.debug {
-                print("<< \(response!)")
+                AsposeSlidesCloudAPI.log("<< \(response!)")
                 if data != nil {
                     let s = String(data: data!, encoding: .utf8)
                     if s != nil {
-                        print(s!)
+                        AsposeSlidesCloudAPI.log(s!)
                     } else {
-                        print(data!)
+                        AsposeSlidesCloudAPI.log("\(data!)")
                     }
                 }
             }

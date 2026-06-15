@@ -64,6 +64,8 @@ class ShapesTests : XCTestCase {
         ("testOleObjectFrameAddByLink", testOleObjectFrameAddByLink),
         ("testOleObjectFrameAddEmbedded", testOleObjectFrameAddEmbedded),
         ("testGroupShapeAdd", testGroupShapeAdd),
+        ("testSmartArtNodeDefaultParagraphFormat", testSmartArtNodeDefaultParagraphFormat),
+        ("testShapeCloneFromSlide", testShapeCloneFromSlide),
     ];
     
     internal let testTimeout: TimeInterval = 200.0 
@@ -172,7 +174,7 @@ class ShapesTests : XCTestCase {
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = Shape()
             dto.shapeType = GeometryShape.ShapeType.callout1
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result as? Shape)
@@ -187,7 +189,7 @@ class ShapesTests : XCTestCase {
 
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = Shape()
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNotNil(error)
                 switch (error!) {
                 case ErrorResponse.error(let actualCode, _, _):
@@ -206,7 +208,7 @@ class ShapesTests : XCTestCase {
 
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = GraphicalObject()
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNotNil(error)
                 switch (error!) {
                 case ErrorResponse.error(let actualCode, _, _):
@@ -228,7 +230,7 @@ class ShapesTests : XCTestCase {
             let fill = PictureFill()
             fill.base64Data = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY5g+ffp/AAZTAsWGL27gAAAAAElFTkSuQmCC"
             dto.pictureFillFormat = fill
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result as? PictureFrame)
@@ -243,7 +245,7 @@ class ShapesTests : XCTestCase {
 
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = PictureFrame()
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNotNil(error)
                 switch (error!) {
                 case ErrorResponse.error(let actualCode, _, _):
@@ -262,7 +264,7 @@ class ShapesTests : XCTestCase {
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = AudioFrame()
             dto.base64Data = "bXAzc2FtcGxl"
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result as? AudioFrame)
@@ -277,7 +279,7 @@ class ShapesTests : XCTestCase {
 
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = AudioFrame()
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNotNil(error)
                 switch (error!) {
                 case ErrorResponse.error(let actualCode, _, _):
@@ -297,7 +299,7 @@ class ShapesTests : XCTestCase {
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = VideoFrame()
             dto.base64Data = "bXAzc2FtcGxl"
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result as? VideoFrame)
@@ -312,7 +314,7 @@ class ShapesTests : XCTestCase {
 
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = VideoFrame()
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNotNil(error)
                 switch (error!) {
                 case ErrorResponse.error(let actualCode, _, _):
@@ -331,7 +333,7 @@ class ShapesTests : XCTestCase {
 
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = OleObjectFrame()
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNotNil(error)
                 switch (error!) {
                 case ErrorResponse.error(let actualCode, _, _):
@@ -368,7 +370,7 @@ class ShapesTests : XCTestCase {
             node2.text = "Second"
             node2.orgChartLayout = SmartArtNode.OrgChartLayout.initial
             dto.nodes = [ node1, node2 ]
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result as? SmartArt)
@@ -416,7 +418,7 @@ class ShapesTests : XCTestCase {
 
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = SmartArt()
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result as? SmartArt)
@@ -432,7 +434,7 @@ class ShapesTests : XCTestCase {
 
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = Chart()
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result as? Chart)
@@ -508,7 +510,7 @@ class ShapesTests : XCTestCase {
             dto.columns = [ column1, column2, column3, column4 ]
             dto.firstRow = true
             dto.horizontalBanding = true
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result as? Table)
@@ -523,7 +525,7 @@ class ShapesTests : XCTestCase {
 
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = Table()
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNotNil(error)
                 switch (error!) {
                 case ErrorResponse.error(let actualCode, _, _):
@@ -542,7 +544,7 @@ class ShapesTests : XCTestCase {
 
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = GroupShape()
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result as? GroupShape)
@@ -564,7 +566,7 @@ class ShapesTests : XCTestCase {
             let end = ResourceUri()
             end.href = "https://api.aspose.cloud/v3.0/slides/myPresentation.pptx/slides/1/shapes/2"
             dto.endShapeConnectedTo = end
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result as? Connector)
@@ -579,7 +581,7 @@ class ShapesTests : XCTestCase {
 
         TestUtils.initialize("") { (response, error) -> Void in
             let dto = Connector()
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (result, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(result)
                 XCTAssertNotNil(result as? Connector)
@@ -757,7 +759,7 @@ class ShapesTests : XCTestCase {
             dto.width = 200
             dto.height = 100
             dto.targetSlideIndex = 2
-            SlidesAPI.createShape("test.pptx", 3, dto, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 3, dto, nil, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(shape)
                 let zoomFrame = shape as? ZoomFrame
@@ -779,7 +781,7 @@ class ShapesTests : XCTestCase {
             dto.width = 200
             dto.height = 100
             dto.targetSectionIndex = 2
-            SlidesAPI.createShape("test.pptx", 3, dto, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 3, dto, nil, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(shape)
                 if shape != nil {
@@ -806,7 +808,7 @@ class ShapesTests : XCTestCase {
             dto.height = 200
             dto.linkPath = "oleObject.xlsx"
             dto.objectProgId = "Excel.Sheet.8"
-            SlidesAPI.createShape("test.pptx", 3, dto, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 3, dto, nil, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(shape)
                 let frame = shape as? OleObjectFrame
@@ -831,7 +833,7 @@ class ShapesTests : XCTestCase {
             dto.height = 200
             dto.embeddedFileBase64Data = document!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
             dto.embeddedFileExtension = "xlsx"
-            SlidesAPI.createShape("test.pptx", 3, dto, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 3, dto, nil, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(shape)
                 let frame = shape as? OleObjectFrame
@@ -858,7 +860,7 @@ class ShapesTests : XCTestCase {
                 XCTAssertNotNil(shapes!.shapesLinks)
                 XCTAssertEqual(0, shapes!.shapesLinks!.count)
                 let dto = GroupShape()
-                SlidesAPI.createShape(fileName, slideIndex, dto, nil, nil, password, folderName) { (shape, error) -> Void in
+                SlidesAPI.createShape(fileName, slideIndex, dto, nil, nil, nil, password, folderName) { (shape, error) -> Void in
                     XCTAssertNil(error)
                     XCTAssertNotNil(shape)
  
@@ -868,7 +870,7 @@ class ShapesTests : XCTestCase {
                     shape1.y = 400
                     shape1.width = 50
                     shape1.height = 50
-                    SlidesAPI.createShape(fileName, slideIndex, shape1, nil, nil, password, folderName, "", shapeIndex) { (shape, error) -> Void in
+                    SlidesAPI.createShape(fileName, slideIndex, shape1, nil, nil, nil, password, folderName, "", shapeIndex) { (shape, error) -> Void in
                         XCTAssertNil(error)
                         XCTAssertNotNil(shape)
 
@@ -878,7 +880,7 @@ class ShapesTests : XCTestCase {
                         shape2.y = 400
                         shape2.width = 50
                         shape2.height = 50
-                        SlidesAPI.createShape(fileName, slideIndex, shape2, nil, nil, password, folderName, "", shapeIndex) { (shape, error) -> Void in
+                        SlidesAPI.createShape(fileName, slideIndex, shape2, nil, nil, nil, password, folderName, "", shapeIndex) { (shape, error) -> Void in
                             XCTAssertNil(error)
                             XCTAssertNotNil(shape)
 
@@ -888,7 +890,7 @@ class ShapesTests : XCTestCase {
                             shape3.y = 400
                             shape3.width = 50
                             shape3.height = 50
-                            SlidesAPI.createShape(fileName, slideIndex, shape3, nil, nil, password, folderName, "", shapeIndex) { (shape, error) -> Void in
+                            SlidesAPI.createShape(fileName, slideIndex, shape3, nil, nil, nil, password, folderName, "", shapeIndex) { (shape, error) -> Void in
                                 SlidesAPI.getShapes(fileName, slideIndex, password, folderName) { (shapes, error) -> Void in
                                     XCTAssertNil(error)
                                     XCTAssertNotNil(shapes)
@@ -907,6 +909,44 @@ class ShapesTests : XCTestCase {
                         }
                     }
                 }
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testSmartArtNodeDefaultParagraphFormat() {
+        let expectation = self.expectation(description: "testSmartArtNodeDefaultParagraphFormat")
+        TestUtils.initialize("") { (response, error) -> Void in
+            SlidesAPI.getShape("test.pptx", 7, 1, "password", "TempSlidesSDK") { (shape, error) -> Void in
+                XCTAssertNil(error)
+                XCTAssertNotNil(shape)
+                let smartArt = shape as! SmartArt
+                let paragraphFormat = ParagraphFormat()
+                let bulletFill = SolidFill()
+                bulletFill.color = "#FFFF0000"
+                paragraphFormat.bulletFillFormat = bulletFill
+                smartArt.nodes![0].defaultParagraphFormat = paragraphFormat
+                SlidesAPI.updateShape("test.pptx", 7, 1, smartArt, "password", "TempSlidesSDK") { (updated, error) -> Void in
+                    XCTAssertNil(error)
+                    XCTAssertNotNil(updated)
+                    let updatedSmartArt = updated as! SmartArt
+                    XCTAssertNotNil(updatedSmartArt.nodes![0].defaultParagraphFormat)
+                    XCTAssertEqual(FillFormat.ModelType.solid, updatedSmartArt.nodes![0].defaultParagraphFormat!.bulletFillFormat!.type)
+                    XCTAssertEqual("#FFFF0000", (updatedSmartArt.nodes![0].defaultParagraphFormat!.bulletFillFormat as! SolidFill).color)
+                    expectation.fulfill()
+                }
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testShapeCloneFromSlide() {
+        let expectation = self.expectation(description: "testShapeCloneFromSlide")
+        TestUtils.initialize("") { (response, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 3, nil, 1, 1, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
+                XCTAssertNil(error)
+                XCTAssertNotNil(shape)
+                expectation.fulfill()
             }
         }
         self.waitForExpectations(timeout: testTimeout, handler: nil)

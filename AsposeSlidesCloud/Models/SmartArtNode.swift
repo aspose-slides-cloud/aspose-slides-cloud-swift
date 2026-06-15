@@ -51,6 +51,8 @@ public class SmartArtNode: Codable {
     public var orgChartLayout: OrgChartLayout?
     /** Get or sets list to paragraphs list */
     public var paragraphs: ResourceUri?
+    /** Default paragraph format for the node&#39;s text frame. */
+    public var defaultParagraphFormat: ParagraphFormat?
 
     func fillValues(_ source: [String:Any]) throws {
         let nodesValue = source["nodes"] ?? source["Nodes"]
@@ -116,15 +118,26 @@ public class SmartArtNode: Codable {
                 }
             }
         }
+        let defaultParagraphFormatValue = source["defaultParagraphFormat"] ?? source["DefaultParagraphFormat"]
+        if defaultParagraphFormatValue != nil {
+            let defaultParagraphFormatDictionaryValue = defaultParagraphFormatValue! as? [String:Any]
+            if defaultParagraphFormatDictionaryValue != nil {
+                let (defaultParagraphFormatInstance, error) = ClassRegistry.getClassFromDictionary(ParagraphFormat.self, defaultParagraphFormatDictionaryValue!)
+                if error == nil && defaultParagraphFormatInstance != nil {
+                    self.defaultParagraphFormat = defaultParagraphFormatInstance! as? ParagraphFormat
+                }
+            }
+        }
     }
 
-    public init(nodes: [SmartArtNode]? = nil, shapes: ResourceUri? = nil, isAssistant: Bool? = nil, text: String? = nil, orgChartLayout: OrgChartLayout? = nil, paragraphs: ResourceUri? = nil) {
+    public init(nodes: [SmartArtNode]? = nil, shapes: ResourceUri? = nil, isAssistant: Bool? = nil, text: String? = nil, orgChartLayout: OrgChartLayout? = nil, paragraphs: ResourceUri? = nil, defaultParagraphFormat: ParagraphFormat? = nil) {
         self.nodes = nodes
         self.shapes = shapes
         self.isAssistant = isAssistant
         self.text = text
         self.orgChartLayout = orgChartLayout
         self.paragraphs = paragraphs
+        self.defaultParagraphFormat = defaultParagraphFormat
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -134,6 +147,7 @@ public class SmartArtNode: Codable {
         case text
         case orgChartLayout
         case paragraphs
+        case defaultParagraphFormat
     }
 
 }

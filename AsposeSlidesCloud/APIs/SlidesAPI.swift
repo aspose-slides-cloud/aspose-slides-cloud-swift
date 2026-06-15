@@ -2088,6 +2088,7 @@ open class SlidesAPI {
      - parameter slideIndex: Slide index.
      - parameter dto: Shape DTO.
      - parameter shapeToClone: Optional index for clone shape instead of adding a new one.
+     - parameter cloneFromSlide: Optional index of the slide to clone the shape from. When set, shapeToClone refers to a shape on that slide.
      - parameter position: Position of the new shape in the list. Default is at the end of the list.
      - parameter password: Document password.
      - parameter folder: Document folder.
@@ -2095,8 +2096,8 @@ open class SlidesAPI {
      - parameter subShape: Sub-shape path (e.g. \"3\", \"3/shapes/2).
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func createShape(_ name: String, _ slideIndex: Int, _ dto: ShapeBase? = nil, _ shapeToClone: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "", completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
-        createShapeWithRequestBuilder(name, slideIndex, dto, shapeToClone, position, password, folder, storage, subShape).executeAuthorized { (response, error) -> Void in
+    open class func createShape(_ name: String, _ slideIndex: Int, _ dto: ShapeBase? = nil, _ shapeToClone: Int? = nil, _ cloneFromSlide: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "", completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+        createShapeWithRequestBuilder(name, slideIndex, dto, shapeToClone, cloneFromSlide, position, password, folder, storage, subShape).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -2117,6 +2118,7 @@ open class SlidesAPI {
      - parameter slideIndex: Slide index.
      - parameter dto: Shape DTO.
      - parameter shapeToClone: Optional index for clone shape instead of adding a new one.
+     - parameter cloneFromSlide: Optional index of the slide to clone the shape from. When set, shapeToClone refers to a shape on that slide.
      - parameter position: Position of the new shape in the list. Default is at the end of the list.
      - parameter password: Document password.
      - parameter folder: Document folder.
@@ -2124,7 +2126,7 @@ open class SlidesAPI {
      - parameter subShape: Sub-shape path (e.g. \"3\", \"3/shapes/2).
      - returns: RequestBuilder<ShapeBase> 
      */
-    open class func createShapeWithRequestBuilder(_ name: String, _ slideIndex: Int, _ dto: ShapeBase? = nil, _ shapeToClone: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "") -> RequestBuilder<ShapeBase> {
+    open class func createShapeWithRequestBuilder(_ name: String, _ slideIndex: Int, _ dto: ShapeBase? = nil, _ shapeToClone: Int? = nil, _ cloneFromSlide: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "") -> RequestBuilder<ShapeBase> {
         var methodPath = "/slides/{name}/slides/{slideIndex}/shapes"
         methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
         methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
@@ -2138,6 +2140,7 @@ open class SlidesAPI {
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
             "shapeToClone": shapeToClone?.encodeToJSON(), 
+            "cloneFromSlide": cloneFromSlide?.encodeToJSON(), 
             "position": position?.encodeToJSON(), 
             "folder": folder, 
             "storage": storage, 
@@ -2690,6 +2693,7 @@ open class SlidesAPI {
      - parameter slideType: Slide type (master, layout or notes).
      - parameter dto: Shape DTO.
      - parameter shapeToClone: Optional index for clone shape instead of adding a new one.
+     - parameter cloneFromSlide: Optional index of the slide to clone the shape from. When set, shapeToClone refers to a shape on that slide.
      - parameter position: Position of the new shape in the list. Default is at the end of the list.
      - parameter password: Document password.
      - parameter folder: Document folder.
@@ -2697,8 +2701,8 @@ open class SlidesAPI {
      - parameter subShape: Sub-shape path (e.g. \"3\", \"3/shapes/2).
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func createSpecialSlideShape(_ name: String, _ slideIndex: Int, _ slideType: String, _ dto: ShapeBase, _ shapeToClone: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "", completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
-        createSpecialSlideShapeWithRequestBuilder(name, slideIndex, slideType, dto, shapeToClone, position, password, folder, storage, subShape).executeAuthorized { (response, error) -> Void in
+    open class func createSpecialSlideShape(_ name: String, _ slideIndex: Int, _ slideType: String, _ dto: ShapeBase, _ shapeToClone: Int? = nil, _ cloneFromSlide: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "", completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+        createSpecialSlideShapeWithRequestBuilder(name, slideIndex, slideType, dto, shapeToClone, cloneFromSlide, position, password, folder, storage, subShape).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -2720,6 +2724,7 @@ open class SlidesAPI {
      - parameter slideType: Slide type (master, layout or notes).
      - parameter dto: Shape DTO.
      - parameter shapeToClone: Optional index for clone shape instead of adding a new one.
+     - parameter cloneFromSlide: Optional index of the slide to clone the shape from. When set, shapeToClone refers to a shape on that slide.
      - parameter position: Position of the new shape in the list. Default is at the end of the list.
      - parameter password: Document password.
      - parameter folder: Document folder.
@@ -2727,7 +2732,7 @@ open class SlidesAPI {
      - parameter subShape: Sub-shape path (e.g. \"3\", \"3/shapes/2).
      - returns: RequestBuilder<ShapeBase> 
      */
-    open class func createSpecialSlideShapeWithRequestBuilder(_ name: String, _ slideIndex: Int, _ slideType: String, _ dto: ShapeBase, _ shapeToClone: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "") -> RequestBuilder<ShapeBase> {
+    open class func createSpecialSlideShapeWithRequestBuilder(_ name: String, _ slideIndex: Int, _ slideType: String, _ dto: ShapeBase, _ shapeToClone: Int? = nil, _ cloneFromSlide: Int? = nil, _ position: Int? = nil, _ password: String = "", _ folder: String = "", _ storage: String = "", _ subShape: String = "") -> RequestBuilder<ShapeBase> {
         var methodPath = "/slides/{name}/slides/{slideIndex}/{slideType}/shapes"
         methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
         methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
@@ -2742,6 +2747,7 @@ open class SlidesAPI {
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
             "shapeToClone": shapeToClone?.encodeToJSON(), 
+            "cloneFromSlide": cloneFromSlide?.encodeToJSON(), 
             "position": position?.encodeToJSON(), 
             "folder": folder, 
             "storage": storage, 
@@ -12489,6 +12495,94 @@ open class SlidesAPI {
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
     }
     /**
+     Imports a chart from an Excel workbook and adds it to the slide.
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter worksheetName: The name of the worksheet that contains the chart.
+     - parameter document: Excel workbook data.
+     - parameter chartName: The name of the chart. Required if chartIndex is not specified.
+     - parameter chartIndex: The zero-based index of the chart in the worksheet. Takes precedence over chartName.
+     - parameter x: X coordinate of the chart (EMU).
+     - parameter y: Y coordinate of the chart (EMU).
+     - parameter embedAllWorkbook: If true, the entire workbook is embedded; if false, only chart data.
+     - parameter workbookPath: Storage path to the workbook. If omitted, the workbook must be uploaded as multipart form data.
+     - parameter workbookStorage: Storage name for workbookPath.
+     - parameter password: Document password.
+     - parameter folder: Presentation folder.
+     - parameter storage: Presentation storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func importChartFromWorkbook(_ name: String, _ slideIndex: Int, _ worksheetName: String, _ document: Data? = nil, _ chartName: String = "", _ chartIndex: Int? = nil, _ x: Double? = nil, _ y: Double? = nil, _ embedAllWorkbook: Bool? = nil, _ workbookPath: String = "", _ workbookStorage: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+        importChartFromWorkbookWithRequestBuilder(name, slideIndex, worksheetName, document, chartName, chartIndex, x, y, embedAllWorkbook, workbookPath, workbookStorage, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Imports a chart from an Excel workbook and adds it to the slide.
+     - POST /slides/{name}/slides/{slideIndex}/shapes/fromExcelChart
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter worksheetName: The name of the worksheet that contains the chart.
+     - parameter document: Excel workbook data.
+     - parameter chartName: The name of the chart. Required if chartIndex is not specified.
+     - parameter chartIndex: The zero-based index of the chart in the worksheet. Takes precedence over chartName.
+     - parameter x: X coordinate of the chart (EMU).
+     - parameter y: Y coordinate of the chart (EMU).
+     - parameter embedAllWorkbook: If true, the entire workbook is embedded; if false, only chart data.
+     - parameter workbookPath: Storage path to the workbook. If omitted, the workbook must be uploaded as multipart form data.
+     - parameter workbookStorage: Storage name for workbookPath.
+     - parameter password: Document password.
+     - parameter folder: Presentation folder.
+     - parameter storage: Presentation storage.
+     - returns: RequestBuilder<ShapeBase> 
+     */
+    open class func importChartFromWorkbookWithRequestBuilder(_ name: String, _ slideIndex: Int, _ worksheetName: String, _ document: Data? = nil, _ chartName: String = "", _ chartIndex: Int? = nil, _ x: Double? = nil, _ y: Double? = nil, _ embedAllWorkbook: Bool? = nil, _ workbookPath: String = "", _ workbookStorage: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<ShapeBase> {
+        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/fromExcelChart"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+        if document != nil {
+            fileParams.append(document!)
+        }
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "worksheetName": worksheetName, 
+            "chartName": chartName, 
+            "chartIndex": chartIndex?.encodeToJSON(), 
+            "x": x, 
+            "y": y, 
+            "embedAllWorkbook": embedAllWorkbook, 
+            "workbookPath": workbookPath, 
+            "workbookStorage": workbookStorage, 
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<ShapeBase>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
      Create presentation document from html.
      - parameter name: Document name.
      - parameter html: HTML data.
@@ -12692,6 +12786,88 @@ open class SlidesAPI {
         let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<Shapes>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
+    }
+    /**
+     Imports a table from an Excel workbook and adds it to the slide.
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter worksheetName: The name of the worksheet that contains the table.
+     - parameter cellRange: The cell range that defines the table (e.g. \"A1:D10\").
+     - parameter document: Excel workbook data.
+     - parameter x: X coordinate of the table (EMU).
+     - parameter y: Y coordinate of the table (EMU).
+     - parameter workbookPath: Storage path to the workbook. If omitted, the workbook must be uploaded as multipart form data.
+     - parameter workbookStorage: Storage name for workbookPath.
+     - parameter password: Document password.
+     - parameter folder: Presentation folder.
+     - parameter storage: Presentation storage.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func importTableFromWorkbook(_ name: String, _ slideIndex: Int, _ worksheetName: String, _ cellRange: String, _ document: Data? = nil, _ x: Double? = nil, _ y: Double? = nil, _ workbookPath: String = "", _ workbookStorage: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "", completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+        importTableFromWorkbookWithRequestBuilder(name, slideIndex, worksheetName, cellRange, document, x, y, workbookPath, workbookStorage, password, folder, storage).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Imports a table from an Excel workbook and adds it to the slide.
+     - POST /slides/{name}/slides/{slideIndex}/shapes/fromExcelTable
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "blank": true,
+  "bytes": [],
+  "empty": true
+}}]
+     - parameter name: Document name.
+     - parameter slideIndex: Slide index.
+     - parameter worksheetName: The name of the worksheet that contains the table.
+     - parameter cellRange: The cell range that defines the table (e.g. \"A1:D10\").
+     - parameter document: Excel workbook data.
+     - parameter x: X coordinate of the table (EMU).
+     - parameter y: Y coordinate of the table (EMU).
+     - parameter workbookPath: Storage path to the workbook. If omitted, the workbook must be uploaded as multipart form data.
+     - parameter workbookStorage: Storage name for workbookPath.
+     - parameter password: Document password.
+     - parameter folder: Presentation folder.
+     - parameter storage: Presentation storage.
+     - returns: RequestBuilder<ShapeBase> 
+     */
+    open class func importTableFromWorkbookWithRequestBuilder(_ name: String, _ slideIndex: Int, _ worksheetName: String, _ cellRange: String, _ document: Data? = nil, _ x: Double? = nil, _ y: Double? = nil, _ workbookPath: String = "", _ workbookStorage: String = "", _ password: String = "", _ folder: String = "", _ storage: String = "") -> RequestBuilder<ShapeBase> {
+        var methodPath = "/slides/{name}/slides/{slideIndex}/shapes/fromExcelTable"
+        methodPath = APIHelper.replacePathParameter(methodPath, "name", name)
+        methodPath = APIHelper.replacePathParameter(methodPath, "slideIndex", slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + methodPath
+        let parameters: [String:Any]? = nil
+
+
+        var fileParams = [Data]()
+        fileParams.removeAll()
+        if document != nil {
+            fileParams.append(document!)
+        }
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "worksheetName": worksheetName, 
+            "cellRange": cellRange, 
+            "x": x, 
+            "y": y, 
+            "workbookPath": workbookPath, 
+            "workbookStorage": workbookStorage, 
+            "folder": folder, 
+            "storage": storage
+        ])
+        let nillableHeaders: [String: Any?] = [
+            "password": password
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<ShapeBase>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, files: fileParams, headers: headerParameters)
     }

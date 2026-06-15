@@ -47,6 +47,8 @@ class ChartTests : XCTestCase {
         ("testChartSunburst", testChartSunburst),
         ("testHideChartLegend", testHideChartLegend),
         ("testChartGridLinesFormat", testChartGridLinesFormat),
+        ("testImportChartFromWorkbook", testImportChartFromWorkbook),
+        ("testImportChartFromWorkbookByPath", testImportChartFromWorkbookByPath),
     ];
     
     internal let testTimeout: TimeInterval = 200.0 
@@ -118,7 +120,7 @@ class ChartTests : XCTestCase {
             let category3 = ChartCategory()
             category3.value = "Category3"
             chart.categories = [category1, category2, category3]
-            SlidesAPI.createShape("test.pptx", 3, chart, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 3, chart, nil, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(shape)
                 let chart = shape as? Chart
@@ -411,7 +413,7 @@ class ChartTests : XCTestCase {
             let category4 = ChartCategory()
             category4.value = "Stem2"
             chart.categories = [category1, category2, category3, category4]
-            SlidesAPI.createShape("test.pptx", 3, chart, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 3, chart, nil, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(shape)
                 let chart = shape as? Chart
@@ -475,7 +477,7 @@ class ChartTests : XCTestCase {
             let category8 = ChartCategory()
             category8.value = "Category8"
             chart.categories = [category1, category2, category3, category4, category5, category6, category7, category8]
-            SlidesAPI.createShape("test.pptx", 3, chart, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 3, chart, nil, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(shape)
                 let chart = shape as? Chart
@@ -586,6 +588,41 @@ class ChartTests : XCTestCase {
                     XCTAssertEqual(FillFormat.ModelType.solid, chart!.axes!.horizontalAxis!.minorGridLinesFormat!.lineFormat!.fillFormat!.type)
                     XCTAssertEqual(FillFormat.ModelType.gradient, chart!.axes!.verticalAxis!.majorGridLinesFormat!.lineFormat!.fillFormat!.type)
                     XCTAssertEqual(FillFormat.ModelType.noFill, chart!.axes!.verticalAxis!.minorGridLinesFormat!.lineFormat!.fillFormat!.type)
+                    expectation.fulfill()
+                }
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbook() {
+        let expectation = self.expectation(description: "testImportChartFromWorkbook")
+        TestUtils.initialize("") { (response, error) -> Void in
+            let document = FileManager.default.contents(atPath: "TestData/oleObject.xlsx")
+            XCTAssertNotNil(document)
+            SlidesAPI.importChartFromWorkbook("test.pptx", 3, "Sheet1", document, "", 1, nil, nil, nil, "", "",
+                "password", "TempSlidesSDK") { (shape, error) -> Void in
+                XCTAssertNil(error)
+                XCTAssertNotNil(shape)
+                XCTAssertEqual(ShapeBase.ModelType.chart, shape!.type)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookByPath() {
+        let expectation = self.expectation(description: "testImportChartFromWorkbookByPath")
+        TestUtils.initialize("") { (response, error) -> Void in
+            let document = FileManager.default.contents(atPath: "TestData/oleObject.xlsx")
+            XCTAssertNotNil(document)
+            SlidesAPI.uploadFile("TempSlidesSDK/oleObject.xlsx", document!) { (result, error) -> Void in
+                XCTAssertNil(error)
+                SlidesAPI.importChartFromWorkbook("test.pptx", 3, "Sheet1", nil, "", 1, nil, nil, nil,
+                    "TempSlidesSDK/oleObject.xlsx", "", "password", "TempSlidesSDK") { (shape, error) -> Void in
+                    XCTAssertNil(error)
+                    XCTAssertNotNil(shape)
+                    XCTAssertEqual(ShapeBase.ModelType.chart, shape!.type)
                     expectation.fulfill()
                 }
             }

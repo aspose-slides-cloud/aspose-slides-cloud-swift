@@ -90,7 +90,7 @@ class TextFormatTests : XCTestCase {
             let textFrameFormat = TextFrameFormat()
             textFrameFormat.transform = TextFrameFormat.Transform.archUpPour
             textFrameFormat.threeDFormat = threeDFormat
-            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
+            SlidesAPI.createShape("test.pptx", 1, dto, nil, nil, nil, "password", "TempSlidesSDK") { (shape, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(shape)
                 XCTAssertNotNil(shape as? Shape)

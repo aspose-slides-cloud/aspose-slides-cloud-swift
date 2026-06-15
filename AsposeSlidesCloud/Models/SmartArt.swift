@@ -236,6 +236,8 @@ public class SmartArt: ShapeBase {
     public var nodes: [SmartArtNode]?
     /** The state of the SmartArt diagram with regard to (left-to-right) LTR or (right-to-left) RTL, if the diagram supports reversal. */
     public var isReversed: Bool?
+    /** Default paragraph format applied to all nodes. Write-only: not populated on read since there is no corresponding property at the SmartArt shape level in Aspose.Slides. */
+    public var defaultParagraphFormat: ParagraphFormat?
 
     override func fillValues(_ source: [String:Any]) throws {
         try super.fillValues(source)
@@ -298,15 +300,26 @@ public class SmartArt: ShapeBase {
         if isReversedValue != nil {
             self.isReversed = isReversedValue! as? Bool
         }
+        let defaultParagraphFormatValue = source["defaultParagraphFormat"] ?? source["DefaultParagraphFormat"]
+        if defaultParagraphFormatValue != nil {
+            let defaultParagraphFormatDictionaryValue = defaultParagraphFormatValue! as? [String:Any]
+            if defaultParagraphFormatDictionaryValue != nil {
+                let (defaultParagraphFormatInstance, error) = ClassRegistry.getClassFromDictionary(ParagraphFormat.self, defaultParagraphFormatDictionaryValue!)
+                if error == nil && defaultParagraphFormatInstance != nil {
+                    self.defaultParagraphFormat = defaultParagraphFormatInstance! as? ParagraphFormat
+                }
+            }
+        }
     }
 
-    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, isDecorative: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil, layout: Layout? = nil, quickStyle: QuickStyle? = nil, colorStyle: ColorStyle? = nil, nodes: [SmartArtNode]? = nil, isReversed: Bool? = nil) {
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, isDecorative: Bool? = nil, x: Double? = nil, y: Double? = nil, zOrderPosition: Int? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, threeDFormat: ThreeDFormat? = nil, lineFormat: LineFormat? = nil, hyperlinkClick: Hyperlink? = nil, hyperlinkMouseOver: Hyperlink? = nil, type: ModelType? = nil, layout: Layout? = nil, quickStyle: QuickStyle? = nil, colorStyle: ColorStyle? = nil, nodes: [SmartArtNode]? = nil, isReversed: Bool? = nil, defaultParagraphFormat: ParagraphFormat? = nil) {
         super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, isDecorative: isDecorative, x: x, y: y, zOrderPosition: zOrderPosition, fillFormat: fillFormat, effectFormat: effectFormat, threeDFormat: threeDFormat, lineFormat: lineFormat, hyperlinkClick: hyperlinkClick, hyperlinkMouseOver: hyperlinkMouseOver, type: type)
         self.layout = layout
         self.quickStyle = quickStyle
         self.colorStyle = colorStyle
         self.nodes = nodes
         self.isReversed = isReversed
+        self.defaultParagraphFormat = defaultParagraphFormat
         self.type = ModelType.smartArt
     }
 
@@ -316,6 +329,7 @@ public class SmartArt: ShapeBase {
         case colorStyle
         case nodes
         case isReversed
+        case defaultParagraphFormat
     }
 
     required init(from decoder: Decoder) throws {
@@ -326,6 +340,7 @@ public class SmartArt: ShapeBase {
         colorStyle = try? values.decode(ColorStyle.self, forKey: .colorStyle)
         nodes = try? values.decode([SmartArtNode].self, forKey: .nodes)
         isReversed = try? values.decode(Bool.self, forKey: .isReversed)
+        defaultParagraphFormat = try? values.decode(ParagraphFormat.self, forKey: .defaultParagraphFormat)
         self.type = ModelType.smartArt
     }
 
@@ -346,6 +361,9 @@ public class SmartArt: ShapeBase {
         }
         if (isReversed != nil) {
             try? container.encode(isReversed, forKey: .isReversed)
+        }
+        if (defaultParagraphFormat != nil) {
+            try? container.encode(defaultParagraphFormat, forKey: .defaultParagraphFormat)
         }
     }
 

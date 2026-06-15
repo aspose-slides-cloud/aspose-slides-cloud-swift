@@ -276,6 +276,7 @@ class SlidesAPITests : XCTestCase {
         ("testCreateShapeInvalidSlideIndex", testCreateShapeInvalidSlideIndex),
         ("testCreateShapeInvalidDto", testCreateShapeInvalidDto),
         ("testCreateShapeInvalidShapeToClone", testCreateShapeInvalidShapeToClone),
+        ("testCreateShapeInvalidCloneFromSlide", testCreateShapeInvalidCloneFromSlide),
         ("testCreateShapeInvalidPosition", testCreateShapeInvalidPosition),
         ("testCreateShapeInvalidPassword", testCreateShapeInvalidPassword),
         ("testCreateShapeInvalidFolder", testCreateShapeInvalidFolder),
@@ -352,6 +353,7 @@ class SlidesAPITests : XCTestCase {
         ("testCreateSpecialSlideShapeInvalidSlideType", testCreateSpecialSlideShapeInvalidSlideType),
         ("testCreateSpecialSlideShapeInvalidDto", testCreateSpecialSlideShapeInvalidDto),
         ("testCreateSpecialSlideShapeInvalidShapeToClone", testCreateSpecialSlideShapeInvalidShapeToClone),
+        ("testCreateSpecialSlideShapeInvalidCloneFromSlide", testCreateSpecialSlideShapeInvalidCloneFromSlide),
         ("testCreateSpecialSlideShapeInvalidPosition", testCreateSpecialSlideShapeInvalidPosition),
         ("testCreateSpecialSlideShapeInvalidPassword", testCreateSpecialSlideShapeInvalidPassword),
         ("testCreateSpecialSlideShapeInvalidFolder", testCreateSpecialSlideShapeInvalidFolder),
@@ -1434,6 +1436,21 @@ class SlidesAPITests : XCTestCase {
         ("testHighlightShapeTextInvalidPassword", testHighlightShapeTextInvalidPassword),
         ("testHighlightShapeTextInvalidFolder", testHighlightShapeTextInvalidFolder),
         ("testHighlightShapeTextInvalidStorage", testHighlightShapeTextInvalidStorage),
+        ("testImportChartFromWorkbook", testImportChartFromWorkbook),
+        ("testImportChartFromWorkbookInvalidName", testImportChartFromWorkbookInvalidName),
+        ("testImportChartFromWorkbookInvalidSlideIndex", testImportChartFromWorkbookInvalidSlideIndex),
+        ("testImportChartFromWorkbookInvalidWorksheetName", testImportChartFromWorkbookInvalidWorksheetName),
+        ("testImportChartFromWorkbookInvalidDocument", testImportChartFromWorkbookInvalidDocument),
+        ("testImportChartFromWorkbookInvalidChartName", testImportChartFromWorkbookInvalidChartName),
+        ("testImportChartFromWorkbookInvalidChartIndex", testImportChartFromWorkbookInvalidChartIndex),
+        ("testImportChartFromWorkbookInvalidX", testImportChartFromWorkbookInvalidX),
+        ("testImportChartFromWorkbookInvalidY", testImportChartFromWorkbookInvalidY),
+        ("testImportChartFromWorkbookInvalidEmbedAllWorkbook", testImportChartFromWorkbookInvalidEmbedAllWorkbook),
+        ("testImportChartFromWorkbookInvalidWorkbookPath", testImportChartFromWorkbookInvalidWorkbookPath),
+        ("testImportChartFromWorkbookInvalidWorkbookStorage", testImportChartFromWorkbookInvalidWorkbookStorage),
+        ("testImportChartFromWorkbookInvalidPassword", testImportChartFromWorkbookInvalidPassword),
+        ("testImportChartFromWorkbookInvalidFolder", testImportChartFromWorkbookInvalidFolder),
+        ("testImportChartFromWorkbookInvalidStorage", testImportChartFromWorkbookInvalidStorage),
         ("testImportFromHtml", testImportFromHtml),
         ("testImportFromHtmlInvalidName", testImportFromHtmlInvalidName),
         ("testImportFromHtmlInvalidHtml", testImportFromHtmlInvalidHtml),
@@ -1462,6 +1479,19 @@ class SlidesAPITests : XCTestCase {
         ("testImportShapesFromSvgInvalidPassword", testImportShapesFromSvgInvalidPassword),
         ("testImportShapesFromSvgInvalidFolder", testImportShapesFromSvgInvalidFolder),
         ("testImportShapesFromSvgInvalidStorage", testImportShapesFromSvgInvalidStorage),
+        ("testImportTableFromWorkbook", testImportTableFromWorkbook),
+        ("testImportTableFromWorkbookInvalidName", testImportTableFromWorkbookInvalidName),
+        ("testImportTableFromWorkbookInvalidSlideIndex", testImportTableFromWorkbookInvalidSlideIndex),
+        ("testImportTableFromWorkbookInvalidWorksheetName", testImportTableFromWorkbookInvalidWorksheetName),
+        ("testImportTableFromWorkbookInvalidCellRange", testImportTableFromWorkbookInvalidCellRange),
+        ("testImportTableFromWorkbookInvalidDocument", testImportTableFromWorkbookInvalidDocument),
+        ("testImportTableFromWorkbookInvalidX", testImportTableFromWorkbookInvalidX),
+        ("testImportTableFromWorkbookInvalidY", testImportTableFromWorkbookInvalidY),
+        ("testImportTableFromWorkbookInvalidWorkbookPath", testImportTableFromWorkbookInvalidWorkbookPath),
+        ("testImportTableFromWorkbookInvalidWorkbookStorage", testImportTableFromWorkbookInvalidWorkbookStorage),
+        ("testImportTableFromWorkbookInvalidPassword", testImportTableFromWorkbookInvalidPassword),
+        ("testImportTableFromWorkbookInvalidFolder", testImportTableFromWorkbookInvalidFolder),
+        ("testImportTableFromWorkbookInvalidStorage", testImportTableFromWorkbookInvalidStorage),
         ("testMerge", testMerge),
         ("testMergeInvalidName", testMergeInvalidName),
         ("testMergeInvalidRequest", testMergeInvalidRequest),
@@ -6790,13 +6820,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "createShape", name: "slideIndex", type: "Int")
         let paramDto : ShapeBase = TestUtils.getTestValue(functionName: "createShape", name: "dto", type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValue(functionName: "createShape", name: "shapeToClone", type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValue(functionName: "createShape", name: "cloneFromSlide", type: "Int")
         let paramPosition : Int = TestUtils.getTestValue(functionName: "createShape", name: "position", type: "Int")
         let paramPassword : String = TestUtils.getTestValue(functionName: "createShape", name: "password", type: "String")
         let paramFolder : String = TestUtils.getTestValue(functionName: "createShape", name: "folder", type: "String")
         let paramStorage : String = TestUtils.getTestValue(functionName: "createShape", name: "storage", type: "String")
         let paramSubShape : String = TestUtils.getTestValue(functionName: "createShape", name: "subShape", type: "String")
         TestUtils.initialize("createShape") { (response, error) -> Void in
-            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 XCTAssertNotNil(response)
                 XCTAssertNil(error)
                 expectation.fulfill()
@@ -6812,13 +6843,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createShape", "name", "String", paramName) { (response, error) -> Void in
-            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createShape", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
                 expectation.fulfill()
             }
@@ -6833,13 +6865,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createShape", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
-            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createShape", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
                 expectation.fulfill()
             }
@@ -6854,13 +6887,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createShape", "dto", "ShapeBase", paramDto) { (response, error) -> Void in
-            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createShape", parameterName: "dto", parameterType: "ShapeBase", parameterValue: paramDto as Any)
                 expectation.fulfill()
             }
@@ -6875,14 +6909,37 @@ class SlidesAPITests : XCTestCase {
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createShape", "shapeToClone", "Int", paramShapeToClone) { (response, error) -> Void in
-            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createShape", parameterName: "shapeToClone", parameterType: "Int", parameterValue: paramShapeToClone as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testCreateShapeInvalidCloneFromSlide() {
+        let expectation = self.expectation(description: "testcreateShape")
+        let invalidFieldName = "cloneFromSlide"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
+        let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("createShape", "cloneFromSlide", "Int", paramCloneFromSlide) { (response, error) -> Void in
+            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "createShape", parameterName: "cloneFromSlide", parameterType: "Int", parameterValue: paramCloneFromSlide as Any)
                 expectation.fulfill()
             }
         }
@@ -6896,13 +6953,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createShape", "position", "Int", paramPosition) { (response, error) -> Void in
-            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createShape", parameterName: "position", parameterType: "Int", parameterValue: paramPosition as Any)
                 expectation.fulfill()
             }
@@ -6917,13 +6975,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createShape", "password", "String", paramPassword) { (response, error) -> Void in
-            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createShape", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
                 expectation.fulfill()
             }
@@ -6938,13 +6997,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createShape", "folder", "String", paramFolder) { (response, error) -> Void in
-            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createShape", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
                 expectation.fulfill()
             }
@@ -6959,13 +7019,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createShape", "storage", "String", paramStorage) { (response, error) -> Void in
-            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createShape", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
                 expectation.fulfill()
             }
@@ -6980,13 +7041,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createShape", "subShape", "String", paramSubShape) { (response, error) -> Void in
-            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createShape(paramName, paramSlideIndex, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createShape", parameterName: "subShape", parameterType: "String", parameterValue: paramSubShape as Any)
                 expectation.fulfill()
             }
@@ -8339,13 +8401,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideType : String = TestUtils.getTestValue(functionName: "createSpecialSlideShape", name: "slideType", type: "String")
         let paramDto : ShapeBase = TestUtils.getTestValue(functionName: "createSpecialSlideShape", name: "dto", type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValue(functionName: "createSpecialSlideShape", name: "shapeToClone", type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValue(functionName: "createSpecialSlideShape", name: "cloneFromSlide", type: "Int")
         let paramPosition : Int = TestUtils.getTestValue(functionName: "createSpecialSlideShape", name: "position", type: "Int")
         let paramPassword : String = TestUtils.getTestValue(functionName: "createSpecialSlideShape", name: "password", type: "String")
         let paramFolder : String = TestUtils.getTestValue(functionName: "createSpecialSlideShape", name: "folder", type: "String")
         let paramStorage : String = TestUtils.getTestValue(functionName: "createSpecialSlideShape", name: "storage", type: "String")
         let paramSubShape : String = TestUtils.getTestValue(functionName: "createSpecialSlideShape", name: "subShape", type: "String")
         TestUtils.initialize("createSpecialSlideShape") { (response, error) -> Void in
-            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 XCTAssertNotNil(response)
                 XCTAssertNil(error)
                 expectation.fulfill()
@@ -8362,13 +8425,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideType : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideType", invalidFieldName: invalidFieldName, type: "String")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createSpecialSlideShape", "name", "String", paramName) { (response, error) -> Void in
-            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createSpecialSlideShape", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
                 expectation.fulfill()
             }
@@ -8384,13 +8448,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideType : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideType", invalidFieldName: invalidFieldName, type: "String")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createSpecialSlideShape", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
-            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createSpecialSlideShape", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
                 expectation.fulfill()
             }
@@ -8406,13 +8471,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideType : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideType", invalidFieldName: invalidFieldName, type: "String")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createSpecialSlideShape", "slideType", "String", paramSlideType) { (response, error) -> Void in
-            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createSpecialSlideShape", parameterName: "slideType", parameterType: "String", parameterValue: paramSlideType as Any)
                 expectation.fulfill()
             }
@@ -8428,13 +8494,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideType : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideType", invalidFieldName: invalidFieldName, type: "String")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createSpecialSlideShape", "dto", "ShapeBase", paramDto) { (response, error) -> Void in
-            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createSpecialSlideShape", parameterName: "dto", parameterType: "ShapeBase", parameterValue: paramDto as Any)
                 expectation.fulfill()
             }
@@ -8450,14 +8517,38 @@ class SlidesAPITests : XCTestCase {
         let paramSlideType : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideType", invalidFieldName: invalidFieldName, type: "String")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createSpecialSlideShape", "shapeToClone", "Int", paramShapeToClone) { (response, error) -> Void in
-            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createSpecialSlideShape", parameterName: "shapeToClone", parameterType: "Int", parameterValue: paramShapeToClone as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testCreateSpecialSlideShapeInvalidCloneFromSlide() {
+        let expectation = self.expectation(description: "testcreateSpecialSlideShape")
+        let invalidFieldName = "cloneFromSlide"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramSlideType : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideType", invalidFieldName: invalidFieldName, type: "String")
+        let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
+        let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("createSpecialSlideShape", "cloneFromSlide", "Int", paramCloneFromSlide) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "createSpecialSlideShape", parameterName: "cloneFromSlide", parameterType: "Int", parameterValue: paramCloneFromSlide as Any)
                 expectation.fulfill()
             }
         }
@@ -8472,13 +8563,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideType : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideType", invalidFieldName: invalidFieldName, type: "String")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createSpecialSlideShape", "position", "Int", paramPosition) { (response, error) -> Void in
-            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createSpecialSlideShape", parameterName: "position", parameterType: "Int", parameterValue: paramPosition as Any)
                 expectation.fulfill()
             }
@@ -8494,13 +8586,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideType : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideType", invalidFieldName: invalidFieldName, type: "String")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createSpecialSlideShape", "password", "String", paramPassword) { (response, error) -> Void in
-            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createSpecialSlideShape", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
                 expectation.fulfill()
             }
@@ -8516,13 +8609,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideType : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideType", invalidFieldName: invalidFieldName, type: "String")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createSpecialSlideShape", "folder", "String", paramFolder) { (response, error) -> Void in
-            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createSpecialSlideShape", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
                 expectation.fulfill()
             }
@@ -8538,13 +8632,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideType : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideType", invalidFieldName: invalidFieldName, type: "String")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createSpecialSlideShape", "storage", "String", paramStorage) { (response, error) -> Void in
-            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createSpecialSlideShape", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
                 expectation.fulfill()
             }
@@ -8560,13 +8655,14 @@ class SlidesAPITests : XCTestCase {
         let paramSlideType : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "slideType", invalidFieldName: invalidFieldName, type: "String")
         let paramDto : ShapeBase = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "dto", invalidFieldName: invalidFieldName, type: "ShapeBase")
         let paramShapeToClone : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "shapeToClone", invalidFieldName: invalidFieldName, type: "Int")
+        let paramCloneFromSlide : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "cloneFromSlide", invalidFieldName: invalidFieldName, type: "Int")
         let paramPosition : Int = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "position", invalidFieldName: invalidFieldName, type: "Int")
         let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "password", invalidFieldName: invalidFieldName, type: "String")
         let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "folder", invalidFieldName: invalidFieldName, type: "String")
         let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "storage", invalidFieldName: invalidFieldName, type: "String")
         let paramSubShape : String = TestUtils.getTestValueForInvalid(functionName: "createSpecialSlideShape", name: "subShape", invalidFieldName: invalidFieldName, type: "String")
         TestUtils.initialize("createSpecialSlideShape", "subShape", "String", paramSubShape) { (response, error) -> Void in
-            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
+            SlidesAPI.createSpecialSlideShape(paramName, paramSlideIndex, paramSlideType, paramDto, paramShapeToClone, paramCloneFromSlide, paramPosition, paramPassword, paramFolder, paramStorage, paramSubShape) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createSpecialSlideShape", parameterName: "subShape", parameterType: "String", parameterValue: paramSubShape as Any)
                 expectation.fulfill()
             }
@@ -28984,6 +29080,396 @@ class SlidesAPITests : XCTestCase {
         self.waitForExpectations(timeout: testTimeout, handler: nil)
     }
 
+    func testImportChartFromWorkbook() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let paramName : String = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "name", type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "slideIndex", type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "worksheetName", type: "String")
+        let paramDocument : Data = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "document", type: "Data")
+        let paramChartName : String = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "chartName", type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "chartIndex", type: "Int")
+        let paramX : Double = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "x", type: "Double")
+        let paramY : Double = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "y", type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "workbookPath", type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "workbookStorage", type: "String")
+        let paramPassword : String = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "password", type: "String")
+        let paramFolder : String = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "folder", type: "String")
+        let paramStorage : String = TestUtils.getTestValue(functionName: "importChartFromWorkbook", name: "storage", type: "String")
+        TestUtils.initialize("importChartFromWorkbook") { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidName() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "name"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "name", "String", paramName) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "slideIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidWorksheetName() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "worksheetName"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "worksheetName", "String", paramWorksheetName) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "worksheetName", parameterType: "String", parameterValue: paramWorksheetName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidDocument() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "document"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "document", "Data", paramDocument) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "document", parameterType: "Data", parameterValue: paramDocument as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidChartName() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "chartName"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "chartName", "String", paramChartName) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "chartName", parameterType: "String", parameterValue: paramChartName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidChartIndex() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "chartIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "chartIndex", "Int", paramChartIndex) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "chartIndex", parameterType: "Int", parameterValue: paramChartIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidX() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "x"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "x", "Double", paramX) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "x", parameterType: "Double", parameterValue: paramX as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidY() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "y"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "y", "Double", paramY) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "y", parameterType: "Double", parameterValue: paramY as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidEmbedAllWorkbook() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "embedAllWorkbook"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "embedAllWorkbook", "Bool", paramEmbedAllWorkbook) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "embedAllWorkbook", parameterType: "Bool", parameterValue: paramEmbedAllWorkbook as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidWorkbookPath() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "workbookPath"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "workbookPath", "String", paramWorkbookPath) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "workbookPath", parameterType: "String", parameterValue: paramWorkbookPath as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidWorkbookStorage() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "workbookStorage"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "workbookStorage", "String", paramWorkbookStorage) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "workbookStorage", parameterType: "String", parameterValue: paramWorkbookStorage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidPassword() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "password"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "password", "String", paramPassword) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidFolder() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "folder"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "folder", "String", paramFolder) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportChartFromWorkbookInvalidStorage() {
+        let expectation = self.expectation(description: "testimportChartFromWorkbook")
+        let invalidFieldName = "storage"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramChartName : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartName", invalidFieldName: invalidFieldName, type: "String")
+        let paramChartIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "chartIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramEmbedAllWorkbook : Bool = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "embedAllWorkbook", invalidFieldName: invalidFieldName, type: "Bool")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importChartFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importChartFromWorkbook", "storage", "String", paramStorage) { (response, error) -> Void in
+            SlidesAPI.importChartFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramDocument, paramChartName, paramChartIndex, paramX, paramY, paramEmbedAllWorkbook, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importChartFromWorkbook", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
     func testImportFromHtml() {
         let expectation = self.expectation(description: "testimportFromHtml")
         let paramName : String = TestUtils.getTestValue(functionName: "importFromHtml", name: "name", type: "String")
@@ -29568,6 +30054,318 @@ class SlidesAPITests : XCTestCase {
         TestUtils.initialize("importShapesFromSvg", "storage", "String", paramStorage) { (response, error) -> Void in
             SlidesAPI.importShapesFromSvg(paramName, paramSlideIndex, paramImage, paramX, paramY, paramWidth, paramHeight, paramShapes, paramGroup, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "importShapesFromSvg", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbook() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let paramName : String = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "name", type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "slideIndex", type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "worksheetName", type: "String")
+        let paramCellRange : String = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "cellRange", type: "String")
+        let paramDocument : Data = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "document", type: "Data")
+        let paramX : Double = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "x", type: "Double")
+        let paramY : Double = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "y", type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "workbookPath", type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "workbookStorage", type: "String")
+        let paramPassword : String = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "password", type: "String")
+        let paramFolder : String = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "folder", type: "String")
+        let paramStorage : String = TestUtils.getTestValue(functionName: "importTableFromWorkbook", name: "storage", type: "String")
+        TestUtils.initialize("importTableFromWorkbook") { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidName() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "name"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "name", "String", paramName) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "name", parameterType: "String", parameterValue: paramName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "slideIndex"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "slideIndex", "Int", paramSlideIndex) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "slideIndex", parameterType: "Int", parameterValue: paramSlideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidWorksheetName() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "worksheetName"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "worksheetName", "String", paramWorksheetName) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "worksheetName", parameterType: "String", parameterValue: paramWorksheetName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidCellRange() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "cellRange"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "cellRange", "String", paramCellRange) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "cellRange", parameterType: "String", parameterValue: paramCellRange as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidDocument() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "document"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "document", "Data", paramDocument) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "document", parameterType: "Data", parameterValue: paramDocument as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidX() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "x"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "x", "Double", paramX) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "x", parameterType: "Double", parameterValue: paramX as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidY() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "y"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "y", "Double", paramY) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "y", parameterType: "Double", parameterValue: paramY as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidWorkbookPath() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "workbookPath"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "workbookPath", "String", paramWorkbookPath) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "workbookPath", parameterType: "String", parameterValue: paramWorkbookPath as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidWorkbookStorage() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "workbookStorage"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "workbookStorage", "String", paramWorkbookStorage) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "workbookStorage", parameterType: "String", parameterValue: paramWorkbookStorage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidPassword() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "password"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "password", "String", paramPassword) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "password", parameterType: "String", parameterValue: paramPassword as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidFolder() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "folder"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "folder", "String", paramFolder) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "folder", parameterType: "String", parameterValue: paramFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testImportTableFromWorkbookInvalidStorage() {
+        let expectation = self.expectation(description: "testimportTableFromWorkbook")
+        let invalidFieldName = "storage"
+        let paramName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "name", invalidFieldName: invalidFieldName, type: "String")
+        let paramSlideIndex : Int = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "slideIndex", invalidFieldName: invalidFieldName, type: "Int")
+        let paramWorksheetName : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "worksheetName", invalidFieldName: invalidFieldName, type: "String")
+        let paramCellRange : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "cellRange", invalidFieldName: invalidFieldName, type: "String")
+        let paramDocument : Data = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "document", invalidFieldName: invalidFieldName, type: "Data")
+        let paramX : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "x", invalidFieldName: invalidFieldName, type: "Double")
+        let paramY : Double = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "y", invalidFieldName: invalidFieldName, type: "Double")
+        let paramWorkbookPath : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookPath", invalidFieldName: invalidFieldName, type: "String")
+        let paramWorkbookStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "workbookStorage", invalidFieldName: invalidFieldName, type: "String")
+        let paramPassword : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "password", invalidFieldName: invalidFieldName, type: "String")
+        let paramFolder : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "folder", invalidFieldName: invalidFieldName, type: "String")
+        let paramStorage : String = TestUtils.getTestValueForInvalid(functionName: "importTableFromWorkbook", name: "storage", invalidFieldName: invalidFieldName, type: "String")
+        TestUtils.initialize("importTableFromWorkbook", "storage", "String", paramStorage) { (response, error) -> Void in
+            SlidesAPI.importTableFromWorkbook(paramName, paramSlideIndex, paramWorksheetName, paramCellRange, paramDocument, paramX, paramY, paramWorkbookPath, paramWorkbookStorage, paramPassword, paramFolder, paramStorage) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "importTableFromWorkbook", parameterName: "storage", parameterType: "String", parameterValue: paramStorage as Any)
                 expectation.fulfill()
             }
         }

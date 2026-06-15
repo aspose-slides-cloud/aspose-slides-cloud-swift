@@ -33,10 +33,20 @@ import FoundationNetworking
 open class AsposeSlidesCloudAPI {
     public static var basePath = "https://api.aspose.cloud"
     public static var version = "v3.0"
-    public static var authBasePath = "https://api.aspose.cloud"
+    private static var _asyncBasePath: String? = nil
+    private static var _authBasePath: String? = nil
+    public static var asyncBasePath: String {
+        get { return _asyncBasePath ?? basePath }
+        set { _asyncBasePath = newValue }
+    }
+    public static var authBasePath: String {
+        get { return _authBasePath ?? basePath }
+        set { _authBasePath = newValue }
+    }
     public static var appSid = ""
     public static var appKey = ""
     public static var debug = false
+    public static var logger: ((String) -> Void)? = nil
     public static var authToken: String? = nil
     public static var credential: URLCredential?
     public static var timeout = 0
@@ -45,6 +55,14 @@ open class AsposeSlidesCloudAPI {
     
     public static func getBaseUrl() -> String {
         return "\(basePath)/\(version)"
+    }
+
+    static func log(_ message: String) {
+        if let logFn = logger {
+            logFn(message)
+        } else {
+            print(message)
+        }
     }
 }
 

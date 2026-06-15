@@ -83,7 +83,7 @@ class NullableFieldTests : XCTestCase {
             axis.maxValue = max1
             axes.horizontalAxis = axis
             dto.axes = axes
-            SlidesAPI.createShape(fileName, slideIndex, dto, nil, nil, password, folderName) { (shape, error) -> Void in
+            SlidesAPI.createShape(fileName, slideIndex, dto, nil, nil, nil, password, folderName) { (shape, error) -> Void in
                 XCTAssertNil(error)
                 XCTAssertNotNil(shape)
                 SlidesAPI.getShape(fileName, slideIndex, shapeIndex, password, folderName) { (shape, error) -> Void in

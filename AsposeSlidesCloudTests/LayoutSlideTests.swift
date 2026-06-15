@@ -110,7 +110,7 @@ class LayoutSlideTests : XCTestCase {
                 dto.height = 200
                 dto.shapeType = GeometryShape.ShapeType.rectangle
                 dto.text = "New shape"
-                SlidesAPI.createSpecialSlideShape(fileName, slideIndex, "layoutSlide", dto, nil, nil, password, folderName) { (shape, error) -> Void in
+                SlidesAPI.createSpecialSlideShape(fileName, slideIndex, "layoutSlide", dto, nil, nil, nil, password, folderName) { (shape, error) -> Void in
                     XCTAssertNil(error)
                     XCTAssertNotNil(shape)
                     let shapeDto = shape as? Shape
